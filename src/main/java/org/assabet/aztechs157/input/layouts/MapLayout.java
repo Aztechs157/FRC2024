@@ -11,12 +11,6 @@ import org.assabet.aztechs157.input.values.Button;
  * be used with {@link DynamicLayout} to allow hot-swapping of layouts.
  */
 public class MapLayout implements Layout {
-    public final String label;
-
-    public MapLayout(final String label) {
-        this.label = label;
-    }
-
     private final Map<Button.Key, Button> buttons = new HashMap<>();
     private final Map<Axis.Key, Axis> axes = new HashMap<>();
 
