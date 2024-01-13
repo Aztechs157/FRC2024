@@ -6,7 +6,7 @@ Aztech's (#157) Season 2024 Code
 Developer                              | Title
 -------------------------------------- | -----------------
 [Ayden](https://github.com/Ayden-157)  | Programming Lead
-Luca                                   | Programming Lead
+[Luca](https://github.com/LSilver17)   | Programming Lead
 [Eric](https://github.com/Eric-157)    | Programing Mentor
 [Amelia](https://github.com/Miabread)  | Programing Mentor
 [Katie](https://github.com/tytytyty74) | Programing Mentor
