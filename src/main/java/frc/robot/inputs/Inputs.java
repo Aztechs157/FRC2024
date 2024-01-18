@@ -12,6 +12,7 @@ import java.util.function.DoubleSupplier;
 import org.assabet.aztechs157.input.layouts.DynamicLayout;
 import org.assabet.aztechs157.input.models.XboxOne;
 import org.assabet.aztechs157.input.values.Axis;
+import org.assabet.aztechs157.input.values.Button;
 import org.assabet.aztechs157.numbers.Deadzone;
 import org.assabet.aztechs157.numbers.Range;
 
@@ -25,6 +26,12 @@ public class Inputs extends DynamicLayout {
     public static final Axis.Key driveSpeedX = new Axis.Key();
     public static final Axis.Key driveSpeedY = new Axis.Key();
     public static final Axis.Key rotateSpeed = new Axis.Key();
+
+    public static final Axis.Key manualShoot = new Axis.Key();
+    public static final Button.Key autoShoot = new Button.Key();
+
+    public static final Axis.Key manualSourceIntake = new Axis.Key();
+    public static final Button.Key autoSourceIntake = new Button.Key();
 
     public static Inputs createFromChooser() {
         final SendableChooser<Layout> chooser = new SendableChooser<>();
@@ -42,7 +49,7 @@ public class Inputs extends DynamicLayout {
     private static Layout doubleXBOXLayout(final XboxSpeeds speeds) {
         final var layout = new MapLayout();
         final var driver = new XboxOne(0);
-        // final var operator = new XboxOne(1);
+        final var operator = new XboxOne(1);
 
         final Deadzone xboxDeadzone = Deadzone.forAxis(new Range(-0.1, 0.1));
 
@@ -59,6 +66,12 @@ public class Inputs extends DynamicLayout {
         layout.assign(driveSpeedY, driver.leftStickY.map(xboxDeadzone::apply).scaledBy(driveSpeed));
         layout.assign(rotateSpeed, driver.rightStickX.map(xboxDeadzone::apply).scaledBy(driveSpeed)
                 .scaledBy(maxRotationPerSecond.getDegrees()));
+
+        layout.assign(manualShoot, operator.rightTriggerHeld);
+        layout.assign(autoShoot, operator.rightBumper);
+
+        layout.assign(manualSourceIntake, driver.leftTriggerHeld);
+        layout.assign(autoSourceIntake, driver.leftBumper);
 
         return layout;
     }
