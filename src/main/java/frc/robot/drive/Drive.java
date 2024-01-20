@@ -24,10 +24,14 @@ public class Drive extends SubsystemBase {
         double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(1, 360);
 
         try {
-            swerve = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"))
-                    .createSwerveDrive(17.3, angleConversionFactor, driveConversionFactor);
+            File file = new File(Filesystem.getDeployDirectory(), "swerve");
+            System.out.println(file);
+            System.out.println(file.exists());
+
+            swerve = new SwerveParser(file)
+                    .createSwerveDrive(Units.feetToMeters(17.3), angleConversionFactor, driveConversionFactor);
         } catch (IOException exception) {
-            throw new RuntimeException("missing swerve json files"); // TODO: handle exception better
+            throw new RuntimeException(exception);
         }
 
         // setupPathPlanner();

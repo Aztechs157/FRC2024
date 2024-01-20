@@ -1,7 +1,7 @@
 {
     "invertedIMU": false,
     "imu": {
-        "type": "navx_onboard",
+        "type": "navx_usb",
         "id": 0
     },
     "modules": [
