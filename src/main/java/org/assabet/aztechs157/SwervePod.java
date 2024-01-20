@@ -2,8 +2,6 @@ package org.assabet.aztechs157;
 
 import org.assabet.aztechs157.numbers.Range;
 
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -19,28 +17,20 @@ public class SwervePod {
 
         public double getDrivePosition();
 
-        public boolean getDriveInverted();
-
-        public SlewRateLimiter createDriveSlewrate();
-
-        public PIDController createAnglePid();
+        public double calculateAnglePid(final double measurement, final double setpoint);
 
         public default void debugValue(final DebugKey key, final double value) {
         }
     }
 
-    enum DebugKey {
+    public enum DebugKey {
         InputDriveSpeed, InputAngle, CurrentAngle, InitialDelta, ShortestDelta, AnglePidOutput
     }
 
     private final SwervePodIO io;
-    private final SlewRateLimiter driveSlewrate;
-    private final PIDController anglePid;
 
     public SwervePod(final SwervePodIO io) {
         this.io = io;
-        this.driveSlewrate = io.createDriveSlewrate();
-        this.anglePid = io.createAnglePid();
     }
 
     public static final Range CIRCLE_RANGE = new Range(0, 360);
@@ -62,12 +52,7 @@ public class SwervePod {
 
     private void drive(double speed) {
         io.debugValue(DebugKey.InputDriveSpeed, speed);
-
-        if (io.getDriveInverted()) {
-            speed = -speed;
-        }
-
-        io.setDriveSpeed(driveSlewrate.calculate(speed));
+        io.setDriveSpeed(speed);
     }
 
     private double wrapDegrees(final double degrees) {
@@ -126,7 +111,7 @@ public class SwervePod {
 
     private double computeAnglePidOutput(final double shortestDelta) {
         final var degrees = io.getAnglePosition().getDegrees();
-        final var pidOutput = anglePid.calculate(degrees + shortestDelta, degrees);
+        final var pidOutput = io.calculateAnglePid(degrees + shortestDelta, degrees);
         return pidOutput;
     }
 
