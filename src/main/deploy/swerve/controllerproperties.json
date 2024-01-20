@@ -1,9 +1,9 @@
 {
     "angleJoystickRadiusDeadband": 0,
     "heading": {
-        "p": 0,
+        "p": 0.4,
         "i": 0,
-        "d": 0,
+        "d": 0.01,
         "f": 0,
         "iz": 0
     }

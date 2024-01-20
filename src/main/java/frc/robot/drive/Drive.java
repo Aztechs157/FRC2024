@@ -17,6 +17,12 @@ import swervelib.math.SwerveMath;
 import swervelib.parser.SwerveParser;
 
 public class Drive extends SubsystemBase {
+    // absolute encoder offsets (0-1 | 0-360)
+    // backleft (ID 12): -0.625732421875 | -225.263671875
+    // backright (ID 9): -0.5673828125 | -204.2578125
+    // frontleft (ID 3): -0.422607421875 | -152.138671875
+    // frontright (ID 6): -0.292236328125 | -105.205078125
+
     SwerveDrive swerve;
 
     /** Creates a new Drive. */
@@ -36,6 +42,8 @@ public class Drive extends SubsystemBase {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
+
+        swerve.pushOffsetsToControllers();
 
         // setupPathPlanner();
     }

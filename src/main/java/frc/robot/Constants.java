@@ -14,7 +14,7 @@ public class Constants {
         public static final double DRIVE_GEAR_RATIO = 8.14;
         public static final double DRIVE_PULSE_PER_ROTATION = 42;
         public static final double ANGLE_GEAR_RATIO = 1;
-        public static final double ANGLE_PULSE_PER_ROTATION = 360;
+        public static final double ANGLE_PULSE_PER_ROTATION = 1;
         public static final double MAX_SPEED = 17.3;
 
         public record XboxSpeeds(
