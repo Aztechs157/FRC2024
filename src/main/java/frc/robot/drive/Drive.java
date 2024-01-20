@@ -28,18 +28,13 @@ public class Drive extends SubsystemBase {
                 DriveConstants.ANGLE_PULSE_PER_ROTATION);
 
         try {
-<<<<<<< HEAD
             File file = new File(Filesystem.getDeployDirectory(), "swerve");
             System.out.println(file);
             System.out.println(file.exists());
 
-            swerve = new SwerveParser(file)
-                    .createSwerveDrive(Units.feetToMeters(17.3), angleConversionFactor, driveConversionFactor);
-=======
             swerve = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"))
                     .createSwerveDrive(Units.feetToMeters(DriveConstants.MAX_SPEED), angleConversionFactor,
                             driveConversionFactor);
->>>>>>> ec78d5c58ebf81e19b4f2e85d91a51cf93d16133
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
