@@ -35,8 +35,8 @@ public class Inputs extends DynamicLayout {
 
     public static Inputs createFromChooser() {
         final SendableChooser<Layout> chooser = new SendableChooser<>();
-        chooser.setDefaultOption("xbox", doubleXBOXLayout(XboxSpeeds.COMPETITION));
         chooser.setDefaultOption("demo", doubleXBOXLayout(XboxSpeeds.DEMO));
+        chooser.addOption("xbox", doubleXBOXLayout(XboxSpeeds.COMPETITION));
         Shuffleboard.getTab("Driver").add("Layout Choose", chooser);
 
         return new Inputs(chooser);
@@ -52,19 +52,24 @@ public class Inputs extends DynamicLayout {
         final var operator = new XboxOne(1);
 
         final Deadzone xboxDeadzone = Deadzone.forAxis(new Range(-0.1, 0.1));
-
-        final Rotation2d maxRotationPerSecond = Rotation2d.fromDegrees(speeds.rotate());
+        final Rotation2d maxRotationPerSecond = Rotation2d.fromDegrees(130);
 
         final DoubleSupplier driveSpeed = () -> {
-            if (driver.rightStickPress.get()) {
+            if (driver.leftStickPress.get()) {
                 return speeds.slowDrive();
             }
             return speeds.drive();
         };
 
-        layout.assign(driveSpeedX, driver.leftStickX.map(xboxDeadzone::apply).scaledBy(driveSpeed));
-        layout.assign(driveSpeedY, driver.leftStickY.map(xboxDeadzone::apply).scaledBy(driveSpeed));
-        layout.assign(rotateSpeed, driver.rightStickX.map(xboxDeadzone::apply).scaledBy(driveSpeed)
+        layout.assign(driveSpeedX, driver.leftStickX
+                .map(xboxDeadzone::apply)
+                .scaledBy(driveSpeed));
+        layout.assign(driveSpeedY, driver.leftStickY
+                .map(xboxDeadzone::apply)
+                .scaledBy(driveSpeed));
+        layout.assign(rotateSpeed, driver.rightStickX
+                .map(xboxDeadzone::apply)
+                .scaledBy(driveSpeed)
                 .scaledBy(maxRotationPerSecond.getDegrees()));
 
         layout.assign(manualShoot, operator.rightTriggerHeld);

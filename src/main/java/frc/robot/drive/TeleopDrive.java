@@ -4,6 +4,8 @@
 
 package frc.robot.drive;
 
+import org.assabet.aztechs157.PrintLimiter;
+
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.inputs.Inputs;
@@ -20,6 +22,8 @@ public class TeleopDrive extends Command {
         this.inputs = inputs;
     }
 
+    private final PrintLimiter limiter = new PrintLimiter(50);
+
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
@@ -29,6 +33,8 @@ public class TeleopDrive extends Command {
         final var x = inputs.axis(Inputs.driveSpeedY).get();
         final var y = inputs.axis(Inputs.driveSpeedX).get();
         final var r = inputs.axis(Inputs.rotateSpeed).get();
+
+        limiter.tick().println("-".repeat(20)).println("x = " + x).println("y = " + y).println("r = " + r);
 
         final var speeds = new ChassisSpeeds(x, y, Math.toRadians(r));
         drive.set(speeds);

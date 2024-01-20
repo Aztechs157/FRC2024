@@ -15,9 +15,9 @@ public class RobotContainer {
     private final Inputs inputs = Inputs.createFromChooser();
 
     public RobotContainer() {
-        configureBindings();
-
         drive.setDefaultCommand(new TeleopDrive(drive, inputs));
+
+        configureBindings();
     }
 
     private void configureBindings() {

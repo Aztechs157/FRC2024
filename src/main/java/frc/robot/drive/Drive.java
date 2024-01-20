@@ -29,10 +29,8 @@ public class Drive extends SubsystemBase {
 
         try {
             File file = new File(Filesystem.getDeployDirectory(), "swerve");
-            System.out.println(file);
-            System.out.println(file.exists());
 
-            swerve = new SwerveParser(new File(Filesystem.getDeployDirectory(), "swerve"))
+            swerve = new SwerveParser(file)
                     .createSwerveDrive(Units.feetToMeters(DriveConstants.MAX_SPEED), angleConversionFactor,
                             driveConversionFactor);
         } catch (IOException exception) {
@@ -44,10 +42,5 @@ public class Drive extends SubsystemBase {
 
     public void set(ChassisSpeeds velocity) {
         swerve.drive(velocity);
-    }
-
-    @Override
-    public void periodic() {
-        // This method will be called once per scheduler run
     }
 }

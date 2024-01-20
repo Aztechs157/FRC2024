@@ -19,15 +19,20 @@ public class Constants {
 
         public record XboxSpeeds(
                 double drive,
-                double slowDrive,
-                double rotate) {
-            public static final XboxSpeeds COMPETITION = new XboxSpeeds(1, 0.5, 130);
-            public static final XboxSpeeds DEMO = new XboxSpeeds(0.3, 0.3, 70);
+                double slowDrive) {
+            public static final XboxSpeeds COMPETITION = new XboxSpeeds(1, 0.5);
+            public static final XboxSpeeds DEMO = new XboxSpeeds(0.3, 0.3);
         }
 
         public static class ShooterConstants {
             public static final int SHOOTER_MOTOR_LEFT_ID = 13;
             public static final int SHOOTER_MOTOR_RIGHT_ID = 14;
+        }
+
+        public static class PneumaticsConstants {
+            public static final int COMPRESSOR_ID = 21;
+            public static final int SOLENOID_FORWARD_CHANNEL = 0;
+            public static final int SOLENOID_REVERSE_CHANNEL = 1;
         }
 
     }

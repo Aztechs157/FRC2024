@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.DriverStation;
  * {@link Axis}.
  */
 public class Axis {
-    public static record Key() {
+    public static class Key {
     }
 
     public static final Range kDeviceDefaultRange = new Range(-1, 1);
