@@ -1,8 +1,9 @@
 {
     "invertedIMU": false,
     "imu": {
-        "type": "navx_usb",
-        "id": 0
+        "type": "navx_mxp",
+        "id": 0,
+        "canbus": null
     },
     "modules": [
         "backleft.json",
