@@ -2,9 +2,17 @@ package frc.robot;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.util.Units;
+import swervelib.math.Matter;
+
 public class Constants {
 
     public static class DriveConstants {
+        public static final double ROBOT_MASS = (80) * 0.453592; // lbs * kg per pound
+        public static final Matter CHASSIS = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
+        public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
+
         public static final boolean FIELD_ORIENTED_ENABLED = true;
 
         public static final IdleMode DRIVE_IDLE_MODE = IdleMode.kBrake;

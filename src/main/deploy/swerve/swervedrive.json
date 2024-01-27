@@ -6,9 +6,9 @@
         "canbus": null
     },
     "modules": [
-        "backleft.json",
-        "backright.json",
         "frontleft.json",
-        "frontright.json"
+        "frontright.json",
+        "backleft.json",
+        "backright.json"
     ]
 }
