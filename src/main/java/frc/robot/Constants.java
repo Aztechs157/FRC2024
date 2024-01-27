@@ -10,11 +10,13 @@ public class Constants {
         public static final IdleMode DRIVE_IDLE_MODE = IdleMode.kBrake;
         public static final IdleMode ANGLE_IDLE_MODE = IdleMode.kCoast;
 
-        public static final double WHEEL_DIAMETER = 3.5;
+        public static final double WHEEL_DIAMETER = 3.95;
         public static final double DRIVE_GEAR_RATIO = 8.14;
         public static final double DRIVE_PULSE_PER_ROTATION = 42;
-        public static final double ANGLE_GEAR_RATIO = 1;
-        public static final double ANGLE_PULSE_PER_ROTATION = 1;
+        public static final double ANGLE_GEAR_RATIO = 12.8; // This is the Gear Ratio of the motor encoder. Not
+                                                            // absolute.
+        public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
+                                                                  // absolute.
         public static final double MAX_SPEED = 17.3;
 
         public record XboxSpeeds(

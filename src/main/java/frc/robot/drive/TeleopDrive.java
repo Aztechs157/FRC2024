@@ -34,7 +34,8 @@ public class TeleopDrive extends Command {
         final var y = inputs.axis(Inputs.driveSpeedX).get();
         final var r = inputs.axis(Inputs.rotateSpeed).get();
 
-        limiter.tick().println("-".repeat(20)).println("x = " + x).println("y = " + y).println("r = " + r);
+        // limiter.tick().println("-".repeat(20)).println("x = " + x).println("y = " +
+        // y).println("r = " + r);
 
         final var speeds = new ChassisSpeeds(x, y, Math.toRadians(r));
         drive.set(speeds);
