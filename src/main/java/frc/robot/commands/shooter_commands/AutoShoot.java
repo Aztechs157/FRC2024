@@ -2,22 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.shooter;
+package frc.robot.commands.shooter_commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.inputs.Inputs;
-import frc.robot.vision.Vision;
+import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.VisionSystem;
 
-public class Shoot extends Command {
-    private final Shooter shooter;
+public class AutoShoot extends Command {
+    private final ShooterSystem shooter;
     private final Inputs inputs;
-    private final Vision vision;
+    private final VisionSystem vision;
 
     /** Creates a new Shoot. */
-    public Shoot(final Shooter shooter, final Inputs inputs, final Vision vision) {
+    public AutoShoot(final ShooterSystem shooter, final Inputs inputs, final VisionSystem vision) {
         // Use addRequirements() here to declare subsystem dependencies.
-        this.shooter = shooter;
         addRequirements(shooter);
+
+        this.shooter = shooter;
         this.inputs = inputs;
         this.vision = vision;
     }
@@ -30,12 +32,8 @@ public class Shoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (inputs.axis(Inputs.manualShoot).get() > 0) {
-            final double velocity = inputs.axis(Inputs.manualShoot).get();
-        } else if (inputs.button(Inputs.autoShoot).get()) {
-            // calculate the apropreate velocity of the shooter motors based on data from
-            // the vision subsystem
-        }
+        // calculate the apropreate velocity of the shooter motors based on data from
+        // the vision subsystem
 
         // shooter.set(velocity);
     }

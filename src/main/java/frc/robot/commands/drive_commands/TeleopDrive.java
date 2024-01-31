@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.drive;
+package frc.robot.commands.drive_commands;
 
 import java.util.List;
 
@@ -15,18 +15,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.inputs.Inputs;
+import frc.robot.subsystems.DriveSystem;
 import swervelib.SwerveController;
 import swervelib.math.SwerveMath;
 
 public class TeleopDrive extends Command {
-    private final Drive drive;
+    private final DriveSystem driveSystem;
     private final Inputs inputs;
 
     /** Creates a new TeleopDrive. */
-    public TeleopDrive(final Drive drive, final Inputs inputs) {
+    public TeleopDrive(final DriveSystem driveSystem, final Inputs inputs) {
         // Use addRequirements() here to declare subsystem dependencies.
-        this.drive = drive;
-        addRequirements(drive);
+        addRequirements(driveSystem);
+
+        this.driveSystem = driveSystem;
         this.inputs = inputs;
     }
 
@@ -48,18 +50,18 @@ public class TeleopDrive extends Command {
         final var r = inputs.axis(Inputs.rotateSpeed).get();
         final var heading = new Rotation2d(r * Math.PI);
 
-        final ChassisSpeeds speeds = drive.getTargetSpeeds(driveX, driveY, heading);
+        final ChassisSpeeds speeds = driveSystem.getTargetSpeeds(driveX, driveY, heading);
 
         // Limit velocity to prevent tippy
         Translation2d translation = SwerveController.getTranslation2d(speeds);
-        translation = SwerveMath.limitVelocity(translation, drive.getFieldVelocity(), drive.getPose(),
+        translation = SwerveMath.limitVelocity(translation, driveSystem.getFieldVelocity(), driveSystem.getPose(),
                 DriveConstants.LOOP_TIME, DriveConstants.ROBOT_MASS, List.of(DriveConstants.CHASSIS),
-                drive.getSwerveDriveConfiguration());
+                driveSystem.getSwerveDriveConfiguration());
         SmartDashboard.putNumber("LimitedTranslation", translation.getX());
         SmartDashboard.putString("Translation", translation.toString());
 
         limiter.tick().println("-".repeat(20)).println("x = " + driveX).println("y = " + driveY).println("r = " + r);
 
-        drive.drive(translation, speeds.omegaRadiansPerSecond, true);
+        driveSystem.drive(translation, speeds.omegaRadiansPerSecond, true);
     }
 }

@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.drive;
+package frc.robot.subsystems;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,7 +35,7 @@ import swervelib.parser.SwerveParser;
 import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
-public class Drive extends SubsystemBase {
+public class DriveSystem extends SubsystemBase {
     // absolute encoder offsets (0-1 | 0-360)
     // backleft (ID 12): -0.625732421875 | -225.263671875
     // backright (ID 9): -0.5673828125 | -204.2578125
@@ -47,7 +47,7 @@ public class Drive extends SubsystemBase {
     private double maxSpeed = Units.feetToMeters(DriveConstants.MAX_SPEED);
 
     /** Creates a new Drive. */
-    public Drive(File directory) {
+    public DriveSystem(File directory) {
         double driveConversionFactor = SwerveMath.calculateMetersPerRotation(
                 Units.inchesToMeters(DriveConstants.WHEEL_DIAMETER),
                 DriveConstants.DRIVE_GEAR_RATIO, DriveConstants.DRIVE_PULSE_PER_ROTATION);
@@ -73,6 +73,10 @@ public class Drive extends SubsystemBase {
      * SwerveControllerConfiguration controllerConf) {
      * swerve = new SwerveDrive(driveConf, controllerConf, maxSpeed);
      * }
+     */
+
+    /**
+     * Setup AutoBuilder for PathPlanner.
      */
 
     public void setupPathPlanner() {
@@ -108,6 +112,14 @@ public class Drive extends SubsystemBase {
         );
     }
 
+    /**
+     * Get the path follower with events.
+     *
+     * @param pathName       PathPlanner path name.
+     * @param setOdomToStart Set the odometry position to the start of the path.
+     * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
+     */
+
     public Command getAutonomousCommand(String pathName, boolean setOdomToStart) {
         // Load the path you want to follow using its name in the GUI
         PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
@@ -120,6 +132,13 @@ public class Drive extends SubsystemBase {
         // event markers.
         return AutoBuilder.followPath(path);
     }
+
+    /**
+     * Use PathPlanner Path finding to go to a point on the field.
+     *
+     * @param pose Target {@link Pose2d} to go to.
+     * @return PathFinding command
+     */
 
     public Command driveToPose(Pose2d pose) {
         // Create the constraints to use while pathfinding
@@ -136,6 +155,19 @@ public class Drive extends SubsystemBase {
                     // before attempting to rotate.
         );
     }
+
+    /**
+     * Command to drive the robot using translative values and heading as a
+     * setpoint.
+     *
+     * @param translationX Translation in the X direction. Cubed for smoother
+     *                     controls.
+     * @param translationY Translation in the Y direction. Cubed for smoother
+     *                     controls.
+     * @param headingX     Heading X to calculate angle of the joystick.
+     * @param headingY     Heading Y to calculate angle of the joystick.
+     * @return Drive command.
+     */
 
     /*
      * public Command driveCommand(DoubleSupplier translationX, DoubleSupplier
@@ -158,6 +190,16 @@ public class Drive extends SubsystemBase {
      * }
      */
 
+    /**
+     * Command to drive the robot using translative values and heading as a
+     * setpoint.
+     *
+     * @param translationX Translation in the X direction.
+     * @param translationY Translation in the Y direction.
+     * @param rotation     Rotation as a value between [-1, 1] converted to radians.
+     * @return Drive command.
+     */
+
     /*
      * public Command simDriveCommand(DoubleSupplier translationX, DoubleSupplier
      * translationY, DoubleSupplier rotation) {
@@ -173,6 +215,19 @@ public class Drive extends SubsystemBase {
      * swerve.getMaximumVelocity()));
      * });
      * }
+     */
+
+    /**
+     * Command to drive the robot using translative values and heading as angular
+     * velocity.
+     *
+     * @param translationX     Translation in the X direction. Cubed for smoother
+     *                         controls.
+     * @param translationY     Translation in the Y direction. Cubed for smoother
+     *                         controls.
+     * @param angularRotationX Angular velocity of the robot to set. Cubed for
+     *                         smoother controls.
+     * @return Drive command.
      */
 
     /*
@@ -192,6 +247,30 @@ public class Drive extends SubsystemBase {
      * }
      */
 
+    /**
+     * The primary method for controlling the drivebase. Takes a
+     * {@link Translation2d} and a rotation rate, and
+     * calculates and commands module states accordingly. Can use either open-loop
+     * or closed-loop velocity control for
+     * the wheel velocities. Also has field- and robot-relative modes, which affect
+     * how the translation vector is used.
+     *
+     * @param translation   {@link Translation2d} that is the commanded linear
+     *                      velocity of the robot, in meters per
+     *                      second. In robot-relative mode, positive x is torwards
+     *                      the bow (front) and positive y is
+     *                      torwards port (left). In field-relative mode, positive x
+     *                      is away from the alliance wall
+     *                      (field North) and positive y is torwards the left wall
+     *                      when looking through the driver station
+     *                      glass (field West).
+     * @param rotation      Robot angular rate, in radians per second. CCW positive.
+     *                      Unaffected by field/robot
+     *                      relativity.
+     * @param fieldRelative Drive mode. True for field-relative, false for
+     *                      robot-relative.
+     */
+
     public void drive(Translation2d translation, double rotation, boolean fieldRelative) {
         swerve.drive(translation,
                 rotation,
@@ -199,45 +278,124 @@ public class Drive extends SubsystemBase {
                 false); // Open loop is disabled since it shouldn't be used most of the time.
     }
 
+    /**
+     * Drive the robot given a chassis field oriented velocity.
+     *
+     * @param velocity Velocity according to the field.
+     */
+
     public void driveFieldOriented(ChassisSpeeds velocity) {
         swerve.driveFieldOriented(velocity);
     }
 
-    public void set(ChassisSpeeds velocity) {
+    /**
+     * Drive according to the chassis robot oriented velocity.
+     *
+     * @param velocity Robot oriented {@link ChassisSpeeds}
+     */
+
+    public void drive(ChassisSpeeds velocity) {
         swerve.drive(velocity);
     }
+
+    /**
+     * Get the swerve drive kinematics object.
+     *
+     * @return {@link SwerveDriveKinematics} of the swerve drive.
+     */
 
     public SwerveDriveKinematics getKinematics() {
         return swerve.kinematics;
     }
 
+    /**
+     * Resets odometry to the given pose. Gyro angle and module positions do not
+     * need to be reset when calling this
+     * method. However, if either gyro angle or module position is reset, this must
+     * be called in order for odometry to
+     * keep working.
+     *
+     * @param initialHolonomicPose The pose to set the odometry to
+     */
+
     public void resetOdometry(Pose2d initialHolonomicPose) {
         swerve.resetOdometry(initialHolonomicPose);
     }
+
+    /**
+     * Gets the current pose (position and rotation) of the robot, as reported by
+     * odometry.
+     *
+     * @return The robot's pose
+     */
 
     public Pose2d getPose() {
         return swerve.getPose();
     }
 
+    /**
+     * Set chassis speeds with closed-loop velocity control.
+     *
+     * @param chassisSpeeds Chassis Speeds to set.
+     */
+
     public void setChassisSpeeds(ChassisSpeeds chassisSpeeds) {
         swerve.setChassisSpeeds(chassisSpeeds);
     }
+
+    /**
+     * Post the trajectory to the field.
+     *
+     * @param trajectory The trajectory to post.
+     */
 
     public void postTrajectory(Trajectory trajectory) {
         swerve.postTrajectory(trajectory);
     }
 
+    /**
+     * Resets the gyro angle to zero and resets odometry to the same position, but
+     * facing toward 0.
+     */
+
     public void zeroGyro() {
         swerve.zeroGyro();
     }
+
+    /**
+     * Sets the drive motors to brake/coast mode.
+     *
+     * @param brake True to set motors to brake mode, false for coast.
+     */
 
     public void setMotorBrake(boolean brake) {
         swerve.setMotorIdleMode(brake);
     }
 
+    /**
+     * Gets the current yaw angle of the robot, as reported by the swerve pose
+     * estimator in the underlying drivebase.
+     * Note, this is not the raw gyro reading, this may be corrected from calls to
+     * resetOdometry().
+     *
+     * @return The yaw angle
+     */
+
     public Rotation2d getHeading() {
         return getPose().getRotation();
     }
+
+    /**
+     * Get the chassis speeds based on controller input of 2 joysticks. One for
+     * speeds in which direction. The other for
+     * the angle of the robot.
+     *
+     * @param xInput   X joystick input for the robot to move in the X direction.
+     * @param yInput   Y joystick input for the robot to move in the Y direction.
+     * @param headingX X joystick which controls the angle of the robot.
+     * @param headingY Y joystick which controls the angle of the robot.
+     * @return {@link ChassisSpeeds} which can be sent to th Swerve Drive.
+     */
 
     /*
      * public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, double
@@ -253,6 +411,17 @@ public class Drive extends SubsystemBase {
      * }
      */
 
+    /**
+     * Get the chassis speeds based on controller input of 1 joystick and one angle.
+     * Control the robot at an offset of
+     * 90deg.
+     *
+     * @param xInput X joystick input for the robot to move in the X direction.
+     * @param yInput Y joystick input for the robot to move in the Y direction.
+     * @param angle  The angle in as a {@link Rotation2d}.
+     * @return {@link ChassisSpeeds} which can be sent to th Swerve Drive.
+     */
+
     public ChassisSpeeds getTargetSpeeds(double xInput, double yInput, Rotation2d angle) {
         xInput = Math.pow(xInput, 3);
         yInput = Math.pow(yInput, 3);
@@ -263,29 +432,67 @@ public class Drive extends SubsystemBase {
                 maxSpeed);
     }
 
+    /**
+     * Gets the current field-relative velocity (x, y and omega) of the robot
+     *
+     * @return A ChassisSpeeds object of the current field-relative velocity
+     */
+
     public ChassisSpeeds getFieldVelocity() {
         return swerve.getFieldVelocity();
     }
+
+    /**
+     * Gets the current velocity (x, y and omega) of the robot
+     *
+     * @return A {@link ChassisSpeeds} object of the current velocity
+     */
 
     public ChassisSpeeds getRobotVelocity() {
         return swerve.getRobotVelocity();
     }
 
+    /**
+     * Get the {@link SwerveController} in the swerve drive.
+     *
+     * @return {@link SwerveController} from the {@link SwerveDrive}.
+     */
+
     public SwerveController getSwerveController() {
         return swerve.swerveController;
     }
+
+    /**
+     * Get the {@link SwerveDriveConfiguration} object.
+     *
+     * @return The {@link SwerveDriveConfiguration} fpr the current drive.
+     */
 
     public SwerveDriveConfiguration getSwerveDriveConfiguration() {
         return swerve.swerveDriveConfiguration;
     }
 
+    /**
+     * Lock the swerve drive to prevent it from moving.
+     */
+
     public void lock() {
         swerve.lockPose();
     }
 
+    /**
+     * Gets the current pitch angle of the robot, as reported by the imu.
+     *
+     * @return The heading as a {@link Rotation2d} angle
+     */
+
     public Rotation2d getPitch() {
         return swerve.getPitch();
     }
+
+    /**
+     * Add a fake vision reading for testing purposes.
+     */
 
     public void addFakeVisionReading() {
         swerve.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());

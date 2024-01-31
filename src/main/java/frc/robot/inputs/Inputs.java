@@ -72,9 +72,11 @@ public class Inputs extends DynamicLayout {
                 .scaledBy(driveSpeed)
                 .scaledBy(maxRotationPerSecond.getDegrees()));
 
+        // TODO: make the code prioritize manual over automatic
         layout.assign(manualShoot, operator.rightTriggerHeld);
         layout.assign(autoShoot, operator.rightBumper);
 
+        // TODO: make the code prioritize manual over automatic
         layout.assign(manualSourceIntake, driver.leftTriggerHeld);
         layout.assign(autoSourceIntake, driver.leftBumper);
 
