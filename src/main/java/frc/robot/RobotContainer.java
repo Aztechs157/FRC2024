@@ -7,21 +7,14 @@ package frc.robot;
 import java.io.File;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.drive_commands.TeleopDrive;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.inputs.Inputs;
 import frc.robot.subsystems.DriveSystem;
 
@@ -36,7 +29,7 @@ public class RobotContainer {
     // CommandJoystick driverController = new
     // CommandJoystick(3);//(OperatorConstants.DRIVER_CONTROLLER_PORT);
 
-    XboxController driverXbox = new XboxController(Constants.DRIVER_CONTROLLER_PORT);
+    XboxController driverXbox = new XboxController(ControllerConstants.DRIVER_CONTROLLER_PORT);
 
     public RobotContainer() {
         configureBindings();
@@ -80,15 +73,15 @@ public class RobotContainer {
         // right stick controls the angular velocity of the robot
 
         Command driveFieldOrientedAnglularVelocity = driveSystem.driveCommand(
-                () -> MathUtil.applyDeadband(driverXbox.getLeftY(), DriveConstants.LEFT_Y_DEADBAND),
-                () -> MathUtil.applyDeadband(driverXbox.getLeftX(), DriveConstants.LEFT_X_DEADBAND),
+                () -> MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
+                () -> MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
                 () -> driverXbox.getRightX());
 
         Command driveFieldOrientedDirectAngleSim = driveSystem.simDriveCommand(
                 () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
-                        DriveConstants.LEFT_Y_DEADBAND),
+                        ControllerConstants.LEFT_Y_DEADBAND),
                 () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
-                        DriveConstants.LEFT_X_DEADBAND),
+                        ControllerConstants.LEFT_X_DEADBAND),
                 () -> driverXbox.getRightX());
 
         driveSystem.setDefaultCommand(

@@ -19,7 +19,7 @@ import org.assabet.aztechs157.numbers.Range;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import frc.robot.Constants;
+import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DriveConstants.XboxSpeeds;
 
 /** Add your docs here. */
@@ -49,8 +49,8 @@ public class Inputs extends DynamicLayout {
 
     private static Layout doubleXBOXLayout(final XboxSpeeds speeds) {
         final var layout = new MapLayout();
-        final var driver = new XboxOne(Constants.DRIVER_CONTROLLER_PORT);
-        final var operator = new XboxOne(Constants.OPERATOR_CONTROLLER_PORT);
+        final var driver = new XboxOne(ControllerConstants.DRIVER_CONTROLLER_PORT);
+        final var operator = new XboxOne(ControllerConstants.OPERATOR_CONTROLLER_PORT);
 
         final Deadzone xboxDeadzone = Deadzone.forAxis(new Range(-0.1, 0.1));
         final Rotation2d maxRotationPerSecond = Rotation2d.fromDegrees(130);
