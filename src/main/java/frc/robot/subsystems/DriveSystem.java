@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.function.DoubleSupplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.path.PathConstraints;
@@ -65,15 +66,22 @@ public class DriveSystem extends SubsystemBase {
 
         swerve.setHeadingCorrection(false);
 
+        swerve.pushOffsetsToControllers();
+
         setupPathPlanner();
     }
 
-    /*
-     * public Drive(SwerveDriveConfiguration driveConf,
-     * SwerveControllerConfiguration controllerConf) {
-     * swerve = new SwerveDrive(driveConf, controllerConf, maxSpeed);
-     * }
+    /**
+     * Construct the swerve drive.
+     *
+     * @param driveCfg      SwerveDriveConfiguration for the swerve.
+     * @param controllerCfg Swerve Controller.
      */
+
+    public DriveSystem(SwerveDriveConfiguration driveConf,
+            SwerveControllerConfiguration controllerConf) {
+        swerve = new SwerveDrive(driveConf, controllerConf, maxSpeed);
+    }
 
     /**
      * Setup AutoBuilder for PathPlanner.
@@ -200,22 +208,18 @@ public class DriveSystem extends SubsystemBase {
      * @return Drive command.
      */
 
-    /*
-     * public Command simDriveCommand(DoubleSupplier translationX, DoubleSupplier
-     * translationY, DoubleSupplier rotation) {
-     * // swerveDrive.setHeadingCorrection(true); // Normally you would want heading
-     * // correction for this kind of control.
-     * return run(() -> {
-     * // Make the robot move
-     * driveFieldOriented(swerve.swerveController.getTargetSpeeds(translationX.
-     * getAsDouble(),
-     * translationY.getAsDouble(),
-     * rotation.getAsDouble() * Math.PI,
-     * swerve.getOdometryHeading().getRadians(),
-     * swerve.getMaximumVelocity()));
-     * });
-     * }
-     */
+    public Command simDriveCommand(DoubleSupplier translationX, DoubleSupplier translationY, DoubleSupplier rotation) {
+        // swerveDrive.setHeadingCorrection(true); // Normally you would want heading
+        // correction for this kind of control.
+        return run(() -> {
+            // Make the robot move
+            driveFieldOriented(swerve.swerveController.getTargetSpeeds(translationX.getAsDouble(),
+                    translationY.getAsDouble(),
+                    rotation.getAsDouble() * Math.PI,
+                    swerve.getOdometryHeading().getRadians(),
+                    swerve.getMaximumVelocity()));
+        });
+    }
 
     /**
      * Command to drive the robot using translative values and heading as angular
@@ -230,22 +234,19 @@ public class DriveSystem extends SubsystemBase {
      * @return Drive command.
      */
 
-    /*
-     * public Command driveCommand(DoubleSupplier translationX, DoubleSupplier
-     * translationY,
-     * DoubleSupplier angularRotationX) {
-     * return run(() -> {
-     * // Make the robot move
-     * swerve.drive(new Translation2d(Math.pow(translationX.getAsDouble(), 3) *
-     * swerve.getMaximumVelocity(),
-     * Math.pow(translationY.getAsDouble(), 3) * swerve.getMaximumVelocity()),
-     * Math.pow(angularRotationX.getAsDouble(), 3) *
-     * swerve.getMaximumAngularVelocity(),
-     * true,
-     * false);
-     * });
-     * }
-     */
+    public Command driveCommand(DoubleSupplier translationX, DoubleSupplier translationY,
+            DoubleSupplier angularRotationX) {
+        return run(() -> {
+            // Make the robot move
+            swerve.drive(new Translation2d(Math.pow(translationX.getAsDouble(), 3) *
+                    swerve.getMaximumVelocity(),
+                    Math.pow(translationY.getAsDouble(), 3) * swerve.getMaximumVelocity()),
+                    Math.pow(angularRotationX.getAsDouble(), 3) *
+                            swerve.getMaximumAngularVelocity(),
+                    true,
+                    false);
+        });
+    }
 
     /**
      * The primary method for controlling the drivebase. Takes a

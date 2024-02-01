@@ -1,5 +1,5 @@
 {
-    "invertedIMU": true,
+    "invertedIMU": false,
     "imu": {
         "type": "navx_spi",
         "id": 0,

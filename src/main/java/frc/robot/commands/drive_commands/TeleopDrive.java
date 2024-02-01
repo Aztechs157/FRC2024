@@ -22,6 +22,7 @@ import swervelib.math.SwerveMath;
 public class TeleopDrive extends Command {
     private final DriveSystem driveSystem;
     private final Inputs inputs;
+    private final PrintLimiter limiter = new PrintLimiter(50);
 
     /** Creates a new TeleopDrive. */
     public TeleopDrive(final DriveSystem driveSystem, final Inputs inputs) {
@@ -31,8 +32,6 @@ public class TeleopDrive extends Command {
         this.driveSystem = driveSystem;
         this.inputs = inputs;
     }
-
-    private final PrintLimiter limiter = new PrintLimiter(50);
 
     @Override
     public void initialize() {
@@ -48,7 +47,7 @@ public class TeleopDrive extends Command {
         final var driveX = inputs.axis(Inputs.driveSpeedY).get();
         final var driveY = inputs.axis(Inputs.driveSpeedX).get();
         final var r = inputs.axis(Inputs.rotateSpeed).get();
-        final var heading = new Rotation2d(r * Math.PI);
+        final var heading = new Rotation2d(r);
 
         final ChassisSpeeds speeds = driveSystem.getTargetSpeeds(driveX, driveY, heading);
 
