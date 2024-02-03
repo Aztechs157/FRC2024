@@ -37,8 +37,8 @@ public class Constants {
         public static final Matter CHASSIS = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
         public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
 
-        public static final double WHEEL_DIAMETER = 3.95;
-        public static final double DRIVE_GEAR_RATIO = 8.14;
+        public static final double WHEEL_DIAMETER = 4;
+        public static final double DRIVE_GEAR_RATIO = 6.75;
         public static final double DRIVE_PULSE_PER_ROTATION = 42;
         public static final double ANGLE_GEAR_RATIO = 12.8; // This is the Gear Ratio of the motor encoder. Not
                                                             // absolute.
@@ -64,14 +64,14 @@ public class Constants {
 
     public static class ShooterConstants {
 
-        public static final int SHOOTER_MOTOR_LEFT_ID = 13;
-        public static final int SHOOTER_MOTOR_RIGHT_ID = 14;
+        public static final int SHOOTER_MOTOR_LEFT_ID = 31;
+        public static final int SHOOTER_MOTOR_RIGHT_ID = 32;
 
     }
 
     public static class PneumaticsConstants {
 
-        public static final int COMPRESSOR_ID = 21;
+        public static final int COMPRESSOR_ID = 52;
 
         public static final int SOLENOID_FORWARD_CHANNEL = 0;
         public static final int SOLENOID_REVERSE_CHANNEL = 1;

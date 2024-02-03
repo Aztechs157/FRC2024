@@ -36,8 +36,8 @@ public class Inputs extends DynamicLayout {
 
     public static Inputs createFromChooser() {
         final SendableChooser<Layout> chooser = new SendableChooser<>();
-        chooser.setDefaultOption("demo", doubleXBOXLayout(XboxSpeeds.DEMO));
         chooser.addOption("xbox", doubleXBOXLayout(XboxSpeeds.COMPETITION));
+        // chooser.setDefaultOption("demo", doubleXBOXLayout(XboxSpeeds.DEMO));
         Shuffleboard.getTab("Driver").add("Layout Choose", chooser);
 
         return new Inputs(chooser);
@@ -52,8 +52,10 @@ public class Inputs extends DynamicLayout {
         final var driver = new XboxOne(ControllerConstants.DRIVER_CONTROLLER_PORT);
         final var operator = new XboxOne(ControllerConstants.OPERATOR_CONTROLLER_PORT);
 
-        final Deadzone xboxDeadzone = Deadzone.forAxis(new Range(-0.1, 0.1));
-        final Rotation2d maxRotationPerSecond = Rotation2d.fromDegrees(130);
+        /*
+         * final Deadzone xboxDeadzone = Deadzone.forAxis(new Range(-0.1, 0.1));
+         * final Rotation2d maxRotationPerSecond = Rotation2d.fromDegrees(130);
+         */
 
         final DoubleSupplier driveSpeed = () -> {
             if (driver.leftStickPress.get()) {
@@ -62,16 +64,18 @@ public class Inputs extends DynamicLayout {
             return speeds.drive();
         };
 
-        layout.assign(driveSpeedX, driver.leftStickX
-                .map(xboxDeadzone::apply)
-                .scaledBy(driveSpeed));
-        layout.assign(driveSpeedY, driver.leftStickY
-                .map(xboxDeadzone::apply)
-                .scaledBy(driveSpeed));
-        layout.assign(rotateSpeed, driver.rightStickX
-                .map(xboxDeadzone::apply)
-                .scaledBy(driveSpeed)
-                .scaledBy(maxRotationPerSecond.getDegrees()));
+        /*
+         * layout.assign(driveSpeedX, driver.leftStickX
+         * .map(xboxDeadzone::apply)
+         * .scaledBy(driveSpeed));
+         * layout.assign(driveSpeedY, driver.leftStickY
+         * .map(xboxDeadzone::apply)
+         * .scaledBy(driveSpeed));
+         * layout.assign(rotateSpeed, driver.rightStickX
+         * .map(xboxDeadzone::apply)
+         * .scaledBy(driveSpeed)
+         * .scaledBy(maxRotationPerSecond.getDegrees()));
+         */
 
         // TODO: make the code prioritize manual over automatic
         layout.assign(manualShoot, operator.rightTriggerHeld);
