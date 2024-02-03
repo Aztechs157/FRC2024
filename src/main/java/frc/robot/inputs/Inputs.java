@@ -28,16 +28,16 @@ public class Inputs extends DynamicLayout {
     public static final Axis.Key driveSpeedY = new Axis.Key();
     public static final Axis.Key rotateSpeed = new Axis.Key();
 
-    public static final Axis.Key manualShoot = new Axis.Key();
+    public static final Button.Key manualShoot = new Button.Key();
     public static final Button.Key autoShoot = new Button.Key();
 
-    public static final Axis.Key manualSourceIntake = new Axis.Key();
-    public static final Button.Key autoSourceIntake = new Button.Key();
+    public static final Button.Key manualIntake = new Button.Key();
+    // public static final Button.Key autoIntake = new Button.Key();
 
     public static Inputs createFromChooser() {
         final SendableChooser<Layout> chooser = new SendableChooser<>();
-        chooser.addOption("xbox", doubleXBOXLayout(XboxSpeeds.COMPETITION));
-        // chooser.setDefaultOption("demo", doubleXBOXLayout(XboxSpeeds.DEMO));
+        chooser.setDefaultOption("xbox", doubleXBOXLayout(XboxSpeeds.COMPETITION));
+        // chooser.addOption("demo", doubleXBOXLayout(XboxSpeeds.DEMO));
         Shuffleboard.getTab("Driver").add("Layout Choose", chooser);
 
         return new Inputs(chooser);
@@ -77,13 +77,11 @@ public class Inputs extends DynamicLayout {
          * .scaledBy(maxRotationPerSecond.getDegrees()));
          */
 
-        // TODO: make the code prioritize manual over automatic
-        layout.assign(manualShoot, operator.rightTriggerHeld);
-        layout.assign(autoShoot, operator.rightBumper);
+        layout.assign(manualShoot, driver.rightBumper);
+        // layout.assign(autoShoot, operator.rightBumper);
 
-        // TODO: make the code prioritize manual over automatic
-        layout.assign(manualSourceIntake, driver.leftTriggerHeld);
-        layout.assign(autoSourceIntake, driver.leftBumper);
+        layout.assign(manualIntake, driver.leftBumper);
+        // layout.assign(autoIntake, driver.leftBumper);
 
         return layout;
     }

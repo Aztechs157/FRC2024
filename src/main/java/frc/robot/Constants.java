@@ -45,7 +45,7 @@ public class Constants {
                                                             // absolute.
         public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
                                                                   // absolute.
-        public static final double MAX_SPEED = 12.2;
+        public static final double MAX_SPEED = 14.5;
 
         public record XboxSpeeds(
                 double drive,
@@ -57,9 +57,9 @@ public class Constants {
     }
 
     public static class AutonConstants {
-      public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
-      public static final PIDConstants ANGLE_PID   = new PIDConstants(0.4, 0, 0.01);
-  }
+        public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
+        public static final PIDConstants ANGLE_PID = new PIDConstants(0.4, 0, 0.01);
+    }
 
     public static class VisionConstants {
 
@@ -68,19 +68,30 @@ public class Constants {
 
     }
 
+    public static class IntakeConstants {
+
+        public static final int INTAKE_MOTOR_ID = 21;
+        public static final int NOTE_SENSOR_CHANNEL = 0;
+
+        public static final double INTAKE_SPEED = 1;
+
+    }
+
     public static class ShooterConstants {
 
         public static final int SHOOTER_MOTOR_LEFT_ID = 31;
         public static final int SHOOTER_MOTOR_RIGHT_ID = 32;
 
+        public static final double SHOOT_SPEED = 1;
+
     }
 
     public static class PneumaticsConstants {
 
-        public static final int COMPRESSOR_ID = 52;
+        public static final int PNEUMATICS_HUB_ID = 52;
 
-        public static final int SOLENOID_FORWARD_CHANNEL = 0;
-        public static final int SOLENOID_REVERSE_CHANNEL = 1;
+        public static final int SOLENOID_RETRACT_CHANNEL = 14;
+        public static final int SOLENOID_EXTEND_CHANNEL = 15;
 
     }
 

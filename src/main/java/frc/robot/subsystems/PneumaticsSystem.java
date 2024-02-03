@@ -11,10 +11,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PneumaticsConstants;
 
 public class PneumaticsSystem extends SubsystemBase {
-    private final Compressor compressor = new Compressor(PneumaticsConstants.COMPRESSOR_ID, PneumaticsModuleType.REVPH);
-    private final DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsConstants.COMPRESSOR_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.SOLENOID_FORWARD_CHANNEL,
-            PneumaticsConstants.SOLENOID_REVERSE_CHANNEL);
+    private final Compressor compressor = new Compressor(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH);
+    private final DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.SOLENOID_RETRACT_CHANNEL);
     private boolean open = false;
 
     /** Creates a new Compressor. */
@@ -22,7 +23,7 @@ public class PneumaticsSystem extends SubsystemBase {
         compressor.enableDigital();
     }
 
-    public void set(final DoubleSolenoid.Value value) {
+    public void deployIntake(final DoubleSolenoid.Value value) {
         open = value == DoubleSolenoid.Value.kForward;
         solenoid.set(value);
     }

@@ -45,6 +45,11 @@ public class Button {
         return this;
     }
 
+    public Button toggleWhenPressed(final Command command) {
+        new Trigger(value).toggleOnTrue(command);
+        return this;
+    }
+
     public Button map(final UnaryOperator<Boolean> body) {
         return new Button(() -> body.apply(get()));
     }

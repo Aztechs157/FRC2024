@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSystem extends SubsystemBase {
-    public static final CANSparkMax SHOOTER_MOTOR_LEFT = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_LEFT_ID,
+    private CANSparkMax shooterMotorLeft = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_LEFT_ID,
             MotorType.kBrushless);;
-    public static final CANSparkMax SHOOTER_MOTOR_RIGHT = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_RIGHT_ID,
+    private CANSparkMax shooterMotorRight = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_RIGHT_ID,
             MotorType.kBrushless);
 
     /** Creates a new Shooter. */
@@ -21,8 +21,8 @@ public class ShooterSystem extends SubsystemBase {
     }
 
     public void set(double velocity) {
-        SHOOTER_MOTOR_LEFT.set(velocity);
-        SHOOTER_MOTOR_RIGHT.set(velocity);
+        shooterMotorLeft.set(velocity);
+        shooterMotorRight.set(velocity);
     }
 
     @Override
