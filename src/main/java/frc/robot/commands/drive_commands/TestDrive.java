@@ -71,7 +71,9 @@ public class TestDrive extends Command {
         // Limit velocity to prevent tippy
         Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
         translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
-                DriveConstants.LOOP_TIME, DriveConstants.ROBOT_MASS, List.of(DriveConstants.CHASSIS),
+                DriveConstants.LOOP_TIME,
+                DriveConstants.ROBOT_MASS, List.of(
+                        DriveConstants.CHASSIS),
                 swerve.getSwerveDriveConfiguration());
         SmartDashboard.putNumber("LimitedTranslation", translation.getX());
         SmartDashboard.putString("Translation", translation.toString());
