@@ -37,11 +37,6 @@ import swervelib.telemetry.SwerveDriveTelemetry;
 import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 
 public class DriveSystem extends SubsystemBase {
-    // absolute encoder offsets (0-1 | 0-360)
-    // backleft (ID 12): -0.625732421875 | -225.263671875
-    // backright (ID 9): -0.5673828125 | -204.2578125
-    // frontleft (ID 3): -0.422607421875 | -152.138671875
-    // frontright (ID 6): -0.292236328125 | -105.205078125
 
     private final SwerveDrive swerve;
 
@@ -51,15 +46,14 @@ public class DriveSystem extends SubsystemBase {
     public DriveSystem(File directory) {
         double driveConversionFactor = SwerveMath.calculateMetersPerRotation(
                 Units.inchesToMeters(DriveConstants.WHEEL_DIAMETER),
-                DriveConstants.DRIVE_GEAR_RATIO, DriveConstants.DRIVE_PULSE_PER_ROTATION);
-        double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(DriveConstants.ANGLE_GEAR_RATIO,
-                DriveConstants.ANGLE_PULSE_PER_ROTATION);
+                DriveConstants.DRIVE_GEAR_RATIO);
+        double angleConversionFactor = SwerveMath.calculateDegreesPerSteeringRotation(DriveConstants.ANGLE_GEAR_RATIO);
         SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
 
         try {
             swerve = new SwerveParser(directory)
                     .createSwerveDrive(
-                            Units.feetToMeters(DriveConstants.MAX_SPEED), driveConversionFactor, angleConversionFactor);
+                            maxSpeed);
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }

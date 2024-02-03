@@ -60,7 +60,7 @@ public class RobotContainer {
          * Command driveFieldOrientedDirectAngle = driveSystem.driveCommand(
          * () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
          * DriveConstants.LEFT_Y_DEADBAND),
-         * () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
+         * () -> MathUtil.applyDeadband(driverXbox.getLeftX(),3
          * DriveConstants.LEFT_X_DEADBAND),
          * () -> driverXbox.getRightX(),
          * () -> driverXbox.getRightY());
@@ -73,16 +73,16 @@ public class RobotContainer {
         // right stick controls the angular velocity of the robot
 
         Command driveFieldOrientedAnglularVelocity = driveSystem.driveCommand(
-                () -> MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
-                () -> MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
-                () -> driverXbox.getRightX());
+                () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
+                () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
+                () -> -driverXbox.getRightX());
 
         Command driveFieldOrientedDirectAngleSim = driveSystem.simDriveCommand(
-                () -> MathUtil.applyDeadband(driverXbox.getLeftY(),
+                () -> MathUtil.applyDeadband(-driverXbox.getLeftY(),
                         ControllerConstants.LEFT_Y_DEADBAND),
-                () -> MathUtil.applyDeadband(driverXbox.getLeftX(),
+                () -> MathUtil.applyDeadband(-driverXbox.getLeftX(),
                         ControllerConstants.LEFT_X_DEADBAND),
-                () -> driverXbox.getRightX());
+                () -> -driverXbox.getRightX());
 
         driveSystem.setDefaultCommand(
                 !RobotBase.isSimulation() ? driveFieldOrientedAnglularVelocity : driveFieldOrientedDirectAngleSim);
