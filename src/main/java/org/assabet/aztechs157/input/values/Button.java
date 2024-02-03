@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * {@link Button}.
  */
 public class Button {
-    public static record Key(String label) {
+    public static class Key {
     }
 
     private final BooleanSupplier value;
