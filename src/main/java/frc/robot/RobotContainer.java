@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -21,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.intake_commands.Intake;
+import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.ManualShoot;
 import frc.robot.inputs.Inputs;
 import frc.robot.subsystems.DriveSubsystem;
@@ -130,7 +132,8 @@ public class RobotContainer {
          * // InstantCommand(drivebase::lock, drivebase)));
          */
 
-        inputs.button(Inputs.manualIntake).toggleWhenPressed(new Intake(intakeSystem, pneumaticsSystem));
+        inputs.button(Inputs.manualIntake).toggleWhenPressed(
+                new SequentialCommandGroup(new Intake(intakeSystem, pneumaticsSystem), new LoadNote(intakeSystem)));
         inputs.button(Inputs.manualShoot).toggleWhenPressed(new ManualShoot(shooterSystem));
 
     }

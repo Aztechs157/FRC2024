@@ -21,7 +21,7 @@ public class ShooterSystem extends SubsystemBase {
     }
 
     public void set(double velocity) {
-        shooterMotorLeft.set(velocity);
+        shooterMotorLeft.set(-velocity);
         shooterMotorRight.set(velocity);
     }
 
