@@ -20,9 +20,35 @@ public class ShooterSystem extends SubsystemBase {
     public ShooterSystem() {
     }
 
-    public void set(double velocity) {
+    public void setLeftMotor(double velocity) {
+        shooterMotorLeft.set(-velocity);
+    }
+
+    public void setRightMotor(double velocity) {
+        shooterMotorRight.set(velocity);
+    }
+
+    public void setMotors(double velocity) {
         shooterMotorLeft.set(-velocity);
         shooterMotorRight.set(velocity);
+    }
+
+    public double getLeftEncoderVelocity() {
+        return shooterMotorLeft.getEncoder().getVelocity();
+    }
+
+    public double getRightEncoderVelocity() {
+        return shooterMotorRight.getEncoder().getVelocity();
+    }
+
+    public double leftMotorPID(double desiredVelocity) {
+        double currentVelocity = getLeftEncoderVelocity();
+        return ShooterConstants.SHOOTER_MOTOR_PID.calculate(currentVelocity, desiredVelocity);
+    }
+
+    public double rightMotorPID(double desiredVelocity) {
+        double currentVelocity = getRightEncoderVelocity();
+        return ShooterConstants.SHOOTER_MOTOR_PID.calculate(currentVelocity, desiredVelocity);
     }
 
     @Override

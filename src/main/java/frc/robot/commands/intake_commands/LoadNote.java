@@ -10,7 +10,7 @@ import frc.robot.subsystems.IntakeSystem;
 
 public class LoadNote extends Command {
 
-    private IntakeSystem intakeSystem;
+    private final IntakeSystem intakeSystem;
 
     /** Creates a new LoadNote. */
     public LoadNote(final IntakeSystem intakeSystem) {

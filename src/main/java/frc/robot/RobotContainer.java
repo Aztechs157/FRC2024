@@ -24,6 +24,7 @@ import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.ManualShoot;
+import frc.robot.commands.shooter_commands.StartShooter;
 import frc.robot.inputs.Inputs;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HangerSystem;
@@ -134,8 +135,8 @@ public class RobotContainer {
 
         inputs.button(Inputs.manualIntake).toggleWhenPressed(
                 new SequentialCommandGroup(new Intake(intakeSystem, pneumaticsSystem), new LoadNote(intakeSystem)));
-        inputs.button(Inputs.manualShoot).toggleWhenPressed(new ManualShoot(shooterSystem));
-
+        inputs.button(Inputs.manualShoot).toggleWhenPressed(new SequentialCommandGroup(new StartShooter(shooterSystem),
+                new ManualShoot(shooterSystem, intakeSystem)));
     }
 
     /**

@@ -3,6 +3,7 @@ package frc.robot;
 import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
@@ -73,7 +74,7 @@ public class Constants {
         public static final int INTAKE_MOTOR_ID = 21;
         public static final int NOTE_SENSOR_CHANNEL = 0;
 
-        public static final double INTAKE_SPEED = 1;
+        public static final double INTAKE_SPEED = 0.5;
 
     }
 
@@ -82,7 +83,10 @@ public class Constants {
         public static final int SHOOTER_MOTOR_LEFT_ID = 31;
         public static final int SHOOTER_MOTOR_RIGHT_ID = 32;
 
-        public static final double SHOOT_SPEED = 1;
+        public static final double SHOOTER_TARGET_RPM = 2500; // max RPM of neo is 5676
+        public static final double SHOOTER_START_VELOCITY_TOLERANCE = 50; // in RPM as well
+
+        public static final PIDController SHOOTER_MOTOR_PID = new PIDController(0.1, 0, 0);
 
     }
 

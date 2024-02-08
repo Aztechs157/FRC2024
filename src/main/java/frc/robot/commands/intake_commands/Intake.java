@@ -12,8 +12,8 @@ import frc.robot.subsystems.PneumaticsSystem;
 
 public class Intake extends Command {
 
-    private IntakeSystem intakeSystem;
-    private PneumaticsSystem pneumaticsSystem;
+    private final IntakeSystem intakeSystem;
+    private final PneumaticsSystem pneumaticsSystem;
 
     /** Creates a new Intake. */
     public Intake(final IntakeSystem intakeSystem, final PneumaticsSystem pneumaticsSystem) {
