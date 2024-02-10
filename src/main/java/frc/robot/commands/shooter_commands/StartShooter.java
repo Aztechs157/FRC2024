@@ -39,6 +39,10 @@ public class StartShooter extends Command {
     @Override
     public void end(boolean interrupted) {
         System.out.println("Shooter Spun Up");
+        if (interrupted) {
+            shooterSystem.setLeftMotor(0);
+            shooterSystem.setRightMotor(0);
+        }
     }
 
     // Returns true when the command should end.
