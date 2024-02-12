@@ -83,10 +83,13 @@ public class Constants {
         public static final int SHOOTER_MOTOR_LEFT_ID = 31;
         public static final int SHOOTER_MOTOR_RIGHT_ID = 32;
 
-        public static final double SHOOTER_TARGET_RPM = 2500; // max RPM of neo is 5676
+        public static final double SHOOTER_TARGET_RPM_HIGH = 5250; // max RPM of neo is 5676
+        public static final double SHOOTER_TARGET_RPM_LOW = 1250; // max RPM of neo is 5676
         public static final double SHOOTER_START_VELOCITY_TOLERANCE = 50; // in RPM as well
+        public static final double SHOOTER_SENSOR_WAIT_TIME = 0.5; // in seconds
 
-        public static final PIDController SHOOTER_MOTOR_PID = new PIDController(0.1, 0, 0);
+        public static final PIDController SHOOTER_MOTOR_PID_LEFT = new PIDController(0.00001, 0, 0.000001);
+        public static final PIDController SHOOTER_MOTOR_PID_RIGHT = new PIDController(0.00001, 0, 0.000001);
 
     }
 

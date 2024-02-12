@@ -7,6 +7,10 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.networktables.DoublePublisher;
+import edu.wpi.first.networktables.DoubleTopic;
+import edu.wpi.first.networktables.PubSubOption;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
@@ -15,9 +19,13 @@ public class ShooterSystem extends SubsystemBase {
             MotorType.kBrushless);;
     private CANSparkMax shooterMotorRight = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_RIGHT_ID,
             MotorType.kBrushless);
+    public double currentLeftMotorSet = 0;
+    public double currentRightMotorSet = 0;
 
     /** Creates a new Shooter. */
     public ShooterSystem() {
+        Shuffleboard.getTab("Driver").addDouble("Left Shooter Wheel", this::getLeftEncoderVelocity);
+        Shuffleboard.getTab("Driver").addDouble("Right Shooter Wheel", this::getRightEncoderVelocity);
     }
 
     public void setLeftMotor(double velocity) {
@@ -43,12 +51,12 @@ public class ShooterSystem extends SubsystemBase {
 
     public double leftMotorPID(double desiredVelocity) {
         double currentVelocity = getLeftEncoderVelocity();
-        return ShooterConstants.SHOOTER_MOTOR_PID.calculate(currentVelocity, desiredVelocity);
+        return ShooterConstants.SHOOTER_MOTOR_PID_LEFT.calculate(-currentVelocity, desiredVelocity);
     }
 
     public double rightMotorPID(double desiredVelocity) {
         double currentVelocity = getRightEncoderVelocity();
-        return ShooterConstants.SHOOTER_MOTOR_PID.calculate(currentVelocity, desiredVelocity);
+        return ShooterConstants.SHOOTER_MOTOR_PID_RIGHT.calculate(currentVelocity, desiredVelocity);
     }
 
     @Override

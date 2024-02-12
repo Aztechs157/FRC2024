@@ -7,6 +7,12 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import java.io.File;
@@ -28,6 +34,9 @@ public class Robot extends TimedRobot {
     private RobotContainer m_robotContainer;
 
     private Timer disabledTimer;
+
+    private MechanismLigament2d shooterWheel1;
+    private MechanismLigament2d shooterWheel2;
 
     public Robot() {
         instance = this;
@@ -52,6 +61,18 @@ public class Robot extends TimedRobot {
         // let the robot stop
         // immediately when disabled, but then also let it be pushed more
         disabledTimer = new Timer();
+
+        // the main mechanism object
+        Mechanism2d shooter = new Mechanism2d(3, 3);
+        // the mechanism root node
+        MechanismRoot2d root1 = shooter.getRoot("shooter_l", 2, 5);
+        MechanismRoot2d root2 = shooter.getRoot("shooter_r", 8, 5);
+
+        shooterWheel1 = root1.append(new MechanismLigament2d("shooterWheel1", 1, 0));
+        shooterWheel2 = root2.append(new MechanismLigament2d("shooterWheel2", 1, 0));
+
+        // post the mechanism to the dashboard
+        SmartDashboard.putData("Mech2d", shooter);
     }
 
     /**

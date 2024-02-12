@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
@@ -135,8 +136,14 @@ public class RobotContainer {
 
         inputs.button(Inputs.manualIntake).toggleWhenPressed(
                 new SequentialCommandGroup(new Intake(intakeSystem, pneumaticsSystem), new LoadNote(intakeSystem)));
-        inputs.button(Inputs.manualShoot).toggleWhenPressed(new SequentialCommandGroup(new StartShooter(shooterSystem),
-                new ManualShoot(shooterSystem, intakeSystem)));
+        inputs.button(Inputs.highShot)
+                .toggleWhenPressed(new SequentialCommandGroup(
+                        new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH),
+                        new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)));
+        inputs.button(Inputs.lowShot)
+                .toggleWhenPressed(new SequentialCommandGroup(
+                        new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW),
+                        new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW)));
     }
 
     /**

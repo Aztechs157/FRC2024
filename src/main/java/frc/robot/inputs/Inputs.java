@@ -28,7 +28,8 @@ public class Inputs extends DynamicLayout {
     public static final Axis.Key driveSpeedY = new Axis.Key();
     public static final Axis.Key rotateSpeed = new Axis.Key();
 
-    public static final Button.Key manualShoot = new Button.Key();
+    public static final Button.Key highShot = new Button.Key();
+    public static final Button.Key lowShot = new Button.Key();
     public static final Button.Key autoShoot = new Button.Key();
 
     public static final Button.Key manualIntake = new Button.Key();
@@ -77,7 +78,8 @@ public class Inputs extends DynamicLayout {
          * .scaledBy(maxRotationPerSecond.getDegrees()));
          */
 
-        layout.assign(manualShoot, driver.rightBumper);
+        layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
+        layout.assign(lowShot, driver.rightBumper);
         // layout.assign(autoShoot, operator.rightBumper);
 
         layout.assign(manualIntake, driver.leftBumper);
