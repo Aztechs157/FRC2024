@@ -153,7 +153,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return drivebase.getAutonomousCommand("New Path", true);
+        return drivebase.getAutonomousCommand("Example_Auto", true);
     }
 
     public void setDriveMode() {
