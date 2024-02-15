@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
@@ -113,7 +114,7 @@ public class DriveSubsystem extends SubsystemBase {
                 this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
                 this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your
-                                                 // Constants class
+                        // Constants class
                         AutonConstants.TRANSLATION_PID,
                         // Translation PID constants
                         AutonConstants.ANGLE_PID,
@@ -140,11 +141,24 @@ public class DriveSubsystem extends SubsystemBase {
     /**
      * Get the path follower with events.
      *
+     * @param pathName PathPlanner path name.
+     * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
+     */
+    public Command getAutonomousCommand(String pathName) {
+        // Create a path following command using AutoBuilder. This will also trigger
+        // event markers.
+        return new PathPlannerAuto(pathName);
+    }
+
+    /**
+     * Get the path follower with events.
+     *
      * @param pathName       PathPlanner path name.
      * @param setOdomToStart Set the odometry position to the start of the path.
      * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
      */
-    public Command getAutonomousCommand(String pathName, boolean setOdomToStart) {
+
+    public Command getPathCommand(String pathName, boolean setOdomToStart) {
         // Load the path you want to follow using its name in the GUI
         PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
 

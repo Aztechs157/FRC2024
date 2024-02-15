@@ -32,7 +32,6 @@ public class ManualShoot extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        System.out.println("Run ManualShoot Command");
         intakeSystem.set(-IntakeConstants.INTAKE_SPEED * 1.25);
         timer.reset();
     }

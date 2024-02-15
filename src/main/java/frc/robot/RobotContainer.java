@@ -35,6 +35,8 @@ import frc.robot.subsystems.ShooterSystem;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.NamedCommands;
+
 /**
  * This class is where the bulk of the robot should be declared. Since
  * Command-based is a "declarative" paradigm, very
@@ -60,6 +62,22 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+
+        // Register Named Commands
+        NamedCommands.registerCommand("Intake",
+                new Intake(intakeSystem, pneumaticsSystem).andThen(new LoadNote(intakeSystem)).withTimeout(4));
+
+        NamedCommands.registerCommand("High_Shoot",
+                new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
+                        .andThen(new ManualShoot(shooterSystem, intakeSystem,
+                                ShooterConstants.SHOOTER_TARGET_RPM_HIGH))
+                        .withTimeout(4));
+
+        NamedCommands.registerCommand("Low_Shoot",
+                new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW)
+                        .andThen(new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .withTimeout(4));
+
         // Configure the trigger bindings
         configureBindings();
 
@@ -153,7 +171,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return drivebase.getAutonomousCommand("Example_Auto", true);
+        return drivebase.getAutonomousCommand("Example_Auto");
     }
 
     public void setDriveMode() {
