@@ -97,8 +97,14 @@ public class Constants {
 
         public static final int PNEUMATICS_HUB_ID = 52;
 
-        public static final int SOLENOID_RETRACT_CHANNEL = 14;
-        public static final int SOLENOID_EXTEND_CHANNEL = 15;
+        public static final int INTAKE_SOLENOID_RETRACT_CHANNEL = 14;
+        public static final int INTAKE_SOLENOID_EXTEND_CHANNEL = 15;
+
+        public static final int DEFLECTOR_SOLENOID_RETRACT_CHANNEL = 12;
+        public static final int DEFLECTOR_SOLENOID_EXTEND_CHANNEL = 13;
+
+        public static final int HANGER_PIN_SOLENOID_RETRACT_CHANNEL = 0;
+        public static final int HANGER_PIN_SOLENOID_EXTEND_CHANNEL = 1;
 
     }
 

@@ -11,12 +11,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PneumaticsConstants;
 
 public class PneumaticsSystem extends SubsystemBase {
+
     private final Compressor compressor = new Compressor(PneumaticsConstants.PNEUMATICS_HUB_ID,
             PneumaticsModuleType.REVPH);
-    private final DoubleSolenoid solenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.SOLENOID_EXTEND_CHANNEL,
-            PneumaticsConstants.SOLENOID_RETRACT_CHANNEL);
-    private boolean open = false;
+
+    private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.INTAKE_SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.INTAKE_SOLENOID_RETRACT_CHANNEL);
+
+    private final DoubleSolenoid deflectorSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.DEFLECTOR_SOLENOID_RETRACT_CHANNEL);
+
+    private final DoubleSolenoid hangerPinSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.HANGER_PIN_SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.HANGER_PIN_SOLENOID_RETRACT_CHANNEL);
+
+    private boolean intakeOpen = false;
+    private boolean deflectorOpen = false;
+    private boolean hangerPinOpen = false;
 
     /** Creates a new Compressor. */
     public PneumaticsSystem() {
@@ -24,8 +37,18 @@ public class PneumaticsSystem extends SubsystemBase {
     }
 
     public void deployIntake(final DoubleSolenoid.Value value) {
-        open = value == DoubleSolenoid.Value.kForward;
-        solenoid.set(value);
+        intakeOpen = value == DoubleSolenoid.Value.kForward;
+        intakeSolenoid.set(value);
+    }
+
+    public void deployDeflector(final DoubleSolenoid.Value value) {
+        deflectorOpen = value == DoubleSolenoid.Value.kForward;
+        deflectorSolenoid.set(value);
+    }
+
+    public void deployHangerPin(final DoubleSolenoid.Value value) {
+        hangerPinOpen = value == DoubleSolenoid.Value.kForward;
+        hangerPinSolenoid.set(value);
     }
 
     @Override
