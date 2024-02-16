@@ -6,17 +6,11 @@ package frc.robot.inputs;
 
 import org.assabet.aztechs157.input.layouts.Layout;
 import org.assabet.aztechs157.input.layouts.MapLayout;
-
 import java.util.function.DoubleSupplier;
-
 import org.assabet.aztechs157.input.layouts.DynamicLayout;
 import org.assabet.aztechs157.input.models.XboxOne;
 import org.assabet.aztechs157.input.values.Axis;
 import org.assabet.aztechs157.input.values.Button;
-import org.assabet.aztechs157.numbers.Deadzone;
-import org.assabet.aztechs157.numbers.Range;
-
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.ControllerConstants;
@@ -33,7 +27,10 @@ public class Inputs extends DynamicLayout {
     public static final Button.Key autoShoot = new Button.Key();
 
     public static final Button.Key manualIntake = new Button.Key();
-    // public static final Button.Key autoIntake = new Button.Key();
+    public static final Button.Key autoIntake = new Button.Key();
+
+    public static final Button.Key liftHanger = new Button.Key();
+    public static final Button.Key retractHanger = new Button.Key();
 
     public static Inputs createFromChooser() {
         final SendableChooser<Layout> chooser = new SendableChooser<>();
@@ -84,6 +81,9 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(manualIntake, driver.leftBumper);
         // layout.assign(autoIntake, driver.leftBumper);
+
+        layout.assign(liftHanger, operator.pov.up);
+        layout.assign(retractHanger, operator.pov.down);
 
         return layout;
     }

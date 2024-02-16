@@ -93,6 +93,15 @@ public class Constants {
 
     }
 
+    public static class HangerConstants {
+
+        public static final int HANGER_MOTOR_LEFT_ID = 41;
+        public static final int HANGER_MOTOR_RIGHT_ID = 42;
+
+        public static final double LIFT_SPEED = 0.5;
+
+    }
+
     public static class PneumaticsConstants {
 
         public static final int PNEUMATICS_HUB_ID = 52;

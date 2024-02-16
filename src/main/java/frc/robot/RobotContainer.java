@@ -24,6 +24,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
+import frc.robot.commands.hanger_commands.LiftHanger;
+import frc.robot.commands.hanger_commands.RetractHanger;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.ManualShoot;
@@ -172,6 +174,14 @@ public class RobotContainer {
                         .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .andThen(new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .finallyDo(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kReverse)));
+
+        // inputs.button(Inputs.liftHanger).toggleWhenPressed(new
+        // LiftHanger(hangerSystem).handleInterrupt(() -> new
+        // RetractHanger(hangerSystem)));
+
+        // inputs.button(Inputs.retractHanger).toggleWhenPressed(new
+        // RetractHanger(hangerSystem).handleInterrupt(() -> new
+        // LiftHanger(hangerSystem)));
     }
 
     /**
