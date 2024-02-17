@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.0,
-      "y": 2
+      "x": 0.7805585557503859,
+      "y": 4.346961967626977
     },
-    "rotation": 180.0
+    "rotation": -60.751173663452946
   },
   "command": {
     "type": "sequential",
@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Example_Path"
+                  "pathName": "Right_Exit"
                 }
               },
               {
@@ -34,6 +34,24 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right_Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "High_Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Right_Exit2"
           }
         }
       ]

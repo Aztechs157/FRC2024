@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 2.0,
-      "y": 2
+      "x": 1.39,
+      "y": 5.53650223579517
     },
-    "rotation": 180.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -22,18 +22,36 @@
           "data": {
             "commands": [
               {
-                "type": "path",
-                "data": {
-                  "pathName": "Example_Path"
-                }
-              },
-              {
                 "type": "named",
                 "data": {
                   "name": "Intake"
                 }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Center_Exit"
+                }
               }
             ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center_Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "High_Shoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Center_Exit"
           }
         }
       ]
