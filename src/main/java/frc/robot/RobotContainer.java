@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.Constants.PneumaticsConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.intake_commands.Intake;
@@ -169,6 +170,10 @@ public class RobotContainer {
 
         inputs.button(Inputs.lowShot).toggleWhenPressed(
                 pneumaticsSystem.runOnce(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kForward))
+                        .andThen(race(new deployDeflectorLeft(pneumaticsSystem,
+                                PneumaticsConstants.LEFT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL),
+                                new deployDeflectorRight(pneumaticsSystem,
+                                        PneumaticsConstants.RIGHT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL)))
                         .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .andThen(new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .finallyDo(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kReverse)));

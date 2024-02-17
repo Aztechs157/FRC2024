@@ -19,16 +19,21 @@ public class PneumaticsSystem extends SubsystemBase {
             PneumaticsModuleType.REVPH, PneumaticsConstants.INTAKE_SOLENOID_EXTEND_CHANNEL,
             PneumaticsConstants.INTAKE_SOLENOID_RETRACT_CHANNEL);
 
-    private final DoubleSolenoid deflectorSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_SOLENOID_EXTEND_CHANNEL,
-            PneumaticsConstants.DEFLECTOR_SOLENOID_RETRACT_CHANNEL);
+    private final DoubleSolenoid deflectorLeftSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.LEFT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.LEFT_DEFLECTOR_SOLENOID_RETRACT_CHANNEL);
+
+    private final DoubleSolenoid deflectorRightSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.RIGHT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.RIGHT_DEFLECTOR_SOLENOID_RETRACT_CHANNEL);
 
     private final DoubleSolenoid hangerPinSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
             PneumaticsModuleType.REVPH, PneumaticsConstants.HANGER_PIN_SOLENOID_EXTEND_CHANNEL,
             PneumaticsConstants.HANGER_PIN_SOLENOID_RETRACT_CHANNEL);
 
     private boolean intakeOpen = false;
-    private boolean deflectorOpen = false;
+    private boolean deflectorLeftOpen = false;
+    private boolean deflectorRightOpen = false;
     private boolean hangerPinOpen = false;
 
     /** Creates a new Compressor. */
@@ -41,9 +46,14 @@ public class PneumaticsSystem extends SubsystemBase {
         intakeSolenoid.set(value);
     }
 
-    public void deployDeflector(final DoubleSolenoid.Value value) {
-        deflectorOpen = value == DoubleSolenoid.Value.kForward;
-        deflectorSolenoid.set(value);
+    public void deployDeflectorLeft(final DoubleSolenoid.Value value) {
+        deflectorLeftOpen = value == DoubleSolenoid.Value.kForward;
+        deflectorLeftSolenoid.set(value);
+    }
+
+    public void deployDeflectorRight(final DoubleSolenoid.Value value) {
+        deflectorRightOpen = value == DoubleSolenoid.Value.kForward;
+        deflectorRightSolenoid.set(value);
     }
 
     public void deployHangerPin(final DoubleSolenoid.Value value) {
