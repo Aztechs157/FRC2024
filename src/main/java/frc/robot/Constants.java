@@ -98,6 +98,11 @@ public class Constants {
         public static final int HANGER_MOTOR_LEFT_ID = 41;
         public static final int HANGER_MOTOR_RIGHT_ID = 42;
 
+        public static final int HANGER_LEFT_EXT_LIMIT_ID = 2;
+        public static final int HANGER_LEFT_RET_LIMIT_ID = 3;
+        public static final int HANGER_RIGHT_EXT_LIMIT_ID = 4;
+        public static final int HANGER_RIGHT_RET_LIMIT_ID = 5;
+
         public static final double LIFT_SPEED = 0.5;
 
     }
@@ -109,8 +114,11 @@ public class Constants {
         public static final int INTAKE_SOLENOID_RETRACT_CHANNEL = 14;
         public static final int INTAKE_SOLENOID_EXTEND_CHANNEL = 15;
 
-        public static final int DEFLECTOR_SOLENOID_RETRACT_CHANNEL = 12;
-        public static final int DEFLECTOR_SOLENOID_EXTEND_CHANNEL = 13;
+        public static final int DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL = 11;
+        public static final int DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL = 10;
+
+        public static final int DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL = 13;
+        public static final int DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL = 12;
 
         public static final int HANGER_PIN_SOLENOID_RETRACT_CHANNEL = 0;
         public static final int HANGER_PIN_SOLENOID_EXTEND_CHANNEL = 1;

@@ -5,27 +5,15 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
-import frc.robot.commands.hanger_commands.LiftHanger;
-import frc.robot.commands.hanger_commands.RetractHanger;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.ManualShoot;
@@ -69,8 +57,9 @@ public class RobotContainer {
 
         // Register Named Commands
         NamedCommands.registerCommand("Intake",
-                new Intake(intakeSystem, pneumaticsSystem)
-                        .andThen(new LoadNote(intakeSystem))
+                new Intake(intakeSystem)
+                        .alongWith(pneumaticsSystem.setIntakeFoward())
+                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setDeflectorReverse()))
                         .withTimeout(4));
 
         NamedCommands.registerCommand("High_Shoot",
@@ -80,10 +69,11 @@ public class RobotContainer {
                         .withTimeout(4));
 
         NamedCommands.registerCommand("Low_Shoot",
-                pneumaticsSystem.runOnce(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kForward))
+                pneumaticsSystem.setDeflectorFoward()
                         .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .andThen(new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .finallyDo(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kReverse))
+                        .andThen(
+                                new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .andThen(pneumaticsSystem.setDeflectorReverse())
                         .withTimeout(4));
 
         // Configure the trigger bindings
@@ -161,8 +151,9 @@ public class RobotContainer {
          */
 
         inputs.button(Inputs.manualIntake).toggleWhenPressed(
-                new Intake(intakeSystem, pneumaticsSystem)
-                        .andThen(new LoadNote(intakeSystem)));
+                new Intake(intakeSystem)
+                        .alongWith(pneumaticsSystem.setIntakeFoward())
+                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setIntakeReverse())));
 
         inputs.button(Inputs.highShot).toggleWhenPressed(
                 new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
@@ -170,10 +161,11 @@ public class RobotContainer {
                                 ShooterConstants.SHOOTER_TARGET_RPM_HIGH)));
 
         inputs.button(Inputs.lowShot).toggleWhenPressed(
-                pneumaticsSystem.runOnce(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kForward))
+                pneumaticsSystem.setDeflectorFoward()
                         .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .andThen(new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .finallyDo(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kReverse)));
+                        .andThen(
+                                new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .andThen(pneumaticsSystem.setDeflectorReverse()));
 
         // inputs.button(Inputs.liftHanger).toggleWhenPressed(new
         // LiftHanger(hangerSystem).handleInterrupt(() -> new

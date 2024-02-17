@@ -4,31 +4,26 @@
 
 package frc.robot.commands.intake_commands;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.subsystems.IntakeSystem;
-import frc.robot.subsystems.PneumaticsSystem;
 
 public class Intake extends Command {
 
     private final IntakeSystem intakeSystem;
-    private final PneumaticsSystem pneumaticsSystem;
 
     /** Creates a new Intake. */
-    public Intake(final IntakeSystem intakeSystem, final PneumaticsSystem pneumaticsSystem) {
+    public Intake(final IntakeSystem intakeSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(intakeSystem);
-        addRequirements(pneumaticsSystem);
 
         this.intakeSystem = intakeSystem;
-        this.pneumaticsSystem = pneumaticsSystem;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kForward);
+
         intakeSystem.set(-IntakeConstants.INTAKE_SPEED);
     }
 
@@ -41,7 +36,6 @@ public class Intake extends Command {
     @Override
     public void end(boolean interrupted) {
         intakeSystem.set(0);
-        pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kReverse);
     }
 
     // Returns true when the command should end.
