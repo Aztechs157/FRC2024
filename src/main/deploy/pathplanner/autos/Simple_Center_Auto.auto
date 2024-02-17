@@ -5,7 +5,7 @@
       "x": 1.39,
       "y": 5.53650223579517
     },
-    "rotation": 0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -18,19 +18,19 @@
           }
         },
         {
-          "type": "parallel",
+          "type": "race",
           "data": {
             "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
               {
                 "type": "path",
                 "data": {
                   "pathName": "Center_Exit"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
                 }
               }
             ]
