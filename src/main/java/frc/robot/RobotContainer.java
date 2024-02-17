@@ -153,7 +153,8 @@ public class RobotContainer {
         inputs.button(Inputs.manualIntake).toggleWhenPressed(
                 new Intake(intakeSystem)
                         .alongWith(pneumaticsSystem.setIntakeFoward())
-                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setIntakeReverse())));
+                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
+                        .finallyDo(pneumaticsSystem.setIntakeReverse()::initialize));
 
         inputs.button(Inputs.highShot).toggleWhenPressed(
                 new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
@@ -165,7 +166,8 @@ public class RobotContainer {
                         .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .andThen(
                                 new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .andThen(pneumaticsSystem.setDeflectorReverse()));
+                        .andThen(pneumaticsSystem.setDeflectorReverse())
+                        .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize));
 
         // inputs.button(Inputs.liftHanger).toggleWhenPressed(new
         // LiftHanger(hangerSystem).handleInterrupt(() -> new

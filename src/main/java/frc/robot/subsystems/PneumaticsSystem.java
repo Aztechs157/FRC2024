@@ -47,7 +47,7 @@ public class PneumaticsSystem extends SubsystemBase {
     }
 
     public Command setIntakeReverse() {
-        return runOnce(() -> deployIntake(DoubleSolenoid.Value.kForward));
+        return runOnce(() -> deployIntake(DoubleSolenoid.Value.kReverse));
     }
 
     public Command setDeflectorFoward() {
