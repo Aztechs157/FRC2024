@@ -24,6 +24,8 @@ public class ShooterSystem extends SubsystemBase {
 
     /** Creates a new Shooter. */
     public ShooterSystem() {
+        shooterMotorLeft.setIdleMode(ShooterConstants.SHOOTER_MOTOR_IDLE_MODE);
+        shooterMotorRight.setIdleMode(ShooterConstants.SHOOTER_MOTOR_IDLE_MODE);
         Shuffleboard.getTab("Driver").addDouble("Left Shooter Wheel", this::getLeftEncoderVelocity);
         Shuffleboard.getTab("Driver").addDouble("Right Shooter Wheel", this::getRightEncoderVelocity);
     }
