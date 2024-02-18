@@ -19,6 +19,7 @@ public class IntakeSystem extends SubsystemBase {
 
     /** Creates a new IntakeSystem. */
     public IntakeSystem() {
+        intakeMotor.setIdleMode(IntakeConstants.INTAKE_MOTOR_IDLE_MODE);
         Shuffleboard.getTab("Driver").addBoolean("note sensor", this::checkForNote);
     }
 
