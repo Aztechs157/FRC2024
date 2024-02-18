@@ -13,7 +13,7 @@ import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.IntakeSystem;
 import frc.robot.subsystems.ShooterSystem;
 
-public class ManualShoot extends Command {
+public class Shoot extends Command {
 
     private final ShooterSystem shooterSystem;
     private final IntakeSystem intakeSystem;
@@ -24,7 +24,7 @@ public class ManualShoot extends Command {
     private Timer timer = new Timer();
 
     /** Creates a new Shoot. */
-    public ManualShoot(final ShooterSystem shooterSystem, final IntakeSystem intakeSystem, final PwmLEDs lightSystem,
+    public Shoot(final ShooterSystem shooterSystem, final IntakeSystem intakeSystem, final PwmLEDs lightSystem,
             final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(intakeSystem);

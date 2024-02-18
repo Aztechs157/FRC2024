@@ -22,13 +22,15 @@ public class Inputs extends DynamicLayout {
     public static final Axis.Key driveSpeedY = new Axis.Key();
     public static final Axis.Key rotateSpeed = new Axis.Key();
 
+    public static final Button.Key driveToSpeaker = new Button.Key();
+    public static final Button.Key driveToAmp = new Button.Key();
+    public static final Button.Key autoIntake = new Button.Key();
+
+    public static final Button.Key intake = new Button.Key();
+    public static final Button.Key loadNote = new Button.Key();
+
     public static final Button.Key highShot = new Button.Key();
     public static final Button.Key lowShot = new Button.Key();
-    public static final Button.Key autoShoot = new Button.Key();
-
-    public static final Button.Key manualIntake = new Button.Key();
-    public static final Button.Key autoIntake = new Button.Key();
-    public static final Button.Key loadNote = new Button.Key();
 
     public static final Button.Key liftHanger = new Button.Key();
     public static final Button.Key retractHanger = new Button.Key();
@@ -77,13 +79,15 @@ public class Inputs extends DynamicLayout {
          * .scaledBy(maxRotationPerSecond.getDegrees()));
          */
 
+        layout.assign(driveToSpeaker, new Button(() -> operator.rightTriggerHeld.get() > 0.2));
+        layout.assign(driveToAmp, operator.rightBumper);
+        // layout.assign(autoIntake, driver.leftBumper);
+
+        layout.assign(intake, driver.leftBumper);
+        layout.assign(loadNote, operator.a);
+
         layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
         layout.assign(lowShot, driver.rightBumper);
-        // layout.assign(autoShoot, operator.rightBumper);
-
-        layout.assign(manualIntake, driver.leftBumper);
-        // layout.assign(autoIntake, driver.leftBumper);
-        layout.assign(loadNote, operator.a);
 
         layout.assign(liftHanger, operator.pov.up);
         layout.assign(retractHanger, operator.pov.down);

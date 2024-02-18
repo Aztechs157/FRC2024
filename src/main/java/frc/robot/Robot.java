@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Constants.DriveConstants;
+
 import java.io.File;
 import java.io.IOException;
 import swervelib.parser.SwerveParser;
@@ -35,6 +35,8 @@ public class Robot extends TimedRobot {
 
     private Timer disabledTimer;
 
+    private int poseEstimatorCounter = 0;
+
     private MechanismLigament2d shooterWheel1;
     private MechanismLigament2d shooterWheel2;
 
@@ -44,6 +46,14 @@ public class Robot extends TimedRobot {
 
     public static Robot getInstance() {
         return instance;
+    }
+
+    private void estimatePose() {
+        poseEstimatorCounter++;
+        if (poseEstimatorCounter >= DriveConstants.POSE_ESTIMATE_FREQUENCY) {
+            m_robotContainer.visionSystem.getEstimatedGlobalPose(null); // TODO: figure out how to get prevRobotPose
+            poseEstimatorCounter = 0;
+        }
     }
 
     /**
@@ -104,6 +114,7 @@ public class Robot extends TimedRobot {
     public void disabledInit() {
         m_robotContainer.setMotorBrake(true);
         m_robotContainer.lightSystem.setDefault();
+        m_robotContainer.visionSystem.updateAlliance();
         disabledTimer.reset();
         disabledTimer.start();
     }
@@ -122,6 +133,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        m_robotContainer.visionSystem.updateAlliance();
         m_robotContainer.setMotorBrake(true);
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
@@ -136,6 +148,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousPeriodic() {
+        estimatePose();
     }
 
     @Override
@@ -144,6 +157,7 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
+        m_robotContainer.visionSystem.updateAlliance();
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }
@@ -156,6 +170,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void teleopPeriodic() {
+        estimatePose();
     }
 
     @Override

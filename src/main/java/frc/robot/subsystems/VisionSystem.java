@@ -5,9 +5,10 @@
 package frc.robot.subsystems;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-
 import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
@@ -15,7 +16,6 @@ import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.common.hardware.VisionLEDMode;
 import org.photonvision.PhotonUtils;
 import org.photonvision.targeting.PhotonTrackedTarget;
-
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -24,6 +24,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
 
@@ -32,6 +33,8 @@ public class VisionSystem extends SubsystemBase {
     PhotonCamera camera;
     AprilTagFieldLayout tagLayout;
     PhotonPoseEstimator poseEstimator;
+
+    boolean blueAlliance = true;
 
     /** Creates a new vision. */
     public VisionSystem() {
@@ -46,6 +49,67 @@ public class VisionSystem extends SubsystemBase {
 
         poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
                 camera, VisionConstants.CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
+    }
+
+    public void updateAlliance() {
+        var alliance = DriverStation.getAlliance();
+        blueAlliance = alliance.get() == DriverStation.Alliance.Blue;
+    }
+
+    public PhotonTrackedTarget findSpeakerTag() {
+        List<PhotonTrackedTarget> targets = findTargets();
+        List<PhotonTrackedTarget> speakerTags = new ArrayList<>();
+
+        if (!blueAlliance) {
+            for (PhotonTrackedTarget target : targets) {
+                if (target.getFiducialId() == 3 | target.getFiducialId() == 4) {
+                    speakerTags.add(target);
+                }
+            }
+        } else {
+            for (PhotonTrackedTarget target : targets) {
+                if (target.getFiducialId() == 7 | target.getFiducialId() == 8) {
+                    speakerTags.add(target);
+                }
+            }
+        }
+
+        PhotonTrackedTarget bestSpeakerTarget = Collections.max(targets, this::compareTargets);
+        return bestSpeakerTarget;
+    }
+
+    public PhotonTrackedTarget findAmpTag() {
+        List<PhotonTrackedTarget> targets = findTargets();
+        PhotonTrackedTarget ampTag = null;
+
+        if (!blueAlliance) {
+            for (PhotonTrackedTarget target : targets) {
+                if (target.getFiducialId() == 5) {
+                    ampTag = target;
+                    break;
+                }
+            }
+        } else {
+            for (PhotonTrackedTarget target : targets) {
+                if (target.getFiducialId() == 6) {
+                    ampTag = target;
+                    break;
+                }
+            }
+        }
+
+        return ampTag;
+    }
+
+    public int compareTargets(PhotonTrackedTarget a, PhotonTrackedTarget b) {
+        if (a.getArea() > b.getArea()) {
+            return 1;
+        }
+        if (a.getArea() == b.getArea()) {
+            return 0;
+        } else {
+            return -1;
+        }
     }
 
     /*
@@ -125,7 +189,7 @@ public class VisionSystem extends SubsystemBase {
      * reprojection error.
      */
 
-    public Transform3d getPathToTargetLowReprojection(PhotonTrackedTarget target) {
+    public Transform3d getBestPathToTarget(PhotonTrackedTarget target) {
         return target.getBestCameraToTarget();
     }
 
@@ -135,7 +199,7 @@ public class VisionSystem extends SubsystemBase {
      * reprojection error.
      */
 
-    public Transform3d getPathToTargetHighReprojection(PhotonTrackedTarget target) {
+    public Transform3d getOtherPathToTarget(PhotonTrackedTarget target) {
         return target.getAlternateCameraToTarget();
     }
 

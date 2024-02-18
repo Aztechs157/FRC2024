@@ -2,7 +2,6 @@ package frc.robot;
 
 import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -54,6 +53,8 @@ public class Constants {
             public static final XboxSpeeds COMPETITION = new XboxSpeeds(1, 0.5);
             public static final XboxSpeeds DEMO = new XboxSpeeds(0.3, 0.3);
         }
+
+        public static final int POSE_ESTIMATE_FREQUENCY = 100;
 
     }
 

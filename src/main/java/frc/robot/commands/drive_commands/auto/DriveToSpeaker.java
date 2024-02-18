@@ -2,44 +2,35 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.shooter_commands;
+package frc.robot.commands.drive_commands.auto;
+
+import org.photonvision.targeting.PhotonTrackedTarget;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.cosmetics.PwmLEDs;
-import frc.robot.inputs.Inputs;
-import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
 
-public class AutoShoot extends Command {
-    private final ShooterSystem shooter;
-    private final Inputs inputs;
-    private final VisionSystem vision;
-    private final PwmLEDs lightSystem;
+public class DriveToSpeaker extends Command {
 
-    /** Creates a new Shoot. */
-    public AutoShoot(final ShooterSystem shooter, final Inputs inputs, final VisionSystem vision,
-            final PwmLEDs lightSystem) {
+    private final VisionSystem visionSystem;
+
+    private PhotonTrackedTarget target;
+
+    /** Creates a new DriveToSpeaker. */
+    public DriveToSpeaker(final VisionSystem visionSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(shooter);
 
-        this.shooter = shooter;
-        this.inputs = inputs;
-        this.vision = vision;
-        this.lightSystem = lightSystem;
+        this.visionSystem = visionSystem;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        target = visionSystem.findAmpTag();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // calculate the apropreate velocity of the shooter motors based on data from
-        // the vision subsystem
-
-        // shooter.set(velocity);
     }
 
     // Called once the command ends or is interrupted.
