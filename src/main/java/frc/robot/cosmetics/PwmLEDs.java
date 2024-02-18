@@ -57,6 +57,18 @@ public class PwmLEDs extends SubsystemBase {
         this.color2 = color2;
     }
 
+    public void setColor1Length(int color1Length) {
+        this.color1Length = color1Length;
+    }
+
+    public void setColor2Length(int color2Length) {
+        this.color2Length = color2Length;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
     public static enum Mode {
         SOLID, WAVE, CLIMB, STROBE;
     }

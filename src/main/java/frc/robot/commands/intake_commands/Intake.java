@@ -4,6 +4,7 @@
 
 package frc.robot.commands.intake_commands;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.cosmetics.PwmLEDs;
@@ -27,6 +28,7 @@ public class Intake extends Command {
     @Override
     public void initialize() {
         intakeSystem.set(-IntakeConstants.INTAKE_SPEED);
+        lightSystem.setClimb(Color.kOrange, Color.kBlack, 3, 2, 2);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -38,6 +40,7 @@ public class Intake extends Command {
     @Override
     public void end(boolean interrupted) {
         intakeSystem.set(0);
+        lightSystem.setDefault();
     }
 
     // Returns true when the command should end.

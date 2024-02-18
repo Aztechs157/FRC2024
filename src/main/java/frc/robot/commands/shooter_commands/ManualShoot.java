@@ -6,6 +6,7 @@ package frc.robot.commands.shooter_commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.cosmetics.PwmLEDs;
@@ -37,6 +38,7 @@ public class ManualShoot extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        lightSystem.setSolid(Color.kRed);
         intakeSystem.set(-IntakeConstants.INTAKE_SPEED * 1.25);
         timer.reset();
     }
@@ -64,6 +66,7 @@ public class ManualShoot extends Command {
         shooterSystem.currentRightMotorSet = 0;
         shooterSystem.setMotors(0);
         intakeSystem.set(0);
+        lightSystem.setDefault();
     }
 
     // Returns true when the command should end.
