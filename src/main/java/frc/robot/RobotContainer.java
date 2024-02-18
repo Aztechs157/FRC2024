@@ -14,13 +14,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
-import frc.robot.Constants.PneumaticsConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
+import frc.robot.commands.hanger_commands.ExtendHangerPin;
+import frc.robot.commands.hanger_commands.LiftHanger;
+import frc.robot.commands.hanger_commands.RetractHanger;
+import frc.robot.commands.hanger_commands.RetractHangerPin;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.ManualShoot;
 import frc.robot.commands.shooter_commands.StartShooter;
+import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HangerSystem;
@@ -50,6 +54,7 @@ public class RobotContainer {
     private final IntakeSystem intakeSystem = new IntakeSystem();
     private final ShooterSystem shooterSystem = new ShooterSystem();
     private final HangerSystem hangerSystem = new HangerSystem();
+    public final PwmLEDs lightSystem = new PwmLEDs();
 
     private final SendableChooser<Command> autoChooser = new SendableChooser<>();
 
@@ -62,22 +67,23 @@ public class RobotContainer {
 
         // Register Named Commands
         NamedCommands.registerCommand("Intake",
-                new Intake(intakeSystem)
+                new Intake(intakeSystem, lightSystem)
                         .alongWith(pneumaticsSystem.setIntakeFoward())
-                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
+                        .andThen(new LoadNote(intakeSystem, lightSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
                         .finallyDo(pneumaticsSystem.setIntakeReverse()::initialize).withTimeout(4));
 
         NamedCommands.registerCommand("High_Shoot",
-                new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
-                        .andThen(new ManualShoot(shooterSystem, intakeSystem,
+                new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
+                        .andThen(new ManualShoot(shooterSystem, intakeSystem, lightSystem,
                                 ShooterConstants.SHOOTER_TARGET_RPM_HIGH))
                         .withTimeout(4));
 
         NamedCommands.registerCommand("Low_Shoot",
                 pneumaticsSystem.setDeflectorFoward()
-                        .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .andThen(
-                                new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                                new ManualShoot(shooterSystem, intakeSystem, lightSystem,
+                                        ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .andThen(pneumaticsSystem.setDeflectorReverse())
                         .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize).withTimeout(4));
 
@@ -170,31 +176,37 @@ public class RobotContainer {
          */
 
         inputs.button(Inputs.manualIntake).toggleWhenPressed(
-                new Intake(intakeSystem)
+                new Intake(intakeSystem, lightSystem)
                         .alongWith(pneumaticsSystem.setIntakeFoward())
-                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
+                        .andThen(new LoadNote(intakeSystem, lightSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
                         .finallyDo(pneumaticsSystem.setIntakeReverse()::initialize));
 
+        inputs.button(Inputs.loadNote).whenPressed(new LoadNote(intakeSystem, lightSystem));
+
         inputs.button(Inputs.highShot).toggleWhenPressed(
-                new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
-                        .andThen(new ManualShoot(shooterSystem, intakeSystem,
+                new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
+                        .andThen(new ManualShoot(shooterSystem, intakeSystem, lightSystem,
                                 ShooterConstants.SHOOTER_TARGET_RPM_HIGH)));
 
         inputs.button(Inputs.lowShot).toggleWhenPressed(
                 pneumaticsSystem.setDeflectorFoward()
-                        .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .andThen(
-                                new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                                new ManualShoot(shooterSystem, intakeSystem, lightSystem,
+                                        ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                         .andThen(pneumaticsSystem.setDeflectorReverse())
                         .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize));
 
-        // inputs.button(Inputs.liftHanger).toggleWhenPressed(new
-        // LiftHanger(hangerSystem).handleInterrupt(() -> new
-        // RetractHanger(hangerSystem)));
+        inputs.button(Inputs.liftHanger).toggleWhenPressed(
+                new LiftHanger(hangerSystem, lightSystem)
+                        .handleInterrupt(() -> new RetractHanger(hangerSystem, lightSystem).schedule()));
 
-        // inputs.button(Inputs.retractHanger).toggleWhenPressed(new
-        // RetractHanger(hangerSystem).handleInterrupt(() -> new
-        // LiftHanger(hangerSystem)));
+        inputs.button(Inputs.retractHanger).toggleWhenPressed(
+                (new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem)))
+                        .handleInterrupt(() -> new LiftHanger(hangerSystem, lightSystem).schedule()));
+
+        inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem));
+
     }
 
     /**

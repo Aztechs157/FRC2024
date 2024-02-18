@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.IntakeSystem;
 import frc.robot.subsystems.ShooterSystem;
 
@@ -15,18 +16,22 @@ public class ManualShoot extends Command {
 
     private final ShooterSystem shooterSystem;
     private final IntakeSystem intakeSystem;
+    private final PwmLEDs lightSystem;
     private final double setPoint;
+
     private boolean seenNote = false;
     private Timer timer = new Timer();
 
     /** Creates a new Shoot. */
-    public ManualShoot(final ShooterSystem shooterSystem, final IntakeSystem intakeSystem, final double setPoint) {
+    public ManualShoot(final ShooterSystem shooterSystem, final IntakeSystem intakeSystem, final PwmLEDs lightSystem,
+            final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(intakeSystem);
 
-        this.setPoint = setPoint;
         this.shooterSystem = shooterSystem;
         this.intakeSystem = intakeSystem;
+        this.lightSystem = lightSystem;
+        this.setPoint = setPoint;
     }
 
     // Called when the command is initially scheduled.

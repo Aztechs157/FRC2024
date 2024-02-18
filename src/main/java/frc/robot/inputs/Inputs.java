@@ -28,9 +28,11 @@ public class Inputs extends DynamicLayout {
 
     public static final Button.Key manualIntake = new Button.Key();
     public static final Button.Key autoIntake = new Button.Key();
+    public static final Button.Key loadNote = new Button.Key();
 
     public static final Button.Key liftHanger = new Button.Key();
     public static final Button.Key retractHanger = new Button.Key();
+    public static final Button.Key retractHangerPin = new Button.Key();
 
     public static Inputs createFromChooser() {
         final SendableChooser<Layout> chooser = new SendableChooser<>();
@@ -81,9 +83,11 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(manualIntake, driver.leftBumper);
         // layout.assign(autoIntake, driver.leftBumper);
+        layout.assign(loadNote, operator.a);
 
         layout.assign(liftHanger, operator.pov.up);
         layout.assign(retractHanger, operator.pov.down);
+        layout.assign(retractHangerPin, new Button(() -> operator.start.get() && operator.back.get()));
 
         return layout;
     }

@@ -5,6 +5,7 @@
 package frc.robot.commands.shooter_commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
@@ -13,15 +14,18 @@ public class AutoShoot extends Command {
     private final ShooterSystem shooter;
     private final Inputs inputs;
     private final VisionSystem vision;
+    private final PwmLEDs lightSystem;
 
     /** Creates a new Shoot. */
-    public AutoShoot(final ShooterSystem shooter, final Inputs inputs, final VisionSystem vision) {
+    public AutoShoot(final ShooterSystem shooter, final Inputs inputs, final VisionSystem vision,
+            final PwmLEDs lightSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(shooter);
 
         this.shooter = shooter;
         this.inputs = inputs;
         this.vision = vision;
+        this.lightSystem = lightSystem;
     }
 
     // Called when the command is initially scheduled.

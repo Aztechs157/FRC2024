@@ -8,19 +8,22 @@ import org.assabet.aztechs157.numbers.Range;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.ShooterSystem;
 
 public class StartShooter extends Command {
 
     private final ShooterSystem shooterSystem;
+    private final PwmLEDs lightSystem;
     private final double setPoint;
 
     /** Creates a new StartShooter. */
-    public StartShooter(final ShooterSystem shooterSystem, final double setPoint) {
+    public StartShooter(final ShooterSystem shooterSystem, final PwmLEDs lightSystem, final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
 
-        this.setPoint = setPoint;
         this.shooterSystem = shooterSystem;
+        this.lightSystem = lightSystem;
+        this.setPoint = setPoint;
     }
 
     // Called when the command is initially scheduled.
@@ -49,7 +52,6 @@ public class StartShooter extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-
         final var range = new Range(
                 setPoint - ShooterConstants.SHOOTER_START_VELOCITY_TOLERANCE,
                 setPoint + ShooterConstants.SHOOTER_START_VELOCITY_TOLERANCE);
@@ -59,6 +61,5 @@ public class StartShooter extends Command {
 
         return leftInRange && rightInRange;
         // return false;
-
     }
 }

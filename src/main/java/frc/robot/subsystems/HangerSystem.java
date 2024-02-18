@@ -31,6 +31,30 @@ public class HangerSystem extends SubsystemBase {
         hangerMotorRight.set(velocity);
     }
 
+    public void setLeftMotor(double velocity) {
+        hangerMotorLeft.set(velocity);
+    }
+
+    public void setRightMotor(double velocity) {
+        hangerMotorRight.set(velocity);
+    }
+
+    public boolean readLeftExtLimitSwitch() {
+        return hangerLeftExtLim.get();
+    }
+
+    public boolean readLeftRetLimitSwitch() {
+        return hangerLeftRetLim.get();
+    }
+
+    public boolean readRightExtLimitSwitch() {
+        return hangerRighttExtLim.get();
+    }
+
+    public boolean readRightRetLimitSwitch() {
+        return hangerRightRetLim.get();
+    }
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
