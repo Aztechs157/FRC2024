@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.PneumaticsConstants;
 
@@ -19,13 +20,13 @@ public class PneumaticsSystem extends SubsystemBase {
             PneumaticsModuleType.REVPH, PneumaticsConstants.INTAKE_SOLENOID_EXTEND_CHANNEL,
             PneumaticsConstants.INTAKE_SOLENOID_RETRACT_CHANNEL);
 
-    private final DoubleSolenoid deflectorLeftSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.LEFT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL,
-            PneumaticsConstants.LEFT_DEFLECTOR_SOLENOID_RETRACT_CHANNEL);
+    private final DoubleSolenoid deflectorSolenoidLeft = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL);
 
-    private final DoubleSolenoid deflectorRightSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.RIGHT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL,
-            PneumaticsConstants.RIGHT_DEFLECTOR_SOLENOID_RETRACT_CHANNEL);
+    private final DoubleSolenoid deflectorSolenoidRight = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+            PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL,
+            PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL);
 
     private final DoubleSolenoid hangerPinSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
             PneumaticsModuleType.REVPH, PneumaticsConstants.HANGER_PIN_SOLENOID_EXTEND_CHANNEL,
@@ -41,6 +42,28 @@ public class PneumaticsSystem extends SubsystemBase {
         compressor.enableDigital();
     }
 
+    public Command setIntakeFoward() {
+        return runOnce(() -> deployIntake(DoubleSolenoid.Value.kForward));
+    }
+
+    public Command setIntakeReverse() {
+        return runOnce(() -> deployIntake(DoubleSolenoid.Value.kReverse));
+    }
+
+    public Command setDeflectorFoward() {
+        return runOnce(() -> {
+            deployDeflectorLeft(DoubleSolenoid.Value.kForward);
+            deployDeflectorRight(DoubleSolenoid.Value.kForward);
+        });
+    }
+
+    public Command setDeflectorReverse() {
+        return runOnce(() -> {
+            deployDeflectorLeft(DoubleSolenoid.Value.kReverse);
+            deployDeflectorRight(DoubleSolenoid.Value.kReverse);
+        });
+    }
+
     public void deployIntake(final DoubleSolenoid.Value value) {
         intakeOpen = value == DoubleSolenoid.Value.kForward;
         intakeSolenoid.set(value);
@@ -48,12 +71,12 @@ public class PneumaticsSystem extends SubsystemBase {
 
     public void deployDeflectorLeft(final DoubleSolenoid.Value value) {
         deflectorLeftOpen = value == DoubleSolenoid.Value.kForward;
-        deflectorLeftSolenoid.set(value);
+        deflectorSolenoidLeft.set(value);
     }
 
     public void deployDeflectorRight(final DoubleSolenoid.Value value) {
         deflectorRightOpen = value == DoubleSolenoid.Value.kForward;
-        deflectorRightSolenoid.set(value);
+        deflectorSolenoidRight.set(value);
     }
 
     public void deployHangerPin(final DoubleSolenoid.Value value) {

@@ -2,29 +2,28 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.intake_commands;
+package frc.robot.commands.hanger_commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.IntakeConstants;
-import frc.robot.subsystems.IntakeSystem;
+import frc.robot.Constants.HangerConstants;
+import frc.robot.subsystems.HangerSystem;
 
-public class Intake extends Command {
+public class LiftHanger extends Command {
 
-    private final IntakeSystem intakeSystem;
+    private final HangerSystem hangerSystem;
 
-    /** Creates a new Intake. */
-    public Intake(final IntakeSystem intakeSystem) {
+    /** Creates a new LiftHanger. */
+    public LiftHanger(final HangerSystem hangerSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(intakeSystem);
+        addRequirements(hangerSystem);
 
-        this.intakeSystem = intakeSystem;
+        this.hangerSystem = hangerSystem;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
-        intakeSystem.set(-IntakeConstants.INTAKE_SPEED);
+        hangerSystem.setMotors(HangerConstants.LIFT_SPEED);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -35,12 +34,12 @@ public class Intake extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        intakeSystem.set(0);
+
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return intakeSystem.checkForNote();
+        return false; // TODO: read limit switch?
     }
 }

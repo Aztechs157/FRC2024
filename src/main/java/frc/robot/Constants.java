@@ -58,8 +58,10 @@ public class Constants {
     }
 
     public static class AutonConstants {
+
         public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
         public static final PIDConstants ANGLE_PID = new PIDConstants(0.004, 0, 1.5);
+
     }
 
     public static class VisionConstants {
@@ -74,6 +76,7 @@ public class Constants {
         public static final int INTAKE_MOTOR_ID = 21;
         public static final int NOTE_SENSOR_CHANNEL = 0;
 
+        public static final IdleMode INTAKE_MOTOR_IDLE_MODE = IdleMode.kBrake;
         public static final double INTAKE_SPEED = 0.5;
 
     }
@@ -82,6 +85,8 @@ public class Constants {
 
         public static final int SHOOTER_MOTOR_LEFT_ID = 31;
         public static final int SHOOTER_MOTOR_RIGHT_ID = 32;
+
+        public static final IdleMode SHOOTER_MOTOR_IDLE_MODE = IdleMode.kBrake;
 
         public static final double SHOOTER_TARGET_RPM_HIGH = 5250; // max RPM of neo is 5676
         public static final double SHOOTER_TARGET_RPM_LOW = 1250; // max RPM of neo is 5676
@@ -93,6 +98,20 @@ public class Constants {
 
     }
 
+    public static class HangerConstants {
+
+        public static final int HANGER_MOTOR_LEFT_ID = 41;
+        public static final int HANGER_MOTOR_RIGHT_ID = 42;
+
+        public static final int HANGER_LEFT_EXT_LIMIT_ID = 2;
+        public static final int HANGER_LEFT_RET_LIMIT_ID = 3;
+        public static final int HANGER_RIGHT_EXT_LIMIT_ID = 4;
+        public static final int HANGER_RIGHT_RET_LIMIT_ID = 5;
+
+        public static final double LIFT_SPEED = 0.5;
+
+    }
+
     public static class PneumaticsConstants {
 
         public static final int PNEUMATICS_HUB_ID = 52;
@@ -100,11 +119,11 @@ public class Constants {
         public static final int INTAKE_SOLENOID_RETRACT_CHANNEL = 14;
         public static final int INTAKE_SOLENOID_EXTEND_CHANNEL = 15;
 
-        public static final int LEFT_DEFLECTOR_SOLENOID_RETRACT_CHANNEL = 11;
-        public static final int LEFT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL = 10;
+        public static final int DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL = 11;
+        public static final int DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL = 10;
 
-        public static final int RIGHT_DEFLECTOR_SOLENOID_RETRACT_CHANNEL = 13;
-        public static final int RIGHT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL = 12;
+        public static final int DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL = 13;
+        public static final int DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL = 12;
 
         public static final int HANGER_PIN_SOLENOID_RETRACT_CHANNEL = 0;
         public static final int HANGER_PIN_SOLENOID_EXTEND_CHANNEL = 1;

@@ -5,21 +5,13 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.PneumaticsConstants;
@@ -59,6 +51,8 @@ public class RobotContainer {
     private final ShooterSystem shooterSystem = new ShooterSystem();
     private final HangerSystem hangerSystem = new HangerSystem();
 
+    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+
     XboxController driverXbox = new XboxController(0);
 
     /**
@@ -68,9 +62,10 @@ public class RobotContainer {
 
         // Register Named Commands
         NamedCommands.registerCommand("Intake",
-                new Intake(intakeSystem, pneumaticsSystem)
-                        .andThen(new LoadNote(intakeSystem))
-                        .withTimeout(4));
+                new Intake(intakeSystem)
+                        .alongWith(pneumaticsSystem.setIntakeFoward())
+                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
+                        .finallyDo(pneumaticsSystem.setIntakeReverse()::initialize).withTimeout(4));
 
         NamedCommands.registerCommand("High_Shoot",
                 new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
@@ -79,11 +74,26 @@ public class RobotContainer {
                         .withTimeout(4));
 
         NamedCommands.registerCommand("Low_Shoot",
-                pneumaticsSystem.runOnce(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kForward))
+                pneumaticsSystem.setDeflectorFoward()
                         .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .andThen(new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .finallyDo(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kReverse))
-                        .withTimeout(4));
+                        .andThen(
+                                new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .andThen(pneumaticsSystem.setDeflectorReverse())
+                        .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize).withTimeout(4));
+
+        autoChooser.setDefaultOption("Everything is Broken, Do Nothing",
+                drivebase.getAutonomousCommand("Nothing_Auto"));
+        autoChooser.addOption("Luca's Test Auto", drivebase.getAutonomousCommand("Example_Auto"));
+        autoChooser.addOption("Simple Auto From Center", drivebase.getAutonomousCommand("Simple_Center_Auto"));
+        autoChooser.addOption("Auto From Center", drivebase.getAutonomousCommand("Center_Auto"));
+        autoChooser.addOption("Simple Auto From Right", drivebase.getAutonomousCommand("Simple_Right_Auto"));
+        autoChooser.addOption("Simple Auto From Left", drivebase.getAutonomousCommand("Simple_Left_Auto"));
+
+        autoChooser.onChange((command) -> {
+            System.out.println("Autonomous routine changed to: " + command.getName());
+        });
+
+        Shuffleboard.getTab("Driver").add(autoChooser);
 
         // Configure the trigger bindings
         configureBindings();
@@ -160,8 +170,10 @@ public class RobotContainer {
          */
 
         inputs.button(Inputs.manualIntake).toggleWhenPressed(
-                new Intake(intakeSystem, pneumaticsSystem)
-                        .andThen(new LoadNote(intakeSystem)));
+                new Intake(intakeSystem)
+                        .alongWith(pneumaticsSystem.setIntakeFoward())
+                        .andThen(new LoadNote(intakeSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
+                        .finallyDo(pneumaticsSystem.setIntakeReverse()::initialize));
 
         inputs.button(Inputs.highShot).toggleWhenPressed(
                 new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
@@ -169,14 +181,20 @@ public class RobotContainer {
                                 ShooterConstants.SHOOTER_TARGET_RPM_HIGH)));
 
         inputs.button(Inputs.lowShot).toggleWhenPressed(
-                pneumaticsSystem.runOnce(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kForward))
-                        .andThen(race(new deployDeflectorLeft(pneumaticsSystem,
-                                PneumaticsConstants.LEFT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL),
-                                new deployDeflectorRight(pneumaticsSystem,
-                                        PneumaticsConstants.RIGHT_DEFLECTOR_SOLENOID_EXTEND_CHANNEL)))
+                pneumaticsSystem.setDeflectorFoward()
                         .andThen(new StartShooter(shooterSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .andThen(new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .finallyDo(() -> pneumaticsSystem.deployIntake(DoubleSolenoid.Value.kReverse)));
+                        .andThen(
+                                new ManualShoot(shooterSystem, intakeSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .andThen(pneumaticsSystem.setDeflectorReverse())
+                        .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize));
+
+        // inputs.button(Inputs.liftHanger).toggleWhenPressed(new
+        // LiftHanger(hangerSystem).handleInterrupt(() -> new
+        // RetractHanger(hangerSystem)));
+
+        // inputs.button(Inputs.retractHanger).toggleWhenPressed(new
+        // RetractHanger(hangerSystem).handleInterrupt(() -> new
+        // LiftHanger(hangerSystem)));
     }
 
     /**
@@ -186,7 +204,7 @@ public class RobotContainer {
      */
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        return drivebase.getAutonomousCommand("Example_Auto");
+        return autoChooser.getSelected();
     }
 
     public void setDriveMode() {
