@@ -5,8 +5,9 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-import edu.wpi.first.wpilibj.DigitalInput;
+import com.revrobotics.SparkLimitSwitch.Type;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HangerConstants;
 
@@ -16,10 +17,10 @@ public class HangerSystem extends SubsystemBase {
             MotorType.kBrushless);
     private final CANSparkMax hangerMotorRight = new CANSparkMax(HangerConstants.HANGER_MOTOR_RIGHT_ID,
             MotorType.kBrushless);
-    private final DigitalInput hangerLeftExtLim = new DigitalInput(HangerConstants.HANGER_LEFT_EXT_LIMIT_ID);
-    private final DigitalInput hangerLeftRetLim = new DigitalInput(HangerConstants.HANGER_LEFT_RET_LIMIT_ID);
-    private final DigitalInput hangerRighttExtLim = new DigitalInput(HangerConstants.HANGER_RIGHT_EXT_LIMIT_ID);
-    private final DigitalInput hangerRightRetLim = new DigitalInput(HangerConstants.HANGER_RIGHT_RET_LIMIT_ID);
+    private final SparkLimitSwitch hangerLeftExtLim = hangerMotorLeft.getForwardLimitSwitch(Type.kNormallyOpen);
+    private final SparkLimitSwitch hangerLeftRetLim = hangerMotorLeft.getReverseLimitSwitch(Type.kNormallyOpen);
+    private final SparkLimitSwitch hangerRighttExtLim = hangerMotorRight.getForwardLimitSwitch(Type.kNormallyOpen);
+    private final SparkLimitSwitch hangerRightRetLim = hangerMotorRight.getReverseLimitSwitch(Type.kNormallyOpen);
 
     /** Creates a new HangerSystem. */
     public HangerSystem() {
@@ -39,19 +40,19 @@ public class HangerSystem extends SubsystemBase {
     }
 
     public boolean readLeftExtLimitSwitch() {
-        return hangerLeftExtLim.get();
+        return hangerLeftExtLim.isPressed();
     }
 
     public boolean readLeftRetLimitSwitch() {
-        return hangerLeftRetLim.get();
+        return hangerLeftRetLim.isPressed();
     }
 
     public boolean readRightExtLimitSwitch() {
-        return hangerRighttExtLim.get();
+        return hangerRighttExtLim.isPressed();
     }
 
     public boolean readRightRetLimitSwitch() {
-        return hangerRightRetLim.get();
+        return hangerRightRetLim.isPressed();
     }
 
     @Override
