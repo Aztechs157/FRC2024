@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
@@ -45,14 +46,16 @@ import com.pathplanner.lib.auto.NamedCommands;
  */
 public class RobotContainer {
 
+    private final DigitalInput isBeta = new DigitalInput(9);
+
     // The robot's subsystems and commands are defined here...
     private final DriveSubsystem drivebase = new DriveSubsystem(new File(Filesystem.getDeployDirectory(),
-            "swerve"));
+            isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get());
     private final Inputs inputs = Inputs.createFromChooser();
     private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem();
     private final IntakeSystem intakeSystem = new IntakeSystem();
-    private final ShooterSystem shooterSystem = new ShooterSystem();
-    private final HangerSystem hangerSystem = new HangerSystem();
+    private final ShooterSystem shooterSystem = new ShooterSystem(isBeta.get());
+    private final HangerSystem hangerSystem;
     public final VisionSystem visionSystem = new VisionSystem();
     public final PwmLEDs lightSystem = new PwmLEDs();
     private final SendableChooser<Command> autoChooser = new SendableChooser<>();
@@ -101,6 +104,12 @@ public class RobotContainer {
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+
+        if (isBeta.get()) {
+            hangerSystem = new HangerSystem();
+        } else {
+            hangerSystem = null;
+        }
 
         // Register Named Commands
         NamedCommands.registerCommand("Intake", intakeCommand());
@@ -208,9 +217,11 @@ public class RobotContainer {
         inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
         inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
 
-        inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
-        inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
-        inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem));
+        if (isBeta.get()) {
+            inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
+            inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
+            inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem));
+        }
 
     }
 

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -13,9 +14,9 @@ import frc.robot.Constants.HangerConstants;
 
 public class HangerSystem extends SubsystemBase {
 
-    private final CANSparkMax hangerMotorLeft = new CANSparkMax(HangerConstants.HANGER_MOTOR_LEFT_ID,
+    private final CANSparkBase hangerMotorLeft = new CANSparkMax(HangerConstants.HANGER_MOTOR_LEFT_ID,
             MotorType.kBrushless);
-    private final CANSparkMax hangerMotorRight = new CANSparkMax(HangerConstants.HANGER_MOTOR_RIGHT_ID,
+    private final CANSparkBase hangerMotorRight = new CANSparkMax(HangerConstants.HANGER_MOTOR_RIGHT_ID,
             MotorType.kBrushless);
     private final SparkLimitSwitch hangerLeftExtLim = hangerMotorLeft.getForwardLimitSwitch(Type.kNormallyOpen);
     private final SparkLimitSwitch hangerLeftRetLim = hangerMotorLeft.getReverseLimitSwitch(Type.kNormallyOpen);

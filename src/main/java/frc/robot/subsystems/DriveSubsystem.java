@@ -52,7 +52,7 @@ public class DriveSubsystem extends SubsystemBase {
      *
      * @param directory Directory of swerve drive config files.
      */
-    public DriveSubsystem(File directory) {
+    public DriveSubsystem(File directory, boolean isBeta) {
         // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
         // In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
         // The encoder resolution per motor revolution is 1 per motor revolution.
@@ -64,7 +64,8 @@ public class DriveSubsystem extends SubsystemBase {
         // The gear ratio is 6.75 motor revolutions per wheel rotation.
         // The encoder resolution per motor revolution is 1 per motor revolution.
         double driveConversionFactor = SwerveMath.calculateMetersPerRotation(
-                Units.inchesToMeters(DriveConstants.WHEEL_DIAMETER), DriveConstants.DRIVE_GEAR_RATIO);
+                Units.inchesToMeters(DriveConstants.WHEEL_DIAMETER), DriveConstants.DRIVE_GEAR_RATIO,
+                isBeta ? 7168 : 42);
         /*
          * System.out.println("\"conversionFactor\": {");
          * System.out.println("\t\"angle\": " + angleConversionFactor + ",");
