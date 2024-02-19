@@ -93,10 +93,10 @@ public class RobotContainer {
 
         autoChooser.setDefaultOption("Everything is Broken, Do Nothing",
                 drivebase.getAutonomousCommand("Nothing_Auto"));
-        autoChooser.addOption("Luca's Test Auto", drivebase.getAutonomousCommand("Example_Auto"));
         autoChooser.addOption("Simple Auto From Center", drivebase.getAutonomousCommand("Simple_Center_Auto"));
         autoChooser.addOption("Auto From Center", drivebase.getAutonomousCommand("Center_Auto"));
         autoChooser.addOption("Simple Auto From Right", drivebase.getAutonomousCommand("Simple_Right_Auto"));
+        autoChooser.addOption("Auto From Right", drivebase.getAutonomousCommand("Right_Auto"));
         autoChooser.addOption("Simple Auto From Left", drivebase.getAutonomousCommand("Simple_Left_Auto"));
 
         autoChooser.onChange((command) -> {
