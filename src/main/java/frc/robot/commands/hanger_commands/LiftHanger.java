@@ -14,9 +14,6 @@ public class LiftHanger extends Command {
     private final HangerSystem hangerSystem;
     private final PwmLEDs lightSystem;
 
-    private boolean leftExtFin = false;
-    private boolean rightExtFin = false;
-
     /** Creates a new LiftHanger. */
     public LiftHanger(final HangerSystem hangerSystem, final PwmLEDs lightSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -29,32 +26,24 @@ public class LiftHanger extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        rightExtFin = false;
-        leftExtFin = false;
         hangerSystem.setMotors(HangerConstants.LIFT_SPEED);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (hangerSystem.readLeftExtLimitSwitch()) {
-            hangerSystem.setLeftMotor(0);
-            rightExtFin = true;
-        }
-        if (hangerSystem.readRightExtLimitSwitch()) {
-            hangerSystem.setRightMotor(0);
-            leftExtFin = true;
-        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        hangerSystem.setLeftMotor(0);
+        hangerSystem.setRightMotor(0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return rightExtFin & leftExtFin;
+        return hangerSystem.readLeftExtLimitSwitch() && hangerSystem.readRightExtLimitSwitch();
     }
 }

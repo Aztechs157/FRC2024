@@ -39,7 +39,7 @@ public class Shoot extends Command {
     @Override
     public void initialize() {
         lightSystem.setSolid(Color.kRed);
-        intakeSystem.set(-IntakeConstants.INTAKE_SPEED * 1.25);
+        intakeSystem.set(-IntakeConstants.INTAKE_SPEED);
         timer.reset();
     }
 

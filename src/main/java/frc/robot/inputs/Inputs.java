@@ -29,6 +29,9 @@ public class Inputs extends DynamicLayout {
     public static final Button.Key intake = new Button.Key();
     public static final Button.Key loadNote = new Button.Key();
 
+    public static final Button.Key highShotSpinUp = new Button.Key();
+    public static final Button.Key lowShotSpinUp = new Button.Key();
+
     public static final Button.Key highShot = new Button.Key();
     public static final Button.Key lowShot = new Button.Key();
 
@@ -79,12 +82,15 @@ public class Inputs extends DynamicLayout {
          * .scaledBy(maxRotationPerSecond.getDegrees()));
          */
 
-        layout.assign(driveToSpeaker, new Button(() -> operator.rightTriggerHeld.get() > 0.2));
-        layout.assign(driveToAmp, operator.rightBumper);
-        // layout.assign(autoIntake, driver.leftBumper);
+        layout.assign(driveToSpeaker, operator.a);
+        layout.assign(driveToAmp, operator.b);
+        // layout.assign(autoIntake, operator.leftBumper);
 
         layout.assign(intake, driver.leftBumper);
-        layout.assign(loadNote, operator.a);
+        layout.assign(loadNote, operator.x);
+
+        layout.assign(highShotSpinUp, new Button(() -> operator.rightTriggerHeld.get() > 0.2));
+        layout.assign(lowShotSpinUp, operator.rightBumper);
 
         layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
         layout.assign(lowShot, driver.rightBumper);

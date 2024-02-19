@@ -66,6 +66,14 @@ public class RobotContainer {
                 .finallyDo(pneumaticsSystem.setIntakeReverse()::initialize);
     }
 
+    public Command highShootSpinUpCommand() {
+        return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
+    }
+
+    public Command lowShootSpinUpCommand() {
+        return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW);
+    }
+
     public Command highShootCommand() {
         return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
                 .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH));
@@ -79,17 +87,29 @@ public class RobotContainer {
                 .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize);
     }
 
+    public Command liftHangerCommand() {
+        return new LiftHanger(hangerSystem, lightSystem)
+                .handleInterrupt(() -> new RetractHanger(hangerSystem, lightSystem).schedule());
+    }
+
+    public Command retractHangerCommand() {
+        return (new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem)))
+                .handleInterrupt(() -> new LiftHanger(hangerSystem, lightSystem).schedule());
+    }
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
 
         // Register Named Commands
-        NamedCommands.registerCommand("Intake", intakeCommand().withTimeout(4));
+        NamedCommands.registerCommand("Intake", intakeCommand());
 
-        NamedCommands.registerCommand("High_Shoot", highShootCommand().withTimeout(4));
+        NamedCommands.registerCommand("HighShootSpinUp", highShootSpinUpCommand());
+        NamedCommands.registerCommand("LowShootSpinUp", lowShootSpinUpCommand());
 
-        NamedCommands.registerCommand("Low_Shoot", lowShootCommand().withTimeout(4));
+        NamedCommands.registerCommand("HighShoot", highShootCommand().withTimeout(4));
+        NamedCommands.registerCommand("LowShoot", lowShootCommand().withTimeout(4));
 
         autoChooser.setDefaultOption("Everything is Broken, Do Nothing",
                 drivebase.getAutonomousCommand("Nothing_Auto"));
@@ -180,21 +200,16 @@ public class RobotContainer {
          */
 
         inputs.button(Inputs.intake).toggleWhenPressed(intakeCommand());
-
         inputs.button(Inputs.loadNote).whenPressed(new LoadNote(intakeSystem, lightSystem));
 
-        inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
+        inputs.button(Inputs.highShotSpinUp).toggleWhenPressed(highShootSpinUpCommand());
+        inputs.button(Inputs.lowShotSpinUp).toggleWhenPressed(lowShootSpinUpCommand());
 
+        inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
         inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
 
-        inputs.button(Inputs.liftHanger).toggleWhenPressed(
-                new LiftHanger(hangerSystem, lightSystem)
-                        .handleInterrupt(() -> new RetractHanger(hangerSystem, lightSystem).schedule()));
-
-        inputs.button(Inputs.retractHanger).toggleWhenPressed(
-                (new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem)))
-                        .handleInterrupt(() -> new LiftHanger(hangerSystem, lightSystem).schedule()));
-
+        inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
+        inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
         inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem));
 
     }

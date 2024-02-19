@@ -78,7 +78,7 @@ public class Constants {
         public static final int NOTE_SENSOR_CHANNEL = 0;
 
         public static final IdleMode INTAKE_MOTOR_IDLE_MODE = IdleMode.kBrake;
-        public static final double INTAKE_SPEED = 0.5;
+        public static final double INTAKE_SPEED = 0.625;
 
     }
 
