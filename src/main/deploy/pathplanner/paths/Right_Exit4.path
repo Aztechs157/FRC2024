@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2505003900884375,
-        "y": 3.950448544904246
+        "x": 1.9554131415955147,
+        "y": 3.377706934304746
       },
       "isLocked": false,
       "linkedName": "StartPoint_Right"
     },
     {
       "anchor": {
-        "x": 2.7190686223948486,
-        "y": 2.7609082767360533
+        "x": 8.079342670313249,
+        "y": 2.2322237131057445
       },
       "prevControl": {
-        "x": 2.3959836112874378,
-        "y": 3.010564876228143
+        "x": 4.437293454193349,
+        "y": 0.6902270691840136
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ExitPoint2_Right"
+      "linkedName": "ExitPoint4_Center"
     }
   ],
   "rotationTargets": [],
@@ -39,7 +39,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0,
+    "rotation": -129.28940686250033,
     "rotateFast": false
   },
   "reversed": false,

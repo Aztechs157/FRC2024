@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.39,
-      "y": 5.53650223579517
+      "x": 0.7805585557503859,
+      "y": 4.346961967626977
     },
-    "rotation": 180.0
+    "rotation": 120.96375653207352
   },
   "command": {
     "type": "sequential",
@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center_Exit"
+                  "pathName": "Right_Exit"
                 }
               },
               {
@@ -39,7 +39,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center_Return"
+            "pathName": "Right_Return"
           }
         },
         {
@@ -55,7 +55,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center_Exit2"
+                  "pathName": "Right_Exit3"
                 }
               },
               {
@@ -70,7 +70,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center_Return2"
+            "pathName": "Right_Return2"
           }
         },
         {
@@ -86,7 +86,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "Center_Exit3"
+                  "pathName": "Right_Exit4"
                 }
               },
               {
@@ -101,7 +101,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center_Return3"
+            "pathName": "Right_Return3"
           }
         },
         {
@@ -113,7 +113,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center_Exit3"
+            "pathName": "Right_Exit2"
           }
         }
       ]
