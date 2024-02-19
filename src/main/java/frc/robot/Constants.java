@@ -94,8 +94,11 @@ public class Constants {
         public static final double SHOOTER_START_VELOCITY_TOLERANCE = 50; // in RPM as well
         public static final double SHOOTER_SENSOR_WAIT_TIME = 0.5; // in seconds
 
-        public static final PIDController SHOOTER_MOTOR_PID_LEFT = new PIDController(0.00001, 0, 0.000001);
-        public static final PIDController SHOOTER_MOTOR_PID_RIGHT = new PIDController(0.00001, 0, 0.000001);
+        public static final PIDController ALPHA_SHOOTER_MOTOR_PID_LEFT = new PIDController(0.00001, 0, 0.000001);
+        public static final PIDController ALPHA_SHOOTER_MOTOR_PID_RIGHT = new PIDController(0.00001, 0, 0.000001);
+
+        public static final PIDController BETA_SHOOTER_MOTOR_PID_LEFT = new PIDController(0.00001, 0, 0.000001);
+        public static final PIDController BETA_SHOOTER_MOTOR_PID_RIGHT = new PIDController(0.00001, 0, 0.000001);
 
     }
 

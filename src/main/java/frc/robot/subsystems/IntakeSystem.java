@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -13,7 +14,7 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSystem extends SubsystemBase {
 
-    private CANSparkMax intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_ID, MotorType.kBrushless);
+    private CANSparkBase intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_ID, MotorType.kBrushless);
     private DigitalInput noteSensor = new DigitalInput(IntakeConstants.NOTE_SENSOR_CHANNEL);
 
     /** Creates a new IntakeSystem. */

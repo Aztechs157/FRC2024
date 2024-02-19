@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkBase;
+import com.revrobotics.CANSparkFlex;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -11,15 +13,26 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ShooterConstants;
 
 public class ShooterSystem extends SubsystemBase {
-    private CANSparkMax shooterMotorLeft = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_LEFT_ID,
-            MotorType.kBrushless);;
-    private CANSparkMax shooterMotorRight = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_RIGHT_ID,
-            MotorType.kBrushless);
+    private CANSparkBase shooterMotorLeft;
+    private CANSparkBase shooterMotorRight;
+    private boolean isBeta;
     public double currentLeftMotorSet = 0;
     public double currentRightMotorSet = 0;
 
     /** Creates a new Shooter. */
-    public ShooterSystem() {
+    public ShooterSystem(boolean isBeta) {
+        this.isBeta = isBeta;
+        if (isBeta) {
+            shooterMotorLeft = new CANSparkFlex(ShooterConstants.SHOOTER_MOTOR_LEFT_ID,
+                    MotorType.kBrushless);
+            shooterMotorRight = new CANSparkFlex(ShooterConstants.SHOOTER_MOTOR_RIGHT_ID,
+                    MotorType.kBrushless);
+        } else {
+            shooterMotorLeft = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_LEFT_ID,
+                    MotorType.kBrushless);
+            shooterMotorRight = new CANSparkMax(ShooterConstants.SHOOTER_MOTOR_RIGHT_ID,
+                    MotorType.kBrushless);
+        }
         shooterMotorLeft.setIdleMode(ShooterConstants.SHOOTER_MOTOR_IDLE_MODE);
         shooterMotorRight.setIdleMode(ShooterConstants.SHOOTER_MOTOR_IDLE_MODE);
         Shuffleboard.getTab("Driver").addDouble("Left Shooter Wheel", this::getLeftEncoderVelocity);
@@ -49,12 +62,24 @@ public class ShooterSystem extends SubsystemBase {
 
     public double leftMotorPID(double desiredVelocity) {
         double currentVelocity = getLeftEncoderVelocity();
-        return ShooterConstants.SHOOTER_MOTOR_PID_LEFT.calculate(-currentVelocity, desiredVelocity);
+        double PIDval;
+        if (isBeta) {
+            PIDval = ShooterConstants.BETA_SHOOTER_MOTOR_PID_LEFT.calculate(-currentVelocity, desiredVelocity);
+        } else {
+            PIDval = ShooterConstants.ALPHA_SHOOTER_MOTOR_PID_LEFT.calculate(-currentVelocity, desiredVelocity);
+        }
+        return PIDval;
     }
 
     public double rightMotorPID(double desiredVelocity) {
         double currentVelocity = getRightEncoderVelocity();
-        return ShooterConstants.SHOOTER_MOTOR_PID_RIGHT.calculate(currentVelocity, desiredVelocity);
+        double PIDval;
+        if (isBeta) {
+            PIDval = ShooterConstants.BETA_SHOOTER_MOTOR_PID_RIGHT.calculate(-currentVelocity, desiredVelocity);
+        } else {
+            PIDval = ShooterConstants.ALPHA_SHOOTER_MOTOR_PID_RIGHT.calculate(-currentVelocity, desiredVelocity);
+        }
+        return PIDval;
     }
 
     @Override
