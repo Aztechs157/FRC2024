@@ -1,0 +1,95 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.7805585557503859,
+        "y": 4.346961967626977
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 2.1811510038695348,
+        "y": 3.971674352228322
+      },
+      "isLocked": false,
+      "linkedName": "StartPointRight"
+    },
+    {
+      "anchor": {
+        "x": 2.5,
+        "y": 4.097305368134887
+      },
+      "prevControl": {
+        "x": 2.4180847955710996,
+        "y": 4.039947724499784
+      },
+      "nextControl": {
+        "x": 2.663830408857801,
+        "y": 4.212020655405093
+      },
+      "isLocked": false,
+      "linkedName": "Note1Right"
+    },
+    {
+      "anchor": {
+        "x": 0.9127296966579629,
+        "y": 4.332276285303912
+      },
+      "prevControl": {
+        "x": 1.6100659853221848,
+        "y": 4.393285305227272
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ReturnPointRight"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 180.0,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.2,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "SpinUp",
+      "waypointRelativePos": 1.0,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 120.83064835243593,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 120.65066795705285,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

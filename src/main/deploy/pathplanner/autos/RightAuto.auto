@@ -1,12 +1,6 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 1.39,
-      "y": 5.53650223579517
-    },
-    "rotation": 180.0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
@@ -18,28 +12,9 @@
           }
         },
         {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Center_Exit"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              }
-            ]
-          }
-        },
-        {
           "type": "path",
           "data": {
-            "pathName": "Center_Return"
+            "pathName": "GetNote1Right"
           }
         },
         {
@@ -51,7 +26,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Center_Exit"
+            "pathName": "GetNote2Right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GetNote3Right"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
           }
         }
       ]

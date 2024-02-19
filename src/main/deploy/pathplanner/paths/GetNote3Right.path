@@ -1,0 +1,102 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.9127296966579629,
+        "y": 4.332276285303912
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8670049834127331,
+        "y": 3.1108596172134932
+      },
+      "isLocked": false,
+      "linkedName": "ReturnPointRight"
+    },
+    {
+      "anchor": {
+        "x": 8.079342670313249,
+        "y": 2.2322237131057445
+      },
+      "prevControl": {
+        "x": 4.85471854268028,
+        "y": 0.8714154108503089
+      },
+      "nextControl": {
+        "x": 8.254393694384753,
+        "y": 2.306096163799611
+      },
+      "isLocked": false,
+      "linkedName": "Note3Right"
+    },
+    {
+      "anchor": {
+        "x": 0.9127296966579629,
+        "y": 4.332276285303912
+      },
+      "prevControl": {
+        "x": 4.051559260909431,
+        "y": 0.45614458156161586
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ReturnPointRight"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": -129.7211963283876,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 0.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": []
+        }
+      }
+    },
+    {
+      "name": "SpinUp",
+      "waypointRelativePos": 1.85,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "HighShootSpinUp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 119.92768808985218,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 119.74488129694224,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

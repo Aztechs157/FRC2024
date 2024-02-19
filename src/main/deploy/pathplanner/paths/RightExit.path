@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.7805585557503859,
-        "y": 4.346961967626977
+        "x": 0.9127296966579629,
+        "y": 4.332276285303912
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.2505003900884375,
-        "y": 3.950448544904246
+        "x": 2.1172402129951595,
+        "y": 2.6120569922970294
       },
       "isLocked": false,
-      "linkedName": "StartPoint_Right"
+      "linkedName": "ReturnPointRight"
     },
     {
       "anchor": {
@@ -20,12 +20,12 @@
         "y": 2.7609082767360533
       },
       "prevControl": {
-        "x": 2.3959836112874378,
-        "y": 3.010564876228143
+        "x": 2.6807664002388996,
+        "y": 2.7930476572203804
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ExitPoint2_Right"
+      "linkedName": "ExitRight"
     }
   ],
   "rotationTargets": [],

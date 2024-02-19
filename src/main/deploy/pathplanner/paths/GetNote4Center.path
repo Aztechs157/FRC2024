@@ -1,0 +1,151 @@
+{
+  "version": 1.0,
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 1.5,
+        "y": 5.53650223579517
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 3.5,
+        "y": 5.53650223579517
+      },
+      "isLocked": false,
+      "linkedName": "ReturnPointCenter"
+    },
+    {
+      "anchor": {
+        "x": 4.878951752205499,
+        "y": 4.092954054853979
+      },
+      "prevControl": {
+        "x": 4.059799707916507,
+        "y": 4.666530491205025
+      },
+      "nextControl": {
+        "x": 5.6981037964944905,
+        "y": 3.5193776185029333
+      },
+      "isLocked": false,
+      "linkedName": "UnderStage"
+    },
+    {
+      "anchor": {
+        "x": 8.012985142779401,
+        "y": 2.5844081317792273
+      },
+      "prevControl": {
+        "x": 6.578368654352508,
+        "y": 4.252303671414037
+      },
+      "nextControl": {
+        "x": 8.040886809186485,
+        "y": 2.551969451947948
+      },
+      "isLocked": false,
+      "linkedName": "Note4Center"
+    },
+    {
+      "anchor": {
+        "x": 4.878951752205499,
+        "y": 4.092954054853979
+      },
+      "prevControl": {
+        "x": 6.597787013472084,
+        "y": 4.235778251193825
+      },
+      "nextControl": {
+        "x": 4.131527625332177,
+        "y": 4.030847899219826
+      },
+      "isLocked": false,
+      "linkedName": "UnderStage"
+    },
+    {
+      "anchor": {
+        "x": 1.5,
+        "y": 5.53650223579517
+      },
+      "prevControl": {
+        "x": 3.863538607229299,
+        "y": 5.953257862195803
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "ReturnPointCenter"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1,
+      "rotationDegrees": 115.9422954898717,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2,
+      "rotationDegrees": 139.23639479844067,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 3,
+      "rotationDegrees": 115.74659571538947,
+      "rotateFast": false
+    }
+  ],
+  "constraintZones": [],
+  "eventMarkers": [
+    {
+      "name": "Intake",
+      "waypointRelativePos": 1.7,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "SpinUp",
+      "waypointRelativePos": 3.3,
+      "command": {
+        "type": "parallel",
+        "data": {
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "HighShootSpinUp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0,
+    "rotateFast": false
+  },
+  "reversed": false,
+  "folder": null,
+  "previewStartingState": {
+    "rotation": 180.0,
+    "velocity": 0
+  },
+  "useDefaultConstraints": true
+}

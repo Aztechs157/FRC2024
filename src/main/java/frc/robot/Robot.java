@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         m_robotContainer.visionSystem.updateAlliance();
-        m_robotContainer.setMotorBrake(true);
+        m_robotContainer.setMotorBrake(true); // TODO: test the impact of brake mode on autonomous
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         // schedule the autonomous command (example)

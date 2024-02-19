@@ -32,7 +32,8 @@ import frc.robot.subsystems.IntakeSystem;
 import frc.robot.subsystems.PneumaticsSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
-import java.io.File;
+import java.io.*;
+
 import com.pathplanner.lib.auto.NamedCommands;
 
 /**
@@ -112,12 +113,30 @@ public class RobotContainer {
         NamedCommands.registerCommand("LowShoot", lowShootCommand().withTimeout(4));
 
         autoChooser.setDefaultOption("Everything is Broken, Do Nothing",
-                drivebase.getAutonomousCommand("Nothing_Auto"));
-        autoChooser.addOption("Simple Auto From Center", drivebase.getAutonomousCommand("Simple_Center_Auto"));
-        autoChooser.addOption("Auto From Center", drivebase.getAutonomousCommand("Center_Auto"));
-        autoChooser.addOption("Simple Auto From Right", drivebase.getAutonomousCommand("Simple_Right_Auto"));
-        autoChooser.addOption("Auto From Right", drivebase.getAutonomousCommand("Right_Auto"));
-        autoChooser.addOption("Simple Auto From Left", drivebase.getAutonomousCommand("Simple_Left_Auto"));
+                drivebase.getAutonomousCommand("NothingAuto"));
+
+        File autoDirectory = new File(Filesystem.getDeployDirectory(), "pathplanner/autos");
+
+        FilenameFilter autoFileFilter = new FilenameFilter() {
+            public boolean accept(File directory, String name) {
+                if (name.endsWith(".auto")) {
+                    if (name.equals("NothingAuto.auto")) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                } else {
+                    return false;
+                }
+            }
+        };
+
+        String autonList[] = autoDirectory.list(autoFileFilter);
+        System.out.println(autonList);
+        for (String auton : autonList) {
+            String autonName = auton.substring(0, auton.length() - 5);
+            autoChooser.addOption(autonName, drivebase.getAutonomousCommand(autonName));
+        }
 
         autoChooser.onChange((command) -> {
             System.out.println("Autonomous routine changed to: " + command.getName());
