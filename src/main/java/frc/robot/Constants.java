@@ -40,12 +40,19 @@ public class Constants {
 
         public static final double WHEEL_DIAMETER = 4;
         public static final double DRIVE_GEAR_RATIO = 6.75;
-        public static final double DRIVE_PULSE_PER_ROTATION = 42;
         public static final double ANGLE_GEAR_RATIO = 12.8; // This is the Gear Ratio of the motor encoder. Not
                                                             // absolute.
         public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
                                                                   // absolute.
         public static final double MAX_SPEED = 14.5;
+        public static final double MAX_TRANSLATIONAL_ACCELERATION = 4.0; // in meters per second squared
+        public static final double MAX_ANGLULAR_ACCELERATION = 720; // in degrees per second squared
+
+        public record RobotProperties(
+                double drivePulsePerRotation) {
+            public static final RobotProperties ALPHA = new RobotProperties(42);
+            public static final RobotProperties Beta = new RobotProperties(7168);
+        }
 
         public record XboxSpeeds(
                 double drive,
@@ -62,6 +69,8 @@ public class Constants {
 
         public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
         public static final PIDConstants ANGLE_PID = new PIDConstants(0.004, 0, 1.5);
+
+        public static final double MAX_MODULE_SPEED = 4.5;
 
     }
 

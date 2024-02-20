@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.FollowPathHolonomic;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
@@ -24,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
 import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.DriveConstants.RobotProperties;
 import java.io.File;
 import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
@@ -65,13 +67,7 @@ public class DriveSubsystem extends SubsystemBase {
         // The encoder resolution per motor revolution is 1 per motor revolution.
         double driveConversionFactor = SwerveMath.calculateMetersPerRotation(
                 Units.inchesToMeters(DriveConstants.WHEEL_DIAMETER), DriveConstants.DRIVE_GEAR_RATIO,
-                isBeta ? 7168 : 42);
-        /*
-         * System.out.println("\"conversionFactor\": {");
-         * System.out.println("\t\"angle\": " + angleConversionFactor + ",");
-         * System.out.println("\t\"drive\": " + driveConversionFactor);
-         * System.out.println("}");
-         */
+                isBeta ? RobotProperties.Beta.drivePulsePerRotation() : RobotProperties.ALPHA.drivePulsePerRotation());
 
         // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
         // objects being created.
@@ -79,10 +75,6 @@ public class DriveSubsystem extends SubsystemBase {
         try {
             swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor,
                     driveConversionFactor);
-            // Alternative method if you don't want to supply the conversion factor via JSON
-            // files.
-            // swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed,
-            // angleConversionFactor, driveConversionFactor);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -92,6 +84,7 @@ public class DriveSubsystem extends SubsystemBase {
         swerveDrive.pushOffsetsToControllers();
 
         setupPathPlanner();
+
     }
 
     /**
@@ -114,12 +107,12 @@ public class DriveSubsystem extends SubsystemBase {
                 this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
                 this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your
-                        // Constants class
+                                                 // Constants class
                         AutonConstants.TRANSLATION_PID,
                         // Translation PID constants
                         AutonConstants.ANGLE_PID,
                         // Rotation PID constants
-                        4.5,
+                        AutonConstants.MAX_MODULE_SPEED,
                         // Max module speed, in m/s
                         swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
                         // Drive base radius in meters. Distance from robot center to furthest module.
@@ -138,16 +131,53 @@ public class DriveSubsystem extends SubsystemBase {
         );
     }
 
+    public Command followPathCommand(String pathName) {
+        return new FollowPathHolonomic(
+                PathPlannerPath.fromPathFile(pathName),
+                this::getPose, // Robot pose supplier
+                this::getRobotVelocity, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
+                this::setChassisSpeeds, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
+                new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your
+                                                 // Constants class
+                        AutonConstants.TRANSLATION_PID,
+                        // Translation PID constants
+                        AutonConstants.ANGLE_PID,
+                        // Rotation PID constants
+                        AutonConstants.MAX_MODULE_SPEED,
+                        // Max module speed, in m/s
+                        swerveDrive.swerveDriveConfiguration.getDriveBaseRadiusMeters(),
+                        // Drive base radius in meters. Distance from robot center to furthest module.
+                        new ReplanningConfig()
+                // Default path replanning config. See the API for the options here
+                ),
+                () -> {
+                    // Boolean supplier that controls when the path will be mirrored for the red
+                    // alliance
+                    // This will flip the path being followed to the red side of the field.
+                    // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
+
+                    var alliance = DriverStation.getAlliance();
+                    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
+                },
+                this // Reference to this subsystem to set requirements
+        );
+    }
+
+    public Command getAutonomousCommand(String autoName) {
+        // Create an auto following command using AutoBuilder.
+        return new PathPlannerAuto(autoName);
+    }
+
     /**
      * Get the path follower with events.
      *
      * @param pathName PathPlanner path name.
      * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
      */
-    public Command getAutonomousCommand(String pathName) {
+    public Command getPathCommand(String pathName) {
         // Create a path following command using AutoBuilder. This will also trigger
         // event markers.
-        return new PathPlannerAuto(pathName);
+        return AutoBuilder.followPath(PathPlannerPath.fromPathFile(pathName));
     }
 
     /**
@@ -157,7 +187,6 @@ public class DriveSubsystem extends SubsystemBase {
      * @param setOdomToStart Set the odometry position to the start of the path.
      * @return {@link AutoBuilder#followPath(PathPlannerPath)} path command.
      */
-
     public Command getPathCommand(String pathName, boolean setOdomToStart) {
         // Load the path you want to follow using its name in the GUI
         PathPlannerPath path = PathPlannerPath.fromPathFile(pathName);
@@ -171,6 +200,17 @@ public class DriveSubsystem extends SubsystemBase {
         return AutoBuilder.followPath(path);
     }
 
+    public Command PathFindToTargetPath(String pathName, PathConstraints constraints, double rotationDelay) {
+        // Since AutoBuilder is configured, we can use it to build pathfinding commands
+        return AutoBuilder.pathfindThenFollowPath(
+                PathPlannerPath.fromPathFile(pathName),
+                constraints,
+                rotationDelay // Rotation delay distance in meters. This is how far the robot should travel
+                              // before attempting to rotate.
+        );
+
+    }
+
     /**
      * Use PathPlanner Path finding to go to a point on the field.
      *
@@ -180,8 +220,9 @@ public class DriveSubsystem extends SubsystemBase {
     public Command driveToPose(Pose2d pose) {
         // Create the constraints to use while pathfinding
         PathConstraints constraints = new PathConstraints(
-                swerveDrive.getMaximumVelocity(), 4.0,
-                swerveDrive.getMaximumAngularVelocity(), Units.degreesToRadians(720));
+                swerveDrive.getMaximumVelocity(), DriveConstants.MAX_TRANSLATIONAL_ACCELERATION,
+                swerveDrive.getMaximumAngularVelocity(),
+                Units.degreesToRadians(DriveConstants.MAX_ANGLULAR_ACCELERATION));
 
         // Since AutoBuilder is configured, we can use it to build pathfinding commands
         return AutoBuilder.pathfindToPose(

@@ -1,6 +1,12 @@
 {
   "version": 1.0,
-  "startingPose": null,
+  "startingPose": {
+    "position": {
+      "x": 0.7805585557503859,
+      "y": 4.346961967626977
+    },
+    "rotation": 120.50877975787239
+  },
   "command": {
     "type": "sequential",
     "data": {
@@ -50,6 +56,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "RightAutos",
   "choreoAuto": false
 }
