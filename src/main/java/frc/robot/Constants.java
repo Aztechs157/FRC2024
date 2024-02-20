@@ -5,6 +5,9 @@ import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.util.Units;
 import swervelib.math.Matter;
 
@@ -68,8 +71,13 @@ public class Constants {
     public static class VisionConstants {
 
         public static final String CAMERA_NICKNAME = ""; // TODO: find proper value
-        public static final Transform3d CAMERA_PLACEMENT = new Transform3d(); // TODO: find proper value
-
+        public static final Rotation3d CAMERA_ROTATION = new Rotation3d(0, Units.degreesToRadians(-60),
+                Units.degreesToRadians(-30));
+        public static final Transform3d CAMERA_PLACEMENT = new Transform3d(Units.inchesToMeters(12.25),
+                Units.inchesToMeters(-8), Units.inchesToMeters(20.5), CAMERA_ROTATION); // TODO: find proper value
+        public static final double SHOOTING_DIST_SPEAKER = Units.inchesToMeters(36.0 + 8.0);
+        public static final Transform2d SHOOTING_POS_SPEAKER = new Transform2d(VisionConstants.SHOOTING_DIST_SPEAKER, 0,
+                new Rotation2d());
     }
 
     public static class IntakeConstants {

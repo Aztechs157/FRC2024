@@ -294,6 +294,18 @@ public class DriveSubsystem extends SubsystemBase {
         });
     }
 
+    public void drive(double translationX, double translationY,
+            double angularRotationX) {
+
+        // Make the robot move
+        swerveDrive.drive(
+                new Translation2d(translationX * swerveDrive.getMaximumVelocity(),
+                        translationY * swerveDrive.getMaximumVelocity()),
+                angularRotationX * swerveDrive.getMaximumAngularVelocity(),
+                true,
+                false);
+    }
+
     /**
      * The primary method for controlling the drivebase. Takes a
      * {@link Translation2d} and a rotation rate, and
