@@ -40,7 +40,14 @@ public class Intake extends Command {
     @Override
     public void end(boolean interrupted) {
         intakeSystem.set(0);
-        lightSystem.setDefault();
+
+        if (!interrupted) {
+            intakeSystem.hasNote = true;
+            lightSystem.setSolid(Color.kOrange);
+            ;
+        } else {
+            lightSystem.setDefault();
+        }
     }
 
     // Returns true when the command should end.

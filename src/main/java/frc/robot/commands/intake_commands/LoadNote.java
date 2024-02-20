@@ -12,7 +12,6 @@ import frc.robot.subsystems.IntakeSystem;
 public class LoadNote extends Command {
 
     private final IntakeSystem intakeSystem;
-    private final PwmLEDs lightSystem;
 
     /** Creates a new LoadNote. */
     public LoadNote(final IntakeSystem intakeSystem, final PwmLEDs lightSystem) {
@@ -20,7 +19,6 @@ public class LoadNote extends Command {
         addRequirements(intakeSystem);
 
         this.intakeSystem = intakeSystem;
-        this.lightSystem = lightSystem;
     }
 
     // Called when the command is initially scheduled.

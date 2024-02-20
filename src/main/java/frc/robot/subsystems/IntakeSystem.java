@@ -16,6 +16,7 @@ public class IntakeSystem extends SubsystemBase {
 
     private CANSparkBase intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_ID, MotorType.kBrushless);
     private DigitalInput noteSensor = new DigitalInput(IntakeConstants.NOTE_SENSOR_CHANNEL);
+    public boolean hasNote = true;
 
     /** Creates a new IntakeSystem. */
     public IntakeSystem() {

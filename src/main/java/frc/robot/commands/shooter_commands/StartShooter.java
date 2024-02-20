@@ -20,6 +20,7 @@ public class StartShooter extends Command {
     /** Creates a new StartShooter. */
     public StartShooter(final ShooterSystem shooterSystem, final PwmLEDs lightSystem, final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(shooterSystem);
 
         this.shooterSystem = shooterSystem;
         this.lightSystem = lightSystem;

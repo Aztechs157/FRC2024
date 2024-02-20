@@ -27,7 +27,7 @@ public class Shoot extends Command {
     public Shoot(final ShooterSystem shooterSystem, final IntakeSystem intakeSystem, final PwmLEDs lightSystem,
             final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(intakeSystem);
+        addRequirements(shooterSystem, intakeSystem);
 
         this.shooterSystem = shooterSystem;
         this.intakeSystem = intakeSystem;
@@ -67,6 +67,10 @@ public class Shoot extends Command {
         shooterSystem.setMotors(0);
         intakeSystem.set(0);
         lightSystem.setDefault();
+
+        if (!interrupted) {
+            intakeSystem.hasNote = false;
+        }
     }
 
     // Returns true when the command should end.

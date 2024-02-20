@@ -27,7 +27,7 @@ import frc.robot.commands.shooter_commands.Shoot;
 import frc.robot.commands.shooter_commands.StartShooter;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.HangerSystem;
 import frc.robot.subsystems.IntakeSystem;
 import frc.robot.subsystems.PneumaticsSystem;
@@ -50,7 +50,7 @@ public class RobotContainer {
     private final DigitalInput isBeta = new DigitalInput(9);
 
     // The robot's subsystems and commands are defined here...
-    private final DriveSubsystem drivebase = new DriveSubsystem(new File(Filesystem.getDeployDirectory(),
+    private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
             isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get());
     private final Inputs inputs = Inputs.createFromChooser();
     private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem();
