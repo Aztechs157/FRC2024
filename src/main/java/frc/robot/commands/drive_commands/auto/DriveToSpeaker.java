@@ -50,7 +50,7 @@ public class DriveToSpeaker extends Command {
             var speakerPos = speakerTag.getBestCameraToTarget();
             speakerPos = VisionConstants.CAMERA_PLACEMENT.plus(speakerPos);
             var speakerPos2d = new Transform2d(speakerPos.getX(), speakerPos.getY(),
-                    new Rotation2d(speakerPos.getRotation().getAngle()));
+                    new Rotation2d(speakerPos.getRotation().getZ()));
             var targetPos = speakerPos2d.plus(VisionConstants.SHOOTING_POS_SPEAKER);
 
             driveSystem.drive(targetPos.getTranslation(), targetPos.getRotation().getDegrees(), true);

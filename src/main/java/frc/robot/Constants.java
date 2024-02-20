@@ -79,7 +79,8 @@ public class Constants {
         // TODO: make these into variables
         public static final double SHOOTING_DIST_SPEAKER = Units.inchesToMeters(36 + 6); // subwoofer base (36) +
                                                                                          // distance from subwoofer (6)
-        public static final Transform2d SHOOTING_POS_SPEAKER = new Transform2d(VisionConstants.SHOOTING_DIST_SPEAKER, 0,
+        public static final Transform2d SHOOTING_POS_SPEAKER = new Transform2d(-VisionConstants.SHOOTING_DIST_SPEAKER,
+                0,
                 new Rotation2d());
     }
 
