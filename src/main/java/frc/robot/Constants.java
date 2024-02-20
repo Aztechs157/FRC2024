@@ -75,7 +75,10 @@ public class Constants {
                 Units.degreesToRadians(-30));
         public static final Transform3d CAMERA_PLACEMENT = new Transform3d(Units.inchesToMeters(12.25),
                 Units.inchesToMeters(-8), Units.inchesToMeters(20.5), CAMERA_ROTATION); // TODO: find proper value
-        public static final double SHOOTING_DIST_SPEAKER = Units.inchesToMeters(36.0 + 8.0);
+
+        // TODO: make these into variables
+        public static final double SHOOTING_DIST_SPEAKER = Units.inchesToMeters(36 + 6); // subwoofer base (36) +
+                                                                                         // distance from subwoofer (6)
         public static final Transform2d SHOOTING_POS_SPEAKER = new Transform2d(VisionConstants.SHOOTING_DIST_SPEAKER, 0,
                 new Rotation2d());
     }

@@ -354,6 +354,10 @@ public class DriveSubsystem extends SubsystemBase {
         swerveDrive.drive(velocity);
     }
 
+    public void stop() {
+        drive(new Translation2d(0, 0), 0, true);
+    }
+
     @Override
     public void periodic() {
     }
