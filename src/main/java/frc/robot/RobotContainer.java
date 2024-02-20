@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -35,6 +36,7 @@ import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
 import java.io.*;
 
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
 /**
@@ -59,7 +61,7 @@ public class RobotContainer {
     private final HangerSystem hangerSystem;
     public final VisionSystem visionSystem = new VisionSystem();
     public final PwmLEDs lightSystem = new PwmLEDs();
-    private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+    private final SendableChooser<Command> autoChooser;
 
     XboxController driverXbox = new XboxController(0);
 
@@ -121,31 +123,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("HighShoot", highShootCommand().withTimeout(4));
         NamedCommands.registerCommand("LowShoot", lowShootCommand().withTimeout(4));
 
-        autoChooser.setDefaultOption("Everything is Broken, Do Nothing",
-                drivebase.getAutonomousCommand("NothingAuto"));
-
-        File autoDirectory = new File(Filesystem.getDeployDirectory(), "pathplanner/autos");
-
-        FilenameFilter autoFileFilter = new FilenameFilter() {
-            public boolean accept(File directory, String name) {
-                if (name.endsWith(".auto")) {
-                    if (name.equals("NothingAuto.auto")) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return false;
-                }
-            }
-        };
-
-        String autonList[] = autoDirectory.list(autoFileFilter);
-        System.out.println(autonList);
-        for (String auton : autonList) {
-            String autonName = auton.substring(0, auton.length() - 5);
-            autoChooser.addOption(autonName, drivebase.getAutonomousCommand(autonName));
-        }
+        autoChooser = AutoBuilder.buildAutoChooser("NothingAuto");
 
         autoChooser.onChange((command) -> {
             System.out.println("Autonomous routine changed to: " + command.getName());
