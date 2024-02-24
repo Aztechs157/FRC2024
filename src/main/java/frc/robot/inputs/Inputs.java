@@ -38,6 +38,7 @@ public class Inputs extends DynamicLayout {
     public static final Button.Key liftHanger = new Button.Key();
     public static final Button.Key retractHanger = new Button.Key();
     public static final Button.Key retractHangerPin = new Button.Key();
+    public static final Button.Key extendHangerPin = new Button.Key();
 
     public static Inputs createFromChooser() {
         final SendableChooser<Layout> chooser = new SendableChooser<>();
@@ -90,14 +91,15 @@ public class Inputs extends DynamicLayout {
         layout.assign(loadNote, operator.x);
 
         layout.assign(highShotSpinUp, new Button(() -> operator.rightTriggerHeld.get() > 0.2));
-        layout.assign(lowShotSpinUp, operator.rightBumper);
+        layout.assign(lowShotSpinUp, new Button(() -> operator.leftTriggerHeld.get() > 0.2));
 
         layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
-        layout.assign(lowShot, driver.rightBumper);
+        layout.assign(lowShot, new Button(() -> driver.leftTriggerHeld.get() > 0.2));
 
         layout.assign(liftHanger, operator.pov.up);
         layout.assign(retractHanger, operator.pov.down);
-        layout.assign(retractHangerPin, new Button(() -> operator.start.get() && operator.back.get()));
+        layout.assign(retractHangerPin, operator.back);
+        layout.assign(extendHangerPin, operator.start);
 
         return layout;
     }

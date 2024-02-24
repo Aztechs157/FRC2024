@@ -24,6 +24,7 @@ import frc.robot.commands.hanger_commands.RetractHangerPin;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.Shoot;
+import frc.robot.commands.shooter_commands.SpinUpShooter;
 import frc.robot.commands.shooter_commands.StartShooter;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
@@ -53,7 +54,7 @@ public class RobotContainer {
     private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
             isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get());
     private final Inputs inputs = Inputs.createFromChooser();
-    private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem();
+    private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem(isBeta.get());
     private final IntakeSystem intakeSystem = new IntakeSystem();
     private final ShooterSystem shooterSystem = new ShooterSystem(isBeta.get());
     private final HangerSystem hangerSystem;
@@ -71,11 +72,11 @@ public class RobotContainer {
     }
 
     public Command highShootSpinUpCommand() {
-        return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
+        return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
     }
 
     public Command lowShootSpinUpCommand() {
-        return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW);
+        return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW);
     }
 
     public Command highShootCommand() {
@@ -216,6 +217,7 @@ public class RobotContainer {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
             inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
             inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem));
+            inputs.button(Inputs.extendHangerPin).whenPressed(new ExtendHangerPin(pneumaticsSystem));
         }
 
     }

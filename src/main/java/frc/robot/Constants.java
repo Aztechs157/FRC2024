@@ -44,7 +44,7 @@ public class Constants {
                                                             // absolute.
         public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
                                                                   // absolute.
-        public static final double MAX_SPEED = 14.5;
+        public static final double MAX_SPEED = 7; // normal is 14.5 ft per second
         public static final double MAX_TRANSLATIONAL_ACCELERATION = 4.0; // in meters per second squared
         public static final double MAX_ANGLULAR_ACCELERATION = 720; // in degrees per second squared
 
@@ -132,11 +132,11 @@ public class Constants {
         public static final int INTAKE_SOLENOID_RETRACT_CHANNEL = 14;
         public static final int INTAKE_SOLENOID_EXTEND_CHANNEL = 15;
 
-        public static final int DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL = 11;
-        public static final int DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL = 10;
+        public static final int DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL = 10;
+        public static final int DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL = 11;
 
-        public static final int DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL = 13;
-        public static final int DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL = 12;
+        public static final int DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL = 12;
+        public static final int DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL = 13;
 
         public static final int HANGER_PIN_SOLENOID_RETRACT_CHANNEL = 0;
         public static final int HANGER_PIN_SOLENOID_EXTEND_CHANNEL = 1;
@@ -145,10 +145,10 @@ public class Constants {
 
     public static class CosmeticConstants {
 
-        public static final int LIGHT_ID = 0;
+        public static final int LIGHT_ID = 9;
         public static final double SOLID_YELLOW_VALUE = 0.69;
         public static final double SOLID_PURPLE_VALUE = 0.91;
-        public static final int LIGHT_LENGTH = 69;
+        public static final int LIGHT_LENGTH = 76;
 
     }
 

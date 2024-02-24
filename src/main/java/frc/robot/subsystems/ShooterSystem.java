@@ -75,7 +75,7 @@ public class ShooterSystem extends SubsystemBase {
         double currentVelocity = getRightEncoderVelocity();
         double PIDval;
         if (isBeta) {
-            PIDval = ShooterConstants.BETA_SHOOTER_MOTOR_PID_RIGHT.calculate(-currentVelocity, desiredVelocity);
+            PIDval = ShooterConstants.BETA_SHOOTER_MOTOR_PID_RIGHT.calculate(currentVelocity, desiredVelocity);
         } else {
             PIDval = ShooterConstants.ALPHA_SHOOTER_MOTOR_PID_RIGHT.calculate(-currentVelocity, desiredVelocity);
         }

@@ -11,14 +11,14 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.ShooterSystem;
 
-public class StartShooter extends Command {
+public class SpinUpShooter extends Command {
 
     private final ShooterSystem shooterSystem;
     private final PwmLEDs lightSystem;
     private final double setPoint;
 
     /** Creates a new StartShooter. */
-    public StartShooter(final ShooterSystem shooterSystem, final PwmLEDs lightSystem, final double setPoint) {
+    public SpinUpShooter(final ShooterSystem shooterSystem, final PwmLEDs lightSystem, final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(shooterSystem);
 
@@ -60,14 +60,6 @@ public class StartShooter extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        final var range = new Range(
-                setPoint - ShooterConstants.SHOOTER_START_VELOCITY_TOLERANCE,
-                setPoint + ShooterConstants.SHOOTER_START_VELOCITY_TOLERANCE);
-
-        final var leftInRange = range.contains(Math.abs(shooterSystem.getLeftEncoderVelocity()));
-        final var rightInRange = range.contains(Math.abs(shooterSystem.getRightEncoderVelocity()));
-
-        return leftInRange && rightInRange;
-        // return false;
+        return false;
     }
 }

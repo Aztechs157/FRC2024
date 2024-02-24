@@ -16,17 +16,11 @@ public class PneumaticsSystem extends SubsystemBase {
     private final Compressor compressor = new Compressor(PneumaticsConstants.PNEUMATICS_HUB_ID,
             PneumaticsModuleType.REVPH);
 
-    private final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.INTAKE_SOLENOID_EXTEND_CHANNEL,
-            PneumaticsConstants.INTAKE_SOLENOID_RETRACT_CHANNEL);
+    private final DoubleSolenoid intakeSolenoid;
 
-    private final DoubleSolenoid deflectorSolenoidLeft = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL,
-            PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL);
+    private final DoubleSolenoid deflectorSolenoidLeft;
 
-    private final DoubleSolenoid deflectorSolenoidRight = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
-            PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL,
-            PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL);
+    private final DoubleSolenoid deflectorSolenoidRight;
 
     private final DoubleSolenoid hangerPinSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
             PneumaticsModuleType.REVPH, PneumaticsConstants.HANGER_PIN_SOLENOID_EXTEND_CHANNEL,
@@ -38,8 +32,33 @@ public class PneumaticsSystem extends SubsystemBase {
     private boolean hangerPinOpen = false;
 
     /** Creates a new Compressor. */
-    public PneumaticsSystem() {
+    public PneumaticsSystem(boolean isBeta) {
         compressor.enableDigital();
+        if (isBeta) {
+            intakeSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+                    PneumaticsModuleType.REVPH, PneumaticsConstants.INTAKE_SOLENOID_RETRACT_CHANNEL,
+                    PneumaticsConstants.INTAKE_SOLENOID_EXTEND_CHANNEL);
+
+            deflectorSolenoidLeft = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+                    PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL,
+                    PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL);
+
+            deflectorSolenoidRight = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+                    PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL,
+                    PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL);
+        } else {
+            intakeSolenoid = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+                    PneumaticsModuleType.REVPH, PneumaticsConstants.INTAKE_SOLENOID_EXTEND_CHANNEL,
+                    PneumaticsConstants.INTAKE_SOLENOID_RETRACT_CHANNEL);
+
+            deflectorSolenoidLeft = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+                    PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL,
+                    PneumaticsConstants.DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL);
+
+            deflectorSolenoidRight = new DoubleSolenoid(PneumaticsConstants.PNEUMATICS_HUB_ID,
+                    PneumaticsModuleType.REVPH, PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL,
+                    PneumaticsConstants.DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL);
+        }
     }
 
     public Command setIntakeFoward() {
