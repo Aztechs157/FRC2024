@@ -9,6 +9,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import com.revrobotics.SparkLimitSwitch.Type;
+
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.HangerConstants;
 
@@ -25,6 +27,10 @@ public class HangerSystem extends SubsystemBase {
 
     /** Creates a new HangerSystem. */
     public HangerSystem() {
+        Shuffleboard.getTab("Driver").addBoolean("left extension", this::readLeftExtLimitSwitch);
+        Shuffleboard.getTab("Driver").addBoolean("left retract", this::readLeftRetLimitSwitch);
+        Shuffleboard.getTab("Driver").addBoolean("right extension", this::readRightExtLimitSwitch);
+        Shuffleboard.getTab("Driver").addBoolean("right retract", this::readRightRetLimitSwitch);
     }
 
     public void setMotors(double velocity) {

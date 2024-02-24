@@ -115,16 +115,11 @@ public class Robot extends TimedRobot {
         m_robotContainer.setMotorBrake(true);
         m_robotContainer.lightSystem.setDefault();
         m_robotContainer.visionSystem.updateAlliance();
-        disabledTimer.reset();
-        disabledTimer.start();
     }
 
     @Override
     public void disabledPeriodic() {
-        if (disabledTimer.hasElapsed(Constants.DriveConstants.WHEEL_LOCK_TIME)) {
-            m_robotContainer.setMotorBrake(false);
-            disabledTimer.stop();
-        }
+
     }
 
     /**

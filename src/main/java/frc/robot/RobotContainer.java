@@ -93,12 +93,12 @@ public class RobotContainer {
 
     public Command liftHangerCommand() {
         return new LiftHanger(hangerSystem, lightSystem)
-                .handleInterrupt(() -> new RetractHanger(hangerSystem, lightSystem).schedule());
+                .handleInterrupt(() -> new RetractHanger(hangerSystem, lightSystem));
     }
 
     public Command retractHangerCommand() {
         return (new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem)))
-                .handleInterrupt(() -> new LiftHanger(hangerSystem, lightSystem).schedule());
+                .handleInterrupt(() -> new LiftHanger(hangerSystem, lightSystem));
     }
 
     /**
