@@ -44,7 +44,7 @@ public class Constants {
                                                             // absolute.
         public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
                                                                   // absolute.
-        public static final double MAX_SPEED = 7; // normal is 14.5 ft per second
+        public static final double MAX_SPEED = 17.3; // set to 17.3 ft per second
         public static final double MAX_TRANSLATIONAL_ACCELERATION = 4.0; // in meters per second squared
         public static final double MAX_ANGLULAR_ACCELERATION = 720; // in degrees per second squared
 
@@ -153,3 +153,4 @@ public class Constants {
     }
 
 }
+// This has to be here
