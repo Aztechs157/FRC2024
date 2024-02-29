@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 0.69,
+      "y": 4.226
+    },
+    "rotation": 120.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "GetNote1Right"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RightExit"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "RightAutos",
+  "choreoAuto": false
+}

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.9127296966579629,
-        "y": 4.332276285303912
+        "x": 0.69,
+        "y": 4.23
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.35358868375641,
-        "y": 1.9238557591283345
+        "x": 4.130858987098447,
+        "y": 1.8215794738244226
       },
       "isLocked": false,
       "linkedName": "ReturnPointRight"
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 0.9127296966579629,
-        "y": 4.332276285303912
+        "x": 0.69,
+        "y": 4.23
       },
       "prevControl": {
-        "x": 1.4467492311512191,
-        "y": 3.8056614955575494
+        "x": 1.224019534493256,
+        "y": 3.7033852102536375
       },
       "nextControl": null,
       "isLocked": false,
@@ -89,7 +89,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 5.27,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0

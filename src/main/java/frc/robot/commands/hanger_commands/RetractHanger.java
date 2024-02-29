@@ -26,7 +26,7 @@ public class RetractHanger extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        hangerSystem.setMotors(-HangerConstants.LIFT_SPEED);
+        hangerSystem.setMotors(-HangerConstants.LIFT_RETRACT_SPEED);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -44,6 +44,6 @@ public class RetractHanger extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return hangerSystem.readLeftRetLimitSwitch() && hangerSystem.readRightRetLimitSwitch();
+        return hangerSystem.readLeftRetLimitSwitch() || hangerSystem.readRightRetLimitSwitch();
     }
 }

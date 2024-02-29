@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7805585557503859,
-      "y": 4.346961967626977
+      "x": 1.39,
+      "y": 5.53650223579517
     },
-    "rotation": 120.92882312845946
+    "rotation": 178.98970640642742
   },
   "command": {
     "type": "sequential",
@@ -20,18 +20,30 @@
         {
           "type": "path",
           "data": {
-            "pathName": "GetNote1Right"
+            "pathName": "GetNote1Center"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "RightExit"
+            "pathName": "GetNote2Center"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
           }
         }
       ]
     }
   },
-  "folder": "RightAutos",
+  "folder": "CenterAutos",
   "choreoAuto": false
 }
