@@ -57,7 +57,7 @@ public class RobotContainer {
     private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem(isBeta.get());
     private final IntakeSystem intakeSystem = new IntakeSystem();
     private final ShooterSystem shooterSystem = new ShooterSystem(isBeta.get());
-    private final HangerSystem hangerSystem;
+    public final HangerSystem hangerSystem;
     public final VisionSystem visionSystem = new VisionSystem();
     public final PwmLEDs lightSystem = new PwmLEDs();
     private final SendableChooser<Command> autoChooser;
@@ -93,13 +93,11 @@ public class RobotContainer {
     }
 
     public Command liftHangerCommand() {
-        return new LiftHanger(hangerSystem, lightSystem)
-                .handleInterrupt(() -> new RetractHanger(hangerSystem, lightSystem));
+        return new RetractHangerPin(pneumaticsSystem).andThen(new LiftHanger(hangerSystem, lightSystem));
     }
 
     public Command retractHangerCommand() {
-        return (new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem)))
-                .handleInterrupt(() -> new LiftHanger(hangerSystem, lightSystem));
+        return new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem));
     }
 
     /**

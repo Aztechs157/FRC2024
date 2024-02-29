@@ -32,6 +32,12 @@ public class LiftHanger extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (hangerSystem.readLeftExtLimitSwitch()) {
+            hangerSystem.setLeftMotor(0);
+        }
+        if (hangerSystem.readRightExtLimitSwitch()) {
+            hangerSystem.setRightMotor(0);
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -44,6 +50,6 @@ public class LiftHanger extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return hangerSystem.readLeftExtLimitSwitch() || hangerSystem.readRightExtLimitSwitch();
+        return hangerSystem.readLeftExtLimitSwitch() && hangerSystem.readRightExtLimitSwitch();
     }
 }
