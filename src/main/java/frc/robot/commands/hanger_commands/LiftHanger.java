@@ -5,7 +5,6 @@
 package frc.robot.commands.hanger_commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.HangerConstants;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.HangerSystem;

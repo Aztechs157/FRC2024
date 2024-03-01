@@ -7,7 +7,6 @@ package frc.robot.commands.hanger_commands;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.HangerConstants;
-import frc.robot.Constants.ShooterConstants;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.HangerSystem;
 

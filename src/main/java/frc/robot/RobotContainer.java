@@ -118,7 +118,7 @@ public class RobotContainer {
 
         if (isBeta.get()) {
             hangerSystem = new HangerSystem();
-            CameraServer.startAutomaticCapture();
+            Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
         } else {
             hangerSystem = null;
         }
@@ -172,9 +172,9 @@ public class RobotContainer {
         // left stick controls translation
         // right stick controls the angular velocity of the robot
         Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
-                () -> modifySpeed(MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND)),
-                () -> modifySpeed(MathUtil.applyDeadband(-driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND)),
-                () -> -driverXbox.getRightX());
+                () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND)),
+                () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND)),
+                () -> driverXbox.getRightX());
 
         Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
                 () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
