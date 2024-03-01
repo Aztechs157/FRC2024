@@ -21,6 +21,7 @@ public class Inputs extends DynamicLayout {
     public static final Axis.Key driveSpeedX = new Axis.Key();
     public static final Axis.Key driveSpeedY = new Axis.Key();
     public static final Axis.Key rotateSpeed = new Axis.Key();
+    public static final Button.Key slowDriveSpeed = new Button.Key();
 
     public static final Button.Key driveToSpeaker = new Button.Key();
     public static final Button.Key driveToAmp = new Button.Key();

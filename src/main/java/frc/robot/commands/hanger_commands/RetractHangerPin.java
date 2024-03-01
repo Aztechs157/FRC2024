@@ -6,6 +6,7 @@ package frc.robot.commands.hanger_commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import frc.robot.subsystems.HangerSystem;
 import frc.robot.subsystems.PneumaticsSystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -15,14 +16,18 @@ import frc.robot.subsystems.PneumaticsSystem;
 public class RetractHangerPin extends InstantCommand {
 
     private final PneumaticsSystem pneumaticsSystem;
+    private final HangerSystem hangerSystem;
 
-    public RetractHangerPin(final PneumaticsSystem pneumaticsSystem) {
+    public RetractHangerPin(final PneumaticsSystem pneumaticsSystem, final HangerSystem hangerSystem) {
         this.pneumaticsSystem = pneumaticsSystem;
+        this.hangerSystem = hangerSystem;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
         pneumaticsSystem.deployHangerPin(DoubleSolenoid.Value.kReverse);
+        // hangerSystem.setLeftMotor(0);
+        // hangerSystem.setRightMotor(0);
     }
 }

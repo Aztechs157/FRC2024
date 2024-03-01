@@ -36,6 +36,7 @@ import frc.robot.subsystems.PneumaticsSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
 import java.io.*;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -95,7 +96,8 @@ public class RobotContainer {
 
     public Command liftHangerCommand() {
         return new BuildHangerTension(hangerSystem)
-                .andThen(new RetractHangerPin(pneumaticsSystem).andThen(new LiftHanger(hangerSystem, lightSystem)));
+                .andThen(new RetractHangerPin(pneumaticsSystem, hangerSystem)
+                        .andThen(new LiftHanger(hangerSystem, lightSystem)));
     }
 
     public Command retractHangerCommand() {
@@ -216,7 +218,7 @@ public class RobotContainer {
         if (isBeta.get()) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
             inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
-            inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem));
+            inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem, hangerSystem));
             inputs.button(Inputs.extendHangerPin).whenPressed(new ExtendHangerPin(pneumaticsSystem));
         }
 

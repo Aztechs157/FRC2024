@@ -121,7 +121,7 @@ public class Constants {
         public static final int HANGER_RIGHT_EXT_LIMIT_ID = 4;
         public static final int HANGER_RIGHT_RET_LIMIT_ID = 5;
 
-        public static final double LIFT_EXTEND_SPEED = 0.5;
+        public static final double LIFT_EXTEND_SPEED = 0.75;
         public static final double LIFT_RETRACT_SPEED = 1;
 
     }
