@@ -46,6 +46,6 @@ public class BuildHangerTension extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return counter >= 20;
+        return counter >= 60;
     }
 }
