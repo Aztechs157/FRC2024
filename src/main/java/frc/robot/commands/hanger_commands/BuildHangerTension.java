@@ -5,52 +5,47 @@
 package frc.robot.commands.hanger_commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants.HangerConstants;
-import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.HangerSystem;
 
-public class LiftHanger extends Command {
+public class BuildHangerTension extends Command {
 
     private final HangerSystem hangerSystem;
-    private final PwmLEDs lightSystem;
+    public int counter;
 
-    /** Creates a new LiftHanger. */
-    public LiftHanger(final HangerSystem hangerSystem, final PwmLEDs lightSystem) {
+    /** Creates a new ExtendHangerWithTension. */
+    public BuildHangerTension(final HangerSystem hangerSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(hangerSystem);
 
         this.hangerSystem = hangerSystem;
-        this.lightSystem = lightSystem;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        counter = 0;
         hangerSystem.setMotors(HangerConstants.LIFT_EXTEND_SPEED);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (hangerSystem.readLeftExtLimitSwitch()) {
-            hangerSystem.setLeftMotor(0);
-        }
-        if (hangerSystem.readRightExtLimitSwitch()) {
-            hangerSystem.setRightMotor(0);
-        }
+        counter++;
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        hangerSystem.setLeftMotor(0);
-        hangerSystem.setRightMotor(0);
+        if (interrupted) {
+            hangerSystem.setLeftMotor(0);
+            hangerSystem.setRightMotor(0);
+        }
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return hangerSystem.readLeftExtLimitSwitch() && hangerSystem.readRightExtLimitSwitch();
+        return counter >= 20;
     }
 }

@@ -18,6 +18,7 @@ import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.hanger_commands.ExtendHangerPin;
+import frc.robot.commands.hanger_commands.BuildHangerTension;
 import frc.robot.commands.hanger_commands.LiftHanger;
 import frc.robot.commands.hanger_commands.RetractHanger;
 import frc.robot.commands.hanger_commands.RetractHangerPin;
@@ -93,7 +94,8 @@ public class RobotContainer {
     }
 
     public Command liftHangerCommand() {
-        return new RetractHangerPin(pneumaticsSystem).andThen(new LiftHanger(hangerSystem, lightSystem));
+        return new BuildHangerTension(hangerSystem)
+                .andThen(new RetractHangerPin(pneumaticsSystem).andThen(new LiftHanger(hangerSystem, lightSystem)));
     }
 
     public Command retractHangerCommand() {
