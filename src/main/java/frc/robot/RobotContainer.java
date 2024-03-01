@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -117,6 +118,7 @@ public class RobotContainer {
 
         if (isBeta.get()) {
             hangerSystem = new HangerSystem();
+            CameraServer.startAutomaticCapture();
         } else {
             hangerSystem = null;
         }
