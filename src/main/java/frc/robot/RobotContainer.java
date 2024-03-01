@@ -104,6 +104,12 @@ public class RobotContainer {
         return new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem));
     }
 
+    public double modifySpeed(final double speed) {
+        final var slowed = inputs.button(Inputs.slowDriveSpeed).get();
+        final var modifier = slowed ? 0.5 : 1;
+        return speed * modifier;
+    }
+
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
@@ -164,8 +170,8 @@ public class RobotContainer {
         // left stick controls translation
         // right stick controls the angular velocity of the robot
         Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
-                () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
-                () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
+                () -> modifySpeed(MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND)),
+                () -> modifySpeed(MathUtil.applyDeadband(-driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND)),
                 () -> -driverXbox.getRightX());
 
         Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(

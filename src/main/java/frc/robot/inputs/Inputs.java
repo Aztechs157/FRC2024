@@ -87,7 +87,7 @@ public class Inputs extends DynamicLayout {
         layout.assign(driveToSpeaker, operator.a);
         layout.assign(driveToAmp, operator.b);
         // layout.assign(autoIntake, operator.leftBumper);
-
+        layout.assign(slowDriveSpeed, driver.rightBumper);
         layout.assign(intake, driver.leftBumper);
         layout.assign(loadNote, operator.x);
 
