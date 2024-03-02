@@ -12,7 +12,7 @@
         "y": 1.8215794738244226
       },
       "isLocked": false,
-      "linkedName": "ReturnPointRight"
+      "linkedName": "ReturnRight"
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 1.0362881238963988
       },
       "isLocked": false,
-      "linkedName": "Note2Right"
+      "linkedName": "N2Right"
     },
     {
       "anchor": {
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ReturnPointRight"
+      "linkedName": "ReturnRight"
     }
   ],
   "rotationTargets": [
@@ -89,7 +89,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -100,7 +100,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "RightAutonPaths",
+  "folder": "SourceSideAutonPaths",
   "previewStartingState": {
     "rotation": 119.74488129694224,
     "velocity": 0

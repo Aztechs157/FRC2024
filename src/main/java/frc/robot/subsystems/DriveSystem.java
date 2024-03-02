@@ -20,6 +20,8 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -82,6 +84,9 @@ public class DriveSystem extends SubsystemBase {
                                                  // via angle.
 
         swerveDrive.pushOffsetsToControllers();
+
+        Shuffleboard.getTab("Driver").addDouble("Gyro", () -> this.getHeading().getDegrees())
+                .withWidget(BuiltInWidgets.kGyro);
 
         setupPathPlanner();
 
@@ -411,6 +416,11 @@ public class DriveSystem extends SubsystemBase {
      */
     public void resetOdometry(Pose2d initialHolonomicPose) {
         swerveDrive.resetOdometry(initialHolonomicPose);
+    }
+
+    // Reset the gyro to the current heading of the robot
+    public Command zeroHeading() {
+        return runOnce(() -> swerveDrive.zeroGyro());
     }
 
     /**

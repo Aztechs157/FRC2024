@@ -12,7 +12,7 @@
         "y": 3.8547123846013456
       },
       "isLocked": false,
-      "linkedName": "StartPointRight"
+      "linkedName": "StartRight"
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 4.212020655405093
       },
       "isLocked": false,
-      "linkedName": "Note1Right"
+      "linkedName": "N1Right"
     },
     {
       "anchor": {
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ReturnPointRight"
+      "linkedName": "ReturnRight"
     }
   ],
   "rotationTargets": [
@@ -75,7 +75,7 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -86,7 +86,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "RightAutonPaths",
+  "folder": "SourceSideAutonPaths",
   "previewStartingState": {
     "rotation": 120.65066795705285,
     "velocity": 0

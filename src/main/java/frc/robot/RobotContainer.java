@@ -23,6 +23,7 @@ import frc.robot.commands.hanger_commands.BuildHangerTension;
 import frc.robot.commands.hanger_commands.LiftHanger;
 import frc.robot.commands.hanger_commands.RetractHanger;
 import frc.robot.commands.hanger_commands.RetractHangerPin;
+import frc.robot.commands.intake_commands.Eject;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.Shoot;
@@ -67,6 +68,10 @@ public class RobotContainer {
 
     XboxController driverXbox = new XboxController(0);
 
+    public Command resetGyroCommand() {
+        return drivebase.zeroHeading();
+    }
+
     public Command intakeCommand() {
         return new Intake(intakeSystem, lightSystem)
                 .alongWith(pneumaticsSystem.setIntakeFoward())
@@ -100,6 +105,10 @@ public class RobotContainer {
                 .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_PASS));
     }
 
+    public Command ejectCommand() {
+        return new Eject(intakeSystem, shooterSystem, lightSystem);
+    }
+
     public Command liftHangerCommand() {
         return new BuildHangerTension(hangerSystem)
                 .andThen(new RetractHangerPin(pneumaticsSystem, hangerSystem)
@@ -129,6 +138,8 @@ public class RobotContainer {
         }
 
         // Register Named Commands
+        NamedCommands.registerCommand("ResetGyro", resetGyroCommand());
+
         NamedCommands.registerCommand("Intake", intakeCommand());
 
         NamedCommands.registerCommand("HighShootSpinUp", highShootSpinUpCommand());
@@ -228,6 +239,7 @@ public class RobotContainer {
         inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
         inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
         inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
+        inputs.button(Inputs.eject).toggleWhenPressed(ejectCommand());
 
         if (isBeta.get()) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
@@ -235,6 +247,8 @@ public class RobotContainer {
             inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem, hangerSystem));
             inputs.button(Inputs.extendHangerPin).whenPressed(new ExtendHangerPin(pneumaticsSystem));
         }
+
+        inputs.button(Inputs.resetGyro).whenPressed(resetGyroCommand());
 
     }
 

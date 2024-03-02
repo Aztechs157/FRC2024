@@ -12,7 +12,7 @@
         "y": 5.53650223579517
       },
       "isLocked": false,
-      "linkedName": "StartPointCenter"
+      "linkedName": "StartCenter"
     },
     {
       "anchor": {
@@ -25,14 +25,14 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Note1Center"
+      "linkedName": "N1Center"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 1.0,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -45,7 +45,7 @@
   "reversed": false,
   "folder": "CenterAutonPaths",
   "previewStartingState": {
-    "rotation": 180.0,
+    "rotation": 0.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
