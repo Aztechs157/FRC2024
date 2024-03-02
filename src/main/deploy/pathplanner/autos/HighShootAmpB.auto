@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.181501815995084,
-      "y": 5.531335051274091
+      "x": 0.6456678440422406,
+      "y": 6.712444649960525
     },
-    "rotation": 0.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -20,6 +20,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "SittingAutos",
   "choreoAuto": false
 }

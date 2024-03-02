@@ -10,6 +10,7 @@
   "autoFolders": [
     "CenterAutos",
     "LeftAutos",
+    "SittingAutos",
     "RightAutos"
   ],
   "defaultMaxVel": 3.0,

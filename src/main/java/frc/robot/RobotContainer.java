@@ -95,6 +95,11 @@ public class RobotContainer {
                 .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize);
     }
 
+    public Command passCommand() {
+        return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_PASS)
+                .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_PASS));
+    }
+
     public Command liftHangerCommand() {
         return new BuildHangerTension(hangerSystem)
                 .andThen(new RetractHangerPin(pneumaticsSystem, hangerSystem)
@@ -222,6 +227,7 @@ public class RobotContainer {
 
         inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
         inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
+        inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
 
         if (isBeta.get()) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());

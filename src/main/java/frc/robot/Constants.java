@@ -102,6 +102,8 @@ public class Constants {
 
         public static final double SHOOTER_TARGET_RPM_HIGH = 5250; // max RPM of neo is 5676
         public static final double SHOOTER_TARGET_RPM_LOW = 1250; // max RPM of neo is 5676
+        public static final double SHOOTER_TARGET_RPM_PASS = 750; // max RPM of neo is 5676
+
         public static final double SHOOTER_START_VELOCITY_TOLERANCE = 50; // in RPM as well
         public static final double SHOOTER_SENSOR_WAIT_TIME = 0.5; // in seconds
 
