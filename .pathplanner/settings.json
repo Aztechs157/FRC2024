@@ -8,10 +8,7 @@
     "RightAutonPaths"
   ],
   "autoFolders": [
-    "CenterAutos",
-    "LeftAutos",
-    "SittingAutos",
-    "RightAutos"
+    "SittingAutos"
   ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 2.0,
