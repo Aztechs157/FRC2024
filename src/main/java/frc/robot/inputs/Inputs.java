@@ -18,9 +18,11 @@ import frc.robot.Constants.DriveConstants.XboxSpeeds;
 
 /** Add your docs here. */
 public class Inputs extends DynamicLayout {
+    public static final Button.Key resetGyro = new Button.Key();
     public static final Axis.Key driveSpeedX = new Axis.Key();
     public static final Axis.Key driveSpeedY = new Axis.Key();
     public static final Axis.Key rotateSpeed = new Axis.Key();
+    public static final Button.Key slowDriveSpeed = new Button.Key();
 
     public static final Button.Key driveToSpeaker = new Button.Key();
     public static final Button.Key driveToAmp = new Button.Key();
@@ -28,12 +30,14 @@ public class Inputs extends DynamicLayout {
 
     public static final Button.Key intake = new Button.Key();
     public static final Button.Key loadNote = new Button.Key();
+    public static final Button.Key eject = new Button.Key();
 
     public static final Button.Key highShotSpinUp = new Button.Key();
     public static final Button.Key lowShotSpinUp = new Button.Key();
 
     public static final Button.Key highShot = new Button.Key();
     public static final Button.Key lowShot = new Button.Key();
+    public static final Button.Key pass = new Button.Key();
 
     public static final Button.Key liftHanger = new Button.Key();
     public static final Button.Key retractHanger = new Button.Key();
@@ -85,8 +89,9 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(driveToSpeaker, operator.a);
         layout.assign(driveToAmp, operator.b);
+        layout.assign(resetGyro, new Button(() -> driver.start.get() & driver.back.get()));
         // layout.assign(autoIntake, operator.leftBumper);
-
+        layout.assign(slowDriveSpeed, driver.rightBumper);
         layout.assign(intake, driver.leftBumper);
         layout.assign(loadNote, operator.x);
 
@@ -95,6 +100,8 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
         layout.assign(lowShot, new Button(() -> driver.leftTriggerHeld.get() > 0.2));
+        layout.assign(pass, operator.a);
+        layout.assign(eject, operator.b);
 
         layout.assign(liftHanger, operator.pov.up);
         layout.assign(retractHanger, operator.pov.down);

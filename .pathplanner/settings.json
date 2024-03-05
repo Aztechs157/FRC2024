@@ -4,17 +4,18 @@
   "holonomicMode": true,
   "pathFolders": [
     "CenterAutonPaths",
-    "LeftAutonPaths",
-    "RightAutonPaths"
+    "AmpSideAutonPaths",
+    "SourceSideAutonPaths",
+    "TestPaths"
   ],
   "autoFolders": [
-    "CenterAutos",
-    "LeftAutos",
-    "RightAutos"
+    "MovingAutos",
+    "TestAutos",
+    "SittingAutos"
   ],
-  "defaultMaxVel": 5.27,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxVel": 1.0,
+  "defaultMaxAccel": 2.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
-  "maxModuleSpeed": 5.273
+  "maxModuleSpeed": 1.0
 }

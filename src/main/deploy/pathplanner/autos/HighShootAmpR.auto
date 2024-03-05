@@ -1,0 +1,25 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 15.859762773656602,
+      "y": 6.735832958845405
+    },
+    "rotation": -150.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": "SittingAutos",
+  "choreoAuto": false
+}

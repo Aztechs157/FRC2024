@@ -24,7 +24,7 @@ public class LoadNote extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        intakeSystem.set(IntakeConstants.INTAKE_SPEED * 0.4);
+        intakeSystem.set(IntakeConstants.LOAD_SPEED);
     }
 
     // Called every time the scheduler runs while the command is scheduled.

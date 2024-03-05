@@ -34,7 +34,7 @@ public class Constants {
         public static final double WHEEL_LOCK_TIME = 10; // seconds
 
         // TODO: find proper values for the following three
-        public static final double ROBOT_MASS = (80) * 0.453592; // lbs * kg per pound
+        public static final double ROBOT_MASS = (111) * 0.453592; // lbs * kg per pound
         public static final Matter CHASSIS = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
         public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
 
@@ -70,7 +70,7 @@ public class Constants {
         public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
         public static final PIDConstants ANGLE_PID = new PIDConstants(0.004, 0, 1.5);
 
-        public static final double MAX_MODULE_SPEED = 4.5;
+        public static final double MAX_MODULE_SPEED = 3;
 
     }
 
@@ -87,7 +87,9 @@ public class Constants {
         public static final int NOTE_SENSOR_CHANNEL = 0;
 
         public static final IdleMode INTAKE_MOTOR_IDLE_MODE = IdleMode.kBrake;
-        public static final double INTAKE_SPEED = 0.625;
+        public static final double INTAKE_SPEED = 1;
+        public static final double FEED_SPEED = 0.625;
+        public static final double LOAD_SPEED = 0.25;
 
     }
 
@@ -100,6 +102,9 @@ public class Constants {
 
         public static final double SHOOTER_TARGET_RPM_HIGH = 5250; // max RPM of neo is 5676
         public static final double SHOOTER_TARGET_RPM_LOW = 1250; // max RPM of neo is 5676
+        public static final double SHOOTER_TARGET_RPM_PASS = 750; // max RPM of neo is 5676
+        public static final double SHOOTER_TARGET_RPM_EJECT = 2750; // max RPM of neo is 5676
+
         public static final double SHOOTER_START_VELOCITY_TOLERANCE = 50; // in RPM as well
         public static final double SHOOTER_SENSOR_WAIT_TIME = 0.5; // in seconds
 
@@ -121,7 +126,7 @@ public class Constants {
         public static final int HANGER_RIGHT_EXT_LIMIT_ID = 4;
         public static final int HANGER_RIGHT_RET_LIMIT_ID = 5;
 
-        public static final double LIFT_EXTEND_SPEED = 0.5;
+        public static final double LIFT_EXTEND_SPEED = 0.75;
         public static final double LIFT_RETRACT_SPEED = 1;
 
     }

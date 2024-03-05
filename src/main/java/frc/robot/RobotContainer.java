@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -18,9 +19,11 @@ import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.hanger_commands.ExtendHangerPin;
+import frc.robot.commands.hanger_commands.BuildHangerTension;
 import frc.robot.commands.hanger_commands.LiftHanger;
 import frc.robot.commands.hanger_commands.RetractHanger;
 import frc.robot.commands.hanger_commands.RetractHangerPin;
+import frc.robot.commands.intake_commands.Eject;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
 import frc.robot.commands.shooter_commands.Shoot;
@@ -35,6 +38,7 @@ import frc.robot.subsystems.PneumaticsSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
 import java.io.*;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -57,12 +61,16 @@ public class RobotContainer {
     private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem(isBeta.get());
     private final IntakeSystem intakeSystem = new IntakeSystem();
     private final ShooterSystem shooterSystem = new ShooterSystem(isBeta.get());
-    private final HangerSystem hangerSystem;
+    public final HangerSystem hangerSystem;
     public final VisionSystem visionSystem = new VisionSystem();
     public final PwmLEDs lightSystem = new PwmLEDs();
     private final SendableChooser<Command> autoChooser;
 
     XboxController driverXbox = new XboxController(0);
+
+    public Command resetGyroCommand() {
+        return drivebase.zeroHeading();
+    }
 
     public Command intakeCommand() {
         return new Intake(intakeSystem, lightSystem)
@@ -92,14 +100,29 @@ public class RobotContainer {
                 .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize);
     }
 
+    public Command passCommand() {
+        return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_PASS)
+                .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_PASS));
+    }
+
+    public Command ejectCommand() {
+        return new Eject(intakeSystem, shooterSystem, lightSystem);
+    }
+
     public Command liftHangerCommand() {
-        return new LiftHanger(hangerSystem, lightSystem)
-                .handleInterrupt(() -> new RetractHanger(hangerSystem, lightSystem));
+        return new BuildHangerTension(hangerSystem)
+                .andThen(new RetractHangerPin(pneumaticsSystem, hangerSystem)
+                        .andThen(new LiftHanger(hangerSystem, lightSystem)));
     }
 
     public Command retractHangerCommand() {
-        return (new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem)))
-                .handleInterrupt(() -> new LiftHanger(hangerSystem, lightSystem));
+        return new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem));
+    }
+
+    public double modifySpeed(final double speed) {
+        final var slowed = inputs.button(Inputs.slowDriveSpeed).get();
+        final var modifier = slowed ? 0.5 : 1;
+        return speed * modifier;
     }
 
     /**
@@ -109,11 +132,14 @@ public class RobotContainer {
 
         if (isBeta.get()) {
             hangerSystem = new HangerSystem();
+            Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
         } else {
             hangerSystem = null;
         }
 
         // Register Named Commands
+        NamedCommands.registerCommand("ResetGyro", resetGyroCommand());
+
         NamedCommands.registerCommand("Intake", intakeCommand());
 
         NamedCommands.registerCommand("HighShootSpinUp", highShootSpinUpCommand());
@@ -162,9 +188,9 @@ public class RobotContainer {
         // left stick controls translation
         // right stick controls the angular velocity of the robot
         Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
-                () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
-                () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
-                () -> -driverXbox.getRightX());
+                () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND)),
+                () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND)),
+                () -> driverXbox.getRightX());
 
         Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
                 () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
@@ -212,13 +238,17 @@ public class RobotContainer {
 
         inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
         inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
+        inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
+        inputs.button(Inputs.eject).toggleWhenPressed(ejectCommand());
 
         if (isBeta.get()) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
             inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
-            inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem));
+            inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem, hangerSystem));
             inputs.button(Inputs.extendHangerPin).whenPressed(new ExtendHangerPin(pneumaticsSystem));
         }
+
+        inputs.button(Inputs.resetGyro).whenPressed(resetGyroCommand());
 
     }
 

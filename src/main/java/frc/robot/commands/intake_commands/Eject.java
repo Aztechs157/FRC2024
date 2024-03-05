@@ -2,52 +2,51 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.shooter_commands;
+package frc.robot.commands.intake_commands;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Constants.IntakeConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.IntakeSystem;
 import frc.robot.subsystems.ShooterSystem;
 
-public class Shoot extends Command {
+public class Eject extends Command {
 
-    private final ShooterSystem shooterSystem;
     private final IntakeSystem intakeSystem;
+    private final ShooterSystem shooterSystem;
     private final PwmLEDs lightSystem;
-    private final double setPoint;
 
     private boolean seenNote = false;
     private Timer timer = new Timer();
 
-    /** Creates a new Shoot. */
-    public Shoot(final ShooterSystem shooterSystem, final IntakeSystem intakeSystem, final PwmLEDs lightSystem,
-            final double setPoint) {
+    /** Creates a new Eject. */
+    public Eject(final IntakeSystem intakeSystem, final ShooterSystem shooterSystem, final PwmLEDs lightSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(shooterSystem, intakeSystem);
+        addRequirements(intakeSystem, shooterSystem);
 
-        this.shooterSystem = shooterSystem;
         this.intakeSystem = intakeSystem;
+        this.shooterSystem = shooterSystem;
         this.lightSystem = lightSystem;
-        this.setPoint = setPoint;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        lightSystem.setSolid(Color.kRed);
-        intakeSystem.set(-IntakeConstants.FEED_SPEED);
-        timer.reset();
+        intakeSystem.set(IntakeConstants.INTAKE_SPEED);
+        lightSystem.setSolid(Color.kGreen);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        shooterSystem.currentLeftMotorSet += shooterSystem.leftMotorPID(this.setPoint);
-        shooterSystem.currentRightMotorSet += shooterSystem.rightMotorPID(this.setPoint);
+        shooterSystem.currentLeftMotorSet += shooterSystem
+                .leftMotorPID(Constants.ShooterConstants.SHOOTER_TARGET_RPM_EJECT);
+        shooterSystem.currentRightMotorSet += shooterSystem
+                .rightMotorPID(Constants.ShooterConstants.SHOOTER_TARGET_RPM_EJECT);
         shooterSystem.setLeftMotor(shooterSystem.currentLeftMotorSet);
         shooterSystem.setRightMotor(shooterSystem.currentRightMotorSet);
 
@@ -62,14 +61,16 @@ public class Shoot extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        shooterSystem.currentLeftMotorSet = 0;
-        shooterSystem.currentRightMotorSet = 0;
-        shooterSystem.setMotors(0);
         intakeSystem.set(0);
-        lightSystem.setDefault();
 
         if (!interrupted) {
+            intakeSystem.hasNote = true;
+            lightSystem.setSolid(Color.kOrange);
+        } else {
+            shooterSystem.setLeftMotor(0);
+            shooterSystem.setRightMotor(0);
             intakeSystem.hasNote = false;
+            lightSystem.setDefault();
         }
     }
 

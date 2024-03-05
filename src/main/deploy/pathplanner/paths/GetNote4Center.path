@@ -12,7 +12,7 @@
         "y": 5.53650223579517
       },
       "isLocked": false,
-      "linkedName": "ReturnPointCenter"
+      "linkedName": "ReturnCenter"
     },
     {
       "anchor": {
@@ -44,7 +44,7 @@
         "y": 2.551969451947948
       },
       "isLocked": false,
-      "linkedName": "Note4Center"
+      "linkedName": "N4Center"
     },
     {
       "anchor": {
@@ -73,7 +73,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ReturnPointCenter"
+      "linkedName": "ReturnCenter"
     }
   ],
   "rotationTargets": [
@@ -131,8 +131,8 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 5.27,
-    "maxAcceleration": 3.0,
+    "maxVelocity": 1.0,
+    "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
