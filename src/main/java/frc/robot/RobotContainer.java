@@ -38,7 +38,6 @@ import frc.robot.subsystems.PneumaticsSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
 import java.io.*;
-
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -53,17 +52,18 @@ import com.pathplanner.lib.auto.NamedCommands;
 public class RobotContainer {
 
     private final DigitalInput isBeta = new DigitalInput(9);
+    private final SystemConfigJson systemConfigs = ConfigParser.systemConfigJson;
 
     // The robot's subsystems and commands are defined here...
     private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
             isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get());
     private final Inputs inputs = Inputs.createFromChooser();
     private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem(isBeta.get());
-    private final IntakeSystem intakeSystem = new IntakeSystem();
-    private final ShooterSystem shooterSystem = new ShooterSystem(isBeta.get());
+    private final IntakeSystem intakeSystem;
+    private final ShooterSystem shooterSystem;
     public final HangerSystem hangerSystem;
-    public final VisionSystem visionSystem = new VisionSystem();
-    public final PwmLEDs lightSystem = new PwmLEDs();
+    public final VisionSystem visionSystem;
+    public final PwmLEDs lightSystem;
     private final SendableChooser<Command> autoChooser;
 
     XboxController driverXbox = new XboxController(0);
@@ -130,11 +130,36 @@ public class RobotContainer {
      */
     public RobotContainer() {
 
-        if (isBeta.get()) {
+        if (isBeta.get() && systemConfigs.activeLift) {
             hangerSystem = new HangerSystem();
-            Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
         } else {
             hangerSystem = null;
+        }
+
+        if (isBeta.get() && systemConfigs.activeVision) {
+            visionSystem = new VisionSystem();
+            Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
+        } else {
+            visionSystem = null;
+        }
+
+        if (isBeta.get() && systemConfigs.activeLights) {
+            lightSystem = new PwmLEDs();
+        } else {
+            lightSystem = null;
+        }
+
+        if (systemConfigs.activeIntake) {
+            intakeSystem = new IntakeSystem();
+        } else {
+            intakeSystem = null;
+        }
+
+        if (systemConfigs.activeShooter) {
+            shooterSystem = new ShooterSystem(isBeta.get());
+
+        } else {
+            shooterSystem = null;
         }
 
         // Register Named Commands

@@ -1,0 +1,7 @@
+{
+    "activeLift": false,
+    "activeIntake": true,
+    "activeShooter": true,
+    "activeLights": true,
+    "activeVision": false
+}
