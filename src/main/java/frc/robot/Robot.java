@@ -113,8 +113,14 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         m_robotContainer.setMotorBrake(true);
-        m_robotContainer.lightSystem.setDefault();
-        m_robotContainer.visionSystem.updateAlliance();
+
+        if (m_robotContainer.systemConfigs.activeLights) {
+            m_robotContainer.lightSystem.setDefault();
+        }
+
+        if (m_robotContainer.systemConfigs.activeVision) {
+            m_robotContainer.visionSystem.updateAlliance();
+        }
     }
 
     @Override
@@ -153,7 +159,11 @@ public class Robot extends TimedRobot {
         // teleop starts running. If you want the autonomous to
         // continue until interrupted by another command, remove
         // this line or comment it out.
-        m_robotContainer.visionSystem.updateAlliance();
+
+        if (m_robotContainer.systemConfigs.activeVision) {
+            m_robotContainer.visionSystem.updateAlliance();
+        }
+
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
         }

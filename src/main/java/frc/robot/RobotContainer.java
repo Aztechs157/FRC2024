@@ -52,7 +52,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 public class RobotContainer {
 
     private final DigitalInput isBeta = new DigitalInput(9);
-    private final SystemConfigJson systemConfigs = ConfigParser.systemConfigJson;
+    public final SystemConfigJson systemConfigs = new ConfigParser().systemConfigJson;
 
     // The robot's subsystems and commands are defined here...
     private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
@@ -255,18 +255,22 @@ public class RobotContainer {
          * // InstantCommand(drivebase::lock, drivebase)));
          */
 
-        inputs.button(Inputs.intake).toggleWhenPressed(intakeCommand());
-        inputs.button(Inputs.loadNote).whenPressed(new LoadNote(intakeSystem, lightSystem));
+        if (systemConfigs.activeIntake) {
+            inputs.button(Inputs.intake).toggleWhenPressed(intakeCommand());
+            inputs.button(Inputs.loadNote).whenPressed(new LoadNote(intakeSystem, lightSystem));
+        }
 
-        inputs.button(Inputs.highShotSpinUp).toggleWhenPressed(highShootSpinUpCommand());
-        inputs.button(Inputs.lowShotSpinUp).toggleWhenPressed(lowShootSpinUpCommand());
+        if (systemConfigs.activeIntake && systemConfigs.activeShooter) {
+            inputs.button(Inputs.highShotSpinUp).toggleWhenPressed(highShootSpinUpCommand());
+            inputs.button(Inputs.lowShotSpinUp).toggleWhenPressed(lowShootSpinUpCommand());
 
-        inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
-        inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
-        inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
-        inputs.button(Inputs.eject).toggleWhenPressed(ejectCommand());
+            inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
+            inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
+            inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
+            inputs.button(Inputs.eject).toggleWhenPressed(ejectCommand());
+        }
 
-        if (isBeta.get()) {
+        if (isBeta.get() && systemConfigs.activeLift) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
             inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
             inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem, hangerSystem));
