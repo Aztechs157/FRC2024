@@ -98,6 +98,9 @@ public class Constants {
         public static final int SHOOTER_MOTOR_LEFT_ID = 31;
         public static final int SHOOTER_MOTOR_RIGHT_ID = 32;
 
+        public static final int DEFLECTOR_MOTOR_ID = 33;
+        public static final double DEFLECTOR_SPEED = 0.5;
+
         public static final IdleMode SHOOTER_MOTOR_IDLE_MODE = IdleMode.kBrake;
 
         public static final double SHOOTER_TARGET_RPM_HIGH = 5250; // max RPM of neo is 5676

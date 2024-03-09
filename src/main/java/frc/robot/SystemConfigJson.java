@@ -7,9 +7,10 @@ package frc.robot;
 /** Add your docs here. */
 public class SystemConfigJson {
 
-    public boolean activeLift;
+    public boolean activeHanger;
     public boolean activeIntake;
     public boolean activeShooter;
+    public boolean activeDeflector;
     public boolean activeLights;
     public boolean activeVision;
 

@@ -64,7 +64,7 @@ public class Shoot extends Command {
     public void end(boolean interrupted) {
         shooterSystem.currentLeftMotorSet = 0;
         shooterSystem.currentRightMotorSet = 0;
-        shooterSystem.setMotors(0);
+        shooterSystem.setShooterMotors(0);
         intakeSystem.set(0);
         lightSystem.setDefault();
 

@@ -13,12 +13,15 @@ import edu.wpi.first.wpilibj.Filesystem;
 /** Add your docs here. */
 public class ConfigParser {
 
-    public static SystemConfigJson systemConfigJson;
+    public SystemConfigJson systemConfigJson;
 
-    public ConfigParser() {
+    public ConfigParser(boolean isBeta) {
         try {
             systemConfigJson = new ObjectMapper()
-                    .readValue(new File(Filesystem.getDeployDirectory(), "systemconfig.json"), SystemConfigJson.class);
+                    .readValue(
+                            new File(Filesystem.getDeployDirectory(),
+                                    isBeta ? "betasystemconfig.json" : "alphasystemconfig.json"),
+                            SystemConfigJson.class);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

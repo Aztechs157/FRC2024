@@ -20,17 +20,20 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.hanger_commands.ExtendHangerPin;
 import frc.robot.commands.hanger_commands.BuildHangerTension;
-import frc.robot.commands.hanger_commands.LiftHanger;
+import frc.robot.commands.hanger_commands.ExtendHanger;
 import frc.robot.commands.hanger_commands.RetractHanger;
 import frc.robot.commands.hanger_commands.RetractHangerPin;
 import frc.robot.commands.intake_commands.Eject;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
+import frc.robot.commands.shooter_commands.DeployDeflector;
+import frc.robot.commands.shooter_commands.RetractDeflector;
 import frc.robot.commands.shooter_commands.Shoot;
 import frc.robot.commands.shooter_commands.SpinUpShooter;
 import frc.robot.commands.shooter_commands.StartShooter;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
+import frc.robot.subsystems.DeflectorSystem;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.HangerSystem;
 import frc.robot.subsystems.IntakeSystem;
@@ -40,7 +43,6 @@ import frc.robot.subsystems.VisionSystem;
 import java.io.*;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -53,7 +55,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 public class RobotContainer {
 
     private final DigitalInput isBeta = new DigitalInput(9);
-    public final SystemConfigJson systemConfigs = new ConfigParser().systemConfigJson;
+    public final SystemConfigJson systemConfigs = new ConfigParser(isBeta.get()).systemConfigJson;
 
     // The robot's subsystems and commands are defined here...
     private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
@@ -62,6 +64,7 @@ public class RobotContainer {
     private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem(isBeta.get());
     private final IntakeSystem intakeSystem;
     private final ShooterSystem shooterSystem;
+    private final DeflectorSystem deflectorSystem;
     public final HangerSystem hangerSystem;
     public final VisionSystem visionSystem;
     public final PwmLEDs lightSystem;
@@ -98,11 +101,10 @@ public class RobotContainer {
     }
 
     public Command lowShootCommand() {
-        return pneumaticsSystem.setDeflectorFoward()
+        return new DeployDeflector(deflectorSystem)
                 .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                 .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                .andThen(pneumaticsSystem.setDeflectorReverse())
-                .finallyDo(pneumaticsSystem.setDeflectorReverse()::initialize);
+                .finallyDo(new RetractDeflector(deflectorSystem)::schedule);
     }
 
     public Command passCommand() {
@@ -117,7 +119,7 @@ public class RobotContainer {
     public Command liftHangerCommand() {
         return new BuildHangerTension(hangerSystem)
                 .andThen(new RetractHangerPin(pneumaticsSystem, hangerSystem)
-                        .andThen(new LiftHanger(hangerSystem, lightSystem)));
+                        .andThen(new ExtendHanger(hangerSystem, lightSystem)));
     }
 
     public Command retractHangerCommand() {
@@ -125,8 +127,7 @@ public class RobotContainer {
     }
 
     public double modifySpeed(final double speed) {
-        final var slowed = inputs.button(Inputs.slowDriveSpeed).get();
-        final var modifier = slowed ? 0.5 : 1;
+        final var modifier = 1 - inputs.axis(Inputs.precisionDrive).get();
         return speed * modifier;
     }
 
@@ -135,20 +136,20 @@ public class RobotContainer {
      */
     public RobotContainer() {
 
-        if (isBeta.get() && systemConfigs.activeLift) {
+        if (systemConfigs.activeHanger) {
             hangerSystem = new HangerSystem();
         } else {
             hangerSystem = null;
         }
 
-        if (isBeta.get() && systemConfigs.activeVision) {
+        if (systemConfigs.activeVision) {
             visionSystem = new VisionSystem();
             Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
         } else {
             visionSystem = null;
         }
 
-        if (isBeta.get() && systemConfigs.activeLights) {
+        if (systemConfigs.activeLights) {
             lightSystem = new PwmLEDs();
         } else {
             lightSystem = null;
@@ -165,6 +166,13 @@ public class RobotContainer {
 
         } else {
             shooterSystem = null;
+        }
+
+        if (systemConfigs.activeDeflector) {
+            deflectorSystem = new DeflectorSystem();
+
+        } else {
+            deflectorSystem = null;
         }
 
         // Register Named Commands
@@ -220,7 +228,7 @@ public class RobotContainer {
         Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
                 () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND)),
                 () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND)),
-                () -> -driverXbox.getRightX());
+                () -> modifySpeed(-driverXbox.getRightX()));
 
         Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
                 () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
@@ -267,15 +275,17 @@ public class RobotContainer {
 
         if (systemConfigs.activeIntake && systemConfigs.activeShooter) {
             inputs.button(Inputs.highShotSpinUp).toggleWhenPressed(highShootSpinUpCommand());
-            inputs.button(Inputs.lowShotSpinUp).toggleWhenPressed(lowShootSpinUpCommand());
-
             inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
-            inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
             inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
             inputs.button(Inputs.eject).toggleWhenPressed(ejectCommand());
+
+            if (systemConfigs.activeDeflector) {
+                inputs.button(Inputs.lowShotSpinUp).toggleWhenPressed(lowShootSpinUpCommand());
+                inputs.button(Inputs.lowShot).toggleWhenPressed(lowShootCommand());
+            }
         }
 
-        if (isBeta.get() && systemConfigs.activeLift) {
+        if (systemConfigs.activeHanger) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
             inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
             inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem, hangerSystem));

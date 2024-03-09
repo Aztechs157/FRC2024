@@ -11,6 +11,9 @@ import org.assabet.aztechs157.input.layouts.DynamicLayout;
 import org.assabet.aztechs157.input.models.XboxOne;
 import org.assabet.aztechs157.input.values.Axis;
 import org.assabet.aztechs157.input.values.Button;
+import org.assabet.aztechs157.numbers.Deadzone;
+import org.assabet.aztechs157.numbers.Range;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.Constants.ControllerConstants;
@@ -22,7 +25,7 @@ public class Inputs extends DynamicLayout {
     public static final Axis.Key driveSpeedX = new Axis.Key();
     public static final Axis.Key driveSpeedY = new Axis.Key();
     public static final Axis.Key rotateSpeed = new Axis.Key();
-    public static final Button.Key slowDriveSpeed = new Button.Key();
+    public static final Axis.Key precisionDrive = new Axis.Key();
 
     public static final Button.Key driveToSpeaker = new Button.Key();
     public static final Button.Key driveToAmp = new Button.Key();
@@ -91,15 +94,17 @@ public class Inputs extends DynamicLayout {
         layout.assign(driveToAmp, operator.b);
         layout.assign(resetGyro, new Button(() -> driver.start.get() & driver.back.get()));
         // layout.assign(autoIntake, operator.leftBumper);
-        layout.assign(slowDriveSpeed, driver.rightBumper);
-        layout.assign(intake, driver.leftBumper);
+        layout.assign(precisionDrive,
+                driver.rightTriggerHeld.map(Deadzone.forAxis(new Range(0.0, 0.2))::apply).scaledBy(0.9));
+
+        layout.assign(intake, new Button(() -> driver.leftTriggerHeld.get() > 0.2));
         layout.assign(loadNote, operator.x);
 
-        layout.assign(highShotSpinUp, new Button(() -> operator.rightTriggerHeld.get() > 0.2));
-        layout.assign(lowShotSpinUp, new Button(() -> operator.leftTriggerHeld.get() > 0.2));
+        layout.assign(highShotSpinUp, operator.rightBumper);
+        layout.assign(lowShotSpinUp, operator.leftBumper);
 
-        layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
-        layout.assign(lowShot, new Button(() -> driver.leftTriggerHeld.get() > 0.2));
+        layout.assign(highShot, driver.rightBumper);
+        layout.assign(lowShot, driver.leftBumper);
         layout.assign(pass, operator.a);
         layout.assign(eject, operator.b);
 

@@ -9,13 +9,13 @@ import frc.robot.Constants.HangerConstants;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.HangerSystem;
 
-public class LiftHanger extends Command {
+public class ExtendHanger extends Command {
 
     private final HangerSystem hangerSystem;
     private final PwmLEDs lightSystem;
 
     /** Creates a new LiftHanger. */
-    public LiftHanger(final HangerSystem hangerSystem, final PwmLEDs lightSystem) {
+    public ExtendHanger(final HangerSystem hangerSystem, final PwmLEDs lightSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(hangerSystem);
 

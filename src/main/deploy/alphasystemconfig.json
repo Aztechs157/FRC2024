@@ -1,0 +1,8 @@
+{
+    "activeHanger": false,
+    "activeIntake": false,
+    "activeShooter": false,
+    "activeDeflector": false,
+    "activeLights": false,
+    "activeVision": false
+}
