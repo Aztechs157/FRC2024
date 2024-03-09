@@ -33,6 +33,7 @@ public class VisionSystem extends SubsystemBase {
     PhotonCamera camera;
     AprilTagFieldLayout tagLayout;
     PhotonPoseEstimator poseEstimator;
+    public EstimatedRobotPose estimatedPose;
 
     boolean blueAlliance = true;
 
@@ -307,5 +308,15 @@ public class VisionSystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        Optional<EstimatedRobotPose> pose = poseEstimator.update();
+        if (pose.isPresent()) {
+            estimatedPose = pose.get();
+        } else {
+            pose = getEstimatedGlobalPose(estimatedPose.estimatedPose.toPose2d());
+            if (pose.isPresent()) {
+                estimatedPose = pose.get();
+            }
+        }
     }
+
 }

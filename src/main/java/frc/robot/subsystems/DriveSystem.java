@@ -20,7 +20,6 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -407,10 +406,12 @@ public class DriveSystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        swerveDrive.updateOdometry();
     }
 
     @Override
     public void simulationPeriodic() {
+        swerveDrive.updateOdometry();
     }
 
     /**
@@ -597,9 +598,10 @@ public class DriveSystem extends SubsystemBase {
     }
 
     /**
-     * Add a fake vision reading for testing purposes.
+     * Add a vision reading.
      */
-    public void addFakeVisionReading(Pose2d robotPose) {
-        swerveDrive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp());
-    }
+    public void addVisionReading(Pose2d robotPose, double timeStamp) {
+        swerveDrive.addVisionMeasurement(robotPose, timeStamp);
+    } // TODO: find optimal standard diviation
+
 }

@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.estimator.DifferentialDrivePoseEstimator;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.networktables.LogMessage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -18,7 +21,10 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.DriveConstants;
 import java.io.File;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.LogRecord;
+
+import org.photonvision.EstimatedRobotPose;
 
 import swervelib.parser.SwerveParser;
 
@@ -38,8 +44,6 @@ public class Robot extends TimedRobot {
 
     private Timer disabledTimer;
 
-    private int poseEstimatorCounter = 0;
-
     private MechanismLigament2d shooterWheel1;
     private MechanismLigament2d shooterWheel2;
 
@@ -51,12 +55,11 @@ public class Robot extends TimedRobot {
         return instance;
     }
 
-    private void estimatePose() {
-        poseEstimatorCounter++;
-        if (poseEstimatorCounter >= DriveConstants.POSE_ESTIMATE_FREQUENCY) {
-            m_robotContainer.visionSystem.getEstimatedGlobalPose(null); // TODO: figure out how to get prevRobotPose
-            poseEstimatorCounter = 0;
-        }
+    private void updatePose() {
+        EstimatedRobotPose estimatedPose = m_robotContainer.visionSystem.estimatedPose;
+        m_robotContainer.drivebase.addVisionReading(estimatedPose.estimatedPose.toPose2d(),
+                estimatedPose.timestampSeconds);
+
     }
 
     /**
@@ -160,6 +163,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         // TODO: estimatePose();
+        updatePose();
     }
 
     @Override
@@ -193,6 +197,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
         // TODO: estimatePose();
+        updatePose();
     }
 
     @Override

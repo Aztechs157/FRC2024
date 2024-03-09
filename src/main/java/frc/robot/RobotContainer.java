@@ -58,7 +58,7 @@ public class RobotContainer {
     public final SystemConfigJson systemConfigs = new ConfigParser(isBeta.get()).systemConfigJson;
 
     // The robot's subsystems and commands are defined here...
-    private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
+    public final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
             isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get());
     private final Inputs inputs = Inputs.createFromChooser();
     private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem(isBeta.get());
