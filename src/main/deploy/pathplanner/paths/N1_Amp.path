@@ -3,51 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.69,
-        "y": 4.23
+        "x": 0.74,
+        "y": 6.77
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.090592448119149,
-        "y": 3.8547123846013456
+        "x": 1.7291444748007259,
+        "y": 6.916946275799001
       },
       "isLocked": false,
-      "linkedName": "Start_Source"
+      "linkedName": "Start_Amp"
     },
     {
       "anchor": {
-        "x": 2.5,
-        "y": 4.097305368134887
+        "x": 2.895296810271618,
+        "y": 6.990384785778517
       },
       "prevControl": {
-        "x": 2.4180847955710996,
-        "y": 4.039947724499784
+        "x": 2.9144539028412777,
+        "y": 6.9920608142044784
       },
       "nextControl": {
-        "x": 2.663830408857801,
-        "y": 4.212020655405093
+        "x": 2.397199461225747,
+        "y": 6.946806914404682
       },
       "isLocked": false,
-      "linkedName": "N1_Source"
+      "linkedName": "N1"
     },
     {
       "anchor": {
-        "x": 0.69,
-        "y": 4.23
+        "x": 0.74,
+        "y": 6.77
       },
       "prevControl": {
-        "x": 1.3873362886642218,
-        "y": 4.29100901992336
+        "x": 0.7892403876506104,
+        "y": 6.778682408883346
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Start_Amp"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 180.0,
+      "waypointRelativePos": 0.5,
+      "rotationDegrees": -175.0,
       "rotateFast": false
     }
   ],
@@ -55,21 +55,18 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.2,
+      "waypointRelativePos": 0.0,
       "command": {
-        "type": "parallel",
+        "type": "sequential",
         "data": {
-          "commands": []
-        }
-      }
-    },
-    {
-      "name": "SpinUp",
-      "waypointRelativePos": 1.0,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": []
+          "commands": [
+            {
+              "type": "named",
+              "data": {
+                "name": "Intake"
+              }
+            }
+          ]
         }
       }
     }
@@ -82,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.83064835243593,
+    "rotation": -120.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SourceTests",
+  "folder": "AmpTests",
   "previewStartingState": {
-    "rotation": 120.65066795705285,
+    "rotation": -120.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

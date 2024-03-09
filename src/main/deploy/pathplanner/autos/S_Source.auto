@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.11,
-      "y": 5.54
+      "x": 0.7392210795817603,
+      "y": 4.373613761472538
     },
-    "rotation": 0.0
+    "rotation": -60.0
   },
   "command": {
     "type": "sequential",
@@ -20,6 +20,6 @@
       ]
     }
   },
-  "folder": "CenterB",
+  "folder": "Source",
   "choreoAuto": false
 }

@@ -20,12 +20,12 @@
         {
           "type": "path",
           "data": {
-            "pathName": "N1_Center"
+            "pathName": "N2E_Center"
           }
         }
       ]
     }
   },
-  "folder": null,
+  "folder": "Center",
   "choreoAuto": false
 }

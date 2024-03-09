@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.251666742649727,
-      "y": 5.5196408968316515
+      "x": 0.64,
+      "y": 6.712444649960525
     },
-    "rotation": 180.0
+    "rotation": 60.0
   },
   "command": {
     "type": "sequential",
@@ -20,6 +20,6 @@
       ]
     }
   },
-  "folder": "CenterR",
+  "folder": "Amp",
   "choreoAuto": false
 }

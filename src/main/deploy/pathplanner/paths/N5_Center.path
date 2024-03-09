@@ -8,48 +8,54 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.389999999999999,
-        "y": 5.53650223579517
+        "x": 4.504738810047418,
+        "y": 7.76491854978012
       },
       "isLocked": false,
       "linkedName": "Start_Center"
     },
     {
       "anchor": {
-        "x": 2.9,
-        "y": 5.53650223579517
+        "x": 8.293644849397962,
+        "y": 5.776912294565331
       },
       "prevControl": {
-        "x": 2.84,
-        "y": 5.53650223579517
+        "x": 9.155747689323233,
+        "y": 5.354563276106921
       },
       "nextControl": {
-        "x": 2.96,
-        "y": 5.53650223579517
+        "x": 7.350719868229697,
+        "y": 6.238856533504216
       },
       "isLocked": false,
-      "linkedName": "N1_Center"
+      "linkedName": "N5"
     },
     {
       "anchor": {
-        "x": 1.5,
+        "x": 1.39,
         "y": 5.53650223579517
       },
       "prevControl": {
-        "x": 1.44,
-        "y": 5.53650223579517
+        "x": 3.0656331112388626,
+        "y": 6.96207358669977
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Start_Center"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.55,
+      "rotationDegrees": 150.0,
+      "rotateFast": true
+    }
+  ],
   "constraintZones": [],
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.0,
+      "waypointRelativePos": 0.5,
       "command": {
         "type": "parallel",
         "data": {
@@ -58,23 +64,6 @@
               "type": "named",
               "data": {
                 "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "name": "SpinUp",
-      "waypointRelativePos": 0.15,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "HighShootSpinUp"
               }
             }
           ]
@@ -90,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 178.81822517908478,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "CenterTests",
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

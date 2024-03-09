@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5,
+        "x": 1.39,
         "y": 5.53650223579517
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.5,
+        "x": 3.3899999999999997,
         "y": 5.53650223579517
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Start_Center"
     },
     {
       "anchor": {
@@ -32,19 +32,19 @@
     },
     {
       "anchor": {
-        "x": 8.012985142779401,
-        "y": 2.5844081317792273
+        "x": 8.281950694955519,
+        "y": 2.4323841240275086
       },
       "prevControl": {
-        "x": 6.578368654352508,
-        "y": 4.252303671414037
+        "x": 6.847334206528626,
+        "y": 4.100279663662317
       },
       "nextControl": {
-        "x": 8.040886809186485,
-        "y": 2.551969451947948
+        "x": 8.309852361362601,
+        "y": 2.3999454441962293
       },
       "isLocked": false,
-      "linkedName": "N4_Center"
+      "linkedName": "N7"
     },
     {
       "anchor": {
@@ -64,16 +64,16 @@
     },
     {
       "anchor": {
-        "x": 1.5,
+        "x": 1.39,
         "y": 5.53650223579517
       },
       "prevControl": {
-        "x": 3.863538607229299,
+        "x": 3.7535386072292987,
         "y": 5.953257862195803
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Start_Center"
     }
   ],
   "rotationTargets": [

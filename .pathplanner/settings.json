@@ -11,12 +11,9 @@
     "SourceTests"
   ],
   "autoFolders": [
-    "AmpB",
-    "AmpR",
-    "CenterB",
-    "CenterR",
-    "SourceB",
-    "SourceR"
+    "Amp",
+    "Center",
+    "Source"
   ],
   "defaultMaxVel": 1.0,
   "defaultMaxAccel": 2.0,
