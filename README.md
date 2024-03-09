@@ -10,3 +10,5 @@ Developer                              | Title
 [Eric](https://github.com/Eric-157)    | Programing Mentor
 [Amelia](https://github.com/Miabread)  | Programing Mentor
 [Katie](https://github.com/tytytyty74) | Programing Mentor
+[Ben](https://github.com/benghaupt) | Programing Mentor
+[Ranier](https://github.com/rxgran) | Programing Mentor
