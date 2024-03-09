@@ -12,7 +12,7 @@
         "y": 1.8215794738244226
       },
       "isLocked": false,
-      "linkedName": "ReturnRight"
+      "linkedName": "Return_SourceR"
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 1.0362881238963988
       },
       "isLocked": false,
-      "linkedName": "N2Right"
+      "linkedName": "N2_SourceR"
     },
     {
       "anchor": {
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ReturnRight"
+      "linkedName": "Return_SourceR"
     }
   ],
   "rotationTargets": [

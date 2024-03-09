@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.4993411183403562,
-      "y": 7.343928989852282
+      "x": 15.064560271570684,
+      "y": 7.367317298737161
     },
     "rotation": -90.0
   },
@@ -13,6 +13,6 @@
       "commands": []
     }
   },
-  "folder": "SittingAutos",
+  "folder": "AmpB",
   "choreoAuto": false
 }

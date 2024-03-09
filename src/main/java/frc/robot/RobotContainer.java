@@ -40,6 +40,7 @@ import frc.robot.subsystems.VisionSystem;
 import java.io.*;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -70,6 +71,10 @@ public class RobotContainer {
 
     public Command resetGyroCommand() {
         return drivebase.zeroHeading();
+    }
+
+    public Command reverseGyroCommand() {
+        return drivebase.setGyroOffset(180);
     }
 
     public Command intakeCommand() {
@@ -215,12 +220,12 @@ public class RobotContainer {
         Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
                 () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND)),
                 () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND)),
-                () -> driverXbox.getRightX());
+                () -> -driverXbox.getRightX());
 
         Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
                 () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
                 () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
-                () -> -driverXbox.getRightX());
+                () -> driverXbox.getRightX());
 
         drivebase.setDefaultCommand(
                 !RobotBase.isSimulation() ? driveFieldOrientedAnglularVelocity : driveFieldOrientedDirectAngleSim);

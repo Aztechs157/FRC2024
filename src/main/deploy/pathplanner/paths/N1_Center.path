@@ -8,7 +8,7 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.389999999999999,
+        "x": 2.3899999999999997,
         "y": 5.53650223579517
       },
       "isLocked": false,
@@ -20,11 +20,11 @@
         "y": 5.53650223579517
       },
       "prevControl": {
-        "x": 2.84,
+        "x": 2.4,
         "y": 5.53650223579517
       },
       "nextControl": {
-        "x": 2.96,
+        "x": 3.4,
         "y": 5.53650223579517
       },
       "isLocked": false,
@@ -32,16 +32,16 @@
     },
     {
       "anchor": {
-        "x": 1.5,
+        "x": 1.39,
         "y": 5.53650223579517
       },
       "prevControl": {
-        "x": 1.44,
+        "x": 2.3899999999999997,
         "y": 5.53650223579517
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Return_CenterR"
+      "linkedName": "Start_CenterR"
     }
   ],
   "rotationTargets": [],
@@ -63,23 +63,6 @@
           ]
         }
       }
-    },
-    {
-      "name": "SpinUp",
-      "waypointRelativePos": 0.15,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "HighShootSpinUp"
-              }
-            }
-          ]
-        }
-      }
     }
   ],
   "globalConstraints": {
@@ -90,13 +73,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CenterAutonPaths",
+  "folder": null,
   "previewStartingState": {
-    "rotation": 0.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

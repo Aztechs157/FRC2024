@@ -12,7 +12,7 @@
         "y": 5.53650223579517
       },
       "isLocked": false,
-      "linkedName": "ReturnCenter"
+      "linkedName": "Return_CenterR"
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 3.5767352621380377
       },
       "isLocked": false,
-      "linkedName": "UnderStage"
+      "linkedName": "Stage_R"
     },
     {
       "anchor": {
@@ -44,7 +44,7 @@
         "y": 4.093041321272273
       },
       "isLocked": false,
-      "linkedName": "N3Center"
+      "linkedName": "N3_CenterR"
     },
     {
       "anchor": {
@@ -60,7 +60,7 @@
         "y": 4.095484771463885
       },
       "isLocked": false,
-      "linkedName": "UnderStage"
+      "linkedName": "Stage_R"
     },
     {
       "anchor": {
@@ -73,7 +73,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "ReturnCenter"
+      "linkedName": "Return_CenterR"
     }
   ],
   "rotationTargets": [

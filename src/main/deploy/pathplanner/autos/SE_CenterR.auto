@@ -2,24 +2,24 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 15.859762773656602,
-      "y": 6.735832958845405
+      "x": 15.239972588207284,
+      "y": 5.5196408968316515
     },
-    "rotation": -150.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "HighShoot"
+            "pathName": "N1_CenterRNew"
           }
         }
       ]
     }
   },
-  "folder": "SittingAutos",
+  "folder": "CenterR",
   "choreoAuto": false
 }

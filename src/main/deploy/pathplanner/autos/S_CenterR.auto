@@ -2,24 +2,24 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.39,
-      "y": 5.53650223579517
+      "x": 15.251666742649727,
+      "y": 5.5196408968316515
     },
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "CenterExit"
+            "name": "HighShoot"
           }
         }
       ]
     }
   },
-  "folder": "TestAutos",
+  "folder": "CenterR",
   "choreoAuto": false
 }

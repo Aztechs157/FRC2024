@@ -1,0 +1,37 @@
+{
+  "version": 1.0,
+  "startingPose": {
+    "position": {
+      "x": 1.39,
+      "y": 5.53650223579517
+    },
+    "rotation": 180.0
+  },
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "N1_Center"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
+        }
+      ]
+    }
+  },
+  "folder": null,
+  "choreoAuto": false
+}

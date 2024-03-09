@@ -3,15 +3,23 @@
   "robotLength": 0.66,
   "holonomicMode": true,
   "pathFolders": [
-    "CenterAutonPaths",
+    "AmpB",
+    "AmpR",
     "AmpSideAutonPaths",
-    "SourceSideAutonPaths",
-    "TestPaths"
+    "CenterAutonPaths",
+    "CenterB",
+    "CenterR",
+    "SourceB",
+    "SourceR",
+    "SourceSideAutonPaths"
   ],
   "autoFolders": [
-    "MovingAutos",
-    "TestAutos",
-    "SittingAutos"
+    "AmpB",
+    "AmpR",
+    "CenterB",
+    "CenterR",
+    "SourceB",
+    "SourceR"
   ],
   "defaultMaxVel": 1.0,
   "defaultMaxAccel": 2.0,
