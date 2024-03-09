@@ -8,21 +8,22 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.VisionConstants;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.cosmetics.PwmLEDs;
+import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.VisionSystem;
 
 public class DriveToSpeaker extends Command {
-    private DriveSubsystem driveSystem;
-    private VisionSystem visionSystem;
+    private final DriveSystem driveSystem;
+    private final VisionSystem visionSystem;
+    private final PwmLEDs lightSystem;
 
     /** Creates a new DriveTospeakerV2. */
-    public DriveToSpeaker(DriveSubsystem driveSystem, VisionSystem visionSystem) {
+    public DriveToSpeaker(final DriveSystem driveSystem, final VisionSystem visionSystem, final PwmLEDs lightSystem) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(driveSystem);
 
         this.driveSystem = driveSystem;
         this.visionSystem = visionSystem;
-        this.driveBase = driveBase;
         this.lightSystem = lightSystem;
     }
 
