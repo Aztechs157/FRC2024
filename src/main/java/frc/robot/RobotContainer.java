@@ -61,7 +61,8 @@ public class RobotContainer {
     private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
             isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get());
     private final Inputs inputs = Inputs.createFromChooser();
-    private final PneumaticsSystem pneumaticsSystem = new PneumaticsSystem(isBeta.get());
+    // private final PneumaticsSystem pneumaticsSystem = new
+    // PneumaticsSystem(isBeta.get());
     private final IntakeSystem intakeSystem;
     private final ShooterSystem shooterSystem;
     private final DeflectorSystem deflectorSystem;
@@ -114,13 +115,11 @@ public class RobotContainer {
     }
 
     public Command liftHangerCommand() {
-        return new BuildHangerTension(hangerSystem)
-                .andThen(new RetractHangerPin(pneumaticsSystem, hangerSystem)
-                        .andThen(new ExtendHanger(hangerSystem, lightSystem)));
+        return new ExtendHanger(hangerSystem, lightSystem);
     }
 
     public Command retractHangerCommand() {
-        return new RetractHanger(hangerSystem, lightSystem).andThen(new ExtendHangerPin(pneumaticsSystem));
+        return new RetractHanger(hangerSystem, lightSystem);
     }
 
     public double modifySpeed(final double speed) {
@@ -285,8 +284,10 @@ public class RobotContainer {
         if (systemConfigs.activeHanger) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
             inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
-            inputs.button(Inputs.retractHangerPin).whenPressed(new RetractHangerPin(pneumaticsSystem, hangerSystem));
-            inputs.button(Inputs.extendHangerPin).whenPressed(new ExtendHangerPin(pneumaticsSystem));
+            // inputs.button(Inputs.retractHangerPin).whenPressed(new
+            // RetractHangerPin(pneumaticsSystem, hangerSystem));
+            // inputs.button(Inputs.extendHangerPin).whenPressed(new
+            // ExtendHangerPin(pneumaticsSystem));
         }
 
         inputs.button(Inputs.resetGyro).whenPressed(resetGyroCommand());

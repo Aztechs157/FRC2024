@@ -110,8 +110,8 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(liftHanger, operator.pov.up);
         layout.assign(retractHanger, operator.pov.down);
-        layout.assign(retractHangerPin, operator.back);
-        layout.assign(extendHangerPin, operator.start);
+        // layout.assign(retractHangerPin, operator.back);
+        // layout.assign(extendHangerPin, operator.start);
 
         return layout;
     }
