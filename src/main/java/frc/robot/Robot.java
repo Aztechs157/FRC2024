@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.LogMessage;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -17,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.Constants.DriveConstants;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.LogRecord;
+
 import swervelib.parser.SwerveParser;
 
 /**
@@ -113,13 +116,16 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         m_robotContainer.setMotorBrake(true);
+        try {
+            if (m_robotContainer.systemConfigs.activeLights) {
+                m_robotContainer.lightSystem.setDefault();
+            }
 
-        if (m_robotContainer.systemConfigs.activeLights) {
-            m_robotContainer.lightSystem.setDefault();
-        }
-
-        if (m_robotContainer.systemConfigs.activeVision) {
-            m_robotContainer.visionSystem.updateAlliance();
+            if (m_robotContainer.systemConfigs.activeVision) {
+                m_robotContainer.visionSystem.updateAlliance();
+            }
+        } catch (Exception e) {
+            System.err.println(e);
         }
     }
 

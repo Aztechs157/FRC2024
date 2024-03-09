@@ -25,8 +25,6 @@ public class PwmLEDs extends SubsystemBase {
     private double cycleLength = 0.0;
     private double duration = 0.0;
 
-    public Color allianceColor = Color.kFirstRed;
-
     private double mp1 = 90.0;
     private double mp2 = 60.0;
     private double mp3 = 30.0;
@@ -78,11 +76,6 @@ public class PwmLEDs extends SubsystemBase {
         lights.setLength(CosmeticConstants.LIGHT_LENGTH);
         lights.setData(buffer);
         lights.start();
-    }
-
-    public void updateAllianceColor() {
-        var alliance = DriverStation.getAlliance();
-        allianceColor = alliance.get() == DriverStation.Alliance.Red ? Color.kFirstRed : Color.kFirstBlue;
     }
 
     public void solid(Color color) {
@@ -180,7 +173,6 @@ public class PwmLEDs extends SubsystemBase {
     }
 
     public void setDefault() {
-        updateAllianceColor();
         Color color1 = Color.kBlue;
         Color color2 = Color.kGold;
         if (DriverStation.isEStopped()) {
