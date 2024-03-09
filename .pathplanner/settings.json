@@ -3,15 +3,12 @@
   "robotLength": 0.66,
   "holonomicMode": true,
   "pathFolders": [
-    "AmpB",
-    "AmpR",
-    "AmpSideAutonPaths",
-    "CenterAutonPaths",
-    "CenterB",
-    "CenterR",
-    "SourceB",
-    "SourceR",
-    "SourceSideAutonPaths"
+    "Amp",
+    "AmpTests",
+    "Center",
+    "CenterTests",
+    "Source",
+    "SourceTests"
   ],
   "autoFolders": [
     "AmpB",

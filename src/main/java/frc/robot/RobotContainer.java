@@ -81,10 +81,7 @@ public class RobotContainer {
     }
 
     public Command intakeCommand() {
-        return new Intake(intakeSystem, lightSystem)
-                .alongWith(pneumaticsSystem.setIntakeFoward())
-                .andThen(new LoadNote(intakeSystem, lightSystem).alongWith(pneumaticsSystem.setIntakeReverse()))
-                .finallyDo(pneumaticsSystem.setIntakeReverse()::initialize);
+        return new Intake(intakeSystem, lightSystem).andThen(new LoadNote(intakeSystem, lightSystem));
     }
 
     public Command highShootSpinUpCommand() {

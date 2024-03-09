@@ -12,7 +12,7 @@
         "y": 5.53650223579517
       },
       "isLocked": false,
-      "linkedName": "N1_CenterR"
+      "linkedName": "N1_Center"
     },
     {
       "anchor": {
@@ -25,7 +25,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Start_CenterR"
+      "linkedName": "Start_Center"
     }
   ],
   "rotationTargets": [],
@@ -43,7 +43,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Center",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0

@@ -12,7 +12,7 @@
         "y": 5.53650223579517
       },
       "isLocked": false,
-      "linkedName": "Return_CenterR"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 3.5193776185029333
       },
       "isLocked": false,
-      "linkedName": "Stage_R"
+      "linkedName": "Stage"
     },
     {
       "anchor": {
@@ -44,7 +44,7 @@
         "y": 2.551969451947948
       },
       "isLocked": false,
-      "linkedName": "N4_CenterR"
+      "linkedName": "N4_Center"
     },
     {
       "anchor": {
@@ -60,7 +60,7 @@
         "y": 4.030847899219826
       },
       "isLocked": false,
-      "linkedName": "Stage_R"
+      "linkedName": "Stage"
     },
     {
       "anchor": {
@@ -73,7 +73,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Return_CenterR"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -142,7 +142,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CenterAutonPaths",
+  "folder": "CenterTests",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0

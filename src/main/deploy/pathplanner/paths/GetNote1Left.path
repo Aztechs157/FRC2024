@@ -12,7 +12,7 @@
         "y": 6.843473137899498
       },
       "isLocked": false,
-      "linkedName": "Start_AmpR"
+      "linkedName": "Start_Amp"
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 6.946806914404682
       },
       "isLocked": false,
-      "linkedName": "N1_AmpR"
+      "linkedName": "N1_Amp"
     },
     {
       "anchor": {
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Return_AmpR"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -100,7 +100,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "AmpSideAutonPaths",
+  "folder": "AmpTests",
   "previewStartingState": {
     "rotation": -120.25643716352927,
     "velocity": 0

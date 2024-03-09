@@ -12,7 +12,7 @@
         "y": 3.0085833319095814
       },
       "isLocked": false,
-      "linkedName": "Return_SourceR"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -28,7 +28,7 @@
         "y": 2.306096163799611
       },
       "isLocked": false,
-      "linkedName": "N3_SourceR"
+      "linkedName": "N3_Source"
     },
     {
       "anchor": {
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Return_SourceR"
+      "linkedName": null
     }
   ],
   "rotationTargets": [
@@ -93,7 +93,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SourceSideAutonPaths",
+  "folder": "SourceTests",
   "previewStartingState": {
     "rotation": 119.74488129694224,
     "velocity": 0
