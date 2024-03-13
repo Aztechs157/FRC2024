@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkBase;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkLimitSwitch;
 import com.revrobotics.CANSparkLowLevel.MotorType;
@@ -20,13 +21,16 @@ public class HangerSystem extends SubsystemBase {
             MotorType.kBrushless);
     private final CANSparkBase hangerMotorRight = new CANSparkMax(HangerConstants.HANGER_MOTOR_RIGHT_ID,
             MotorType.kBrushless);
-    private final SparkLimitSwitch hangerLeftExtLim = hangerMotorLeft.getForwardLimitSwitch(Type.kNormallyOpen);
-    private final SparkLimitSwitch hangerLeftRetLim = hangerMotorLeft.getReverseLimitSwitch(Type.kNormallyOpen);
-    private final SparkLimitSwitch hangerRighttExtLim = hangerMotorRight.getForwardLimitSwitch(Type.kNormallyOpen);
-    private final SparkLimitSwitch hangerRightRetLim = hangerMotorRight.getReverseLimitSwitch(Type.kNormallyOpen);
+    private final SparkLimitSwitch hangerLeftExtLim = hangerMotorLeft.getReverseLimitSwitch(Type.kNormallyOpen);
+    private final SparkLimitSwitch hangerLeftRetLim = hangerMotorLeft.getForwardLimitSwitch(Type.kNormallyOpen);
+    private final SparkLimitSwitch hangerRighttExtLim = hangerMotorRight.getReverseLimitSwitch(Type.kNormallyOpen);
+    private final SparkLimitSwitch hangerRightRetLim = hangerMotorRight.getForwardLimitSwitch(Type.kNormallyOpen);
 
     /** Creates a new HangerSystem. */
     public HangerSystem() {
+        hangerMotorLeft.setIdleMode(IdleMode.kBrake);
+        hangerMotorRight.setIdleMode(IdleMode.kBrake);
+
         Shuffleboard.getTab("Driver").addBoolean("left extension", this::readLeftExtLimitSwitch);
         Shuffleboard.getTab("Driver").addBoolean("left retract", this::readLeftRetLimitSwitch);
         Shuffleboard.getTab("Driver").addBoolean("right extension", this::readRightExtLimitSwitch);

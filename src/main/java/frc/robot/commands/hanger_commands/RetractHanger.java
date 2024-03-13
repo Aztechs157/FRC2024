@@ -4,7 +4,6 @@
 
 package frc.robot.commands.hanger_commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.HangerConstants;
 import frc.robot.cosmetics.PwmLEDs;
@@ -14,7 +13,6 @@ public class RetractHanger extends Command {
 
     private final HangerSystem hangerSystem;
     private final PwmLEDs lightSystem;
-    private Timer timer = new Timer();
 
     /** Creates a new RetractHanger. */
     public RetractHanger(final HangerSystem hangerSystem, final PwmLEDs lightSystem) {
@@ -28,13 +26,19 @@ public class RetractHanger extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        hangerSystem.setMotors(-HangerConstants.LIFT_RETRACT_SPEED);
-        timer.reset();
+        hangerSystem.setMotors(HangerConstants.LIFT_RETRACT_SPEED);
+        System.out.println("lift retract start");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        if (hangerSystem.readLeftRetLimitSwitch()) {
+            hangerSystem.setLeftMotor(0);
+        }
+        if (hangerSystem.readRightRetLimitSwitch()) {
+            hangerSystem.setRightMotor(0);
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -42,12 +46,12 @@ public class RetractHanger extends Command {
     public void end(boolean interrupted) {
         hangerSystem.setLeftMotor(0);
         hangerSystem.setRightMotor(0);
+        System.out.println("lift retracted");
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return hangerSystem.readLeftRetLimitSwitch() && hangerSystem.readRightRetLimitSwitch(); // &&
-                                                                                                // timer.hasElapsed(2);
+        return hangerSystem.readLeftRetLimitSwitch() && hangerSystem.readRightRetLimitSwitch();
     }
 }

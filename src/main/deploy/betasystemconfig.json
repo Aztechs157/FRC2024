@@ -1,5 +1,5 @@
 {
-    "activeHanger": false,
+    "activeHanger": true,
     "activeIntake": true,
     "activeShooter": true,
     "activeDeflector": true,

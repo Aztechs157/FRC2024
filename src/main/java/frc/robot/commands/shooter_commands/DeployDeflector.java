@@ -23,12 +23,13 @@ public class DeployDeflector extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        deflectorSystem.set(ShooterConstants.DEFLECTOR_SPEED);
+        deflectorSystem.set(-ShooterConstants.DEFLECTOR_SPEED);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+
     }
 
     // Called once the command ends or is interrupted.
@@ -40,6 +41,7 @@ public class DeployDeflector extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return deflectorSystem.readExtLimitSwitch();
+        return deflectorSystem.readDeflectorPotMapped() >= 99;
+        // return deflectorSystem.readExtLimitSwitch();
     }
 }

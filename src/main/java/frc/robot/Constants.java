@@ -99,7 +99,12 @@ public class Constants {
         public static final int SHOOTER_MOTOR_RIGHT_ID = 32;
 
         public static final int DEFLECTOR_MOTOR_ID = 33;
-        public static final double DEFLECTOR_SPEED = 0.5;
+        public static final int DEFLECTOR_EXT_LIM_ID = 1;
+        public static final int DEFLECTOR_RET_LIM_ID = 2;
+        public static final int DEFLECTOR_POT_ID = 0;
+        public static final double DEFLECTOR_SPEED = 0.15;
+
+        public static final PIDController DEFLECTOR_MOTOR_PID = new PIDController(0, 0, 0);
 
         public static final IdleMode SHOOTER_MOTOR_IDLE_MODE = IdleMode.kBrake;
 
@@ -121,34 +126,11 @@ public class Constants {
 
     public static class HangerConstants {
 
-        public static final int HANGER_MOTOR_LEFT_ID = 41;
-        public static final int HANGER_MOTOR_RIGHT_ID = 42;
+        public static final int HANGER_MOTOR_LEFT_ID = 42;
+        public static final int HANGER_MOTOR_RIGHT_ID = 41;
 
-        public static final int HANGER_LEFT_EXT_LIMIT_ID = 2;
-        public static final int HANGER_LEFT_RET_LIMIT_ID = 3;
-        public static final int HANGER_RIGHT_EXT_LIMIT_ID = 4;
-        public static final int HANGER_RIGHT_RET_LIMIT_ID = 5;
-
-        public static final double LIFT_EXTEND_SPEED = 0.75;
-        public static final double LIFT_RETRACT_SPEED = 1;
-
-    }
-
-    public static class PneumaticsConstants {
-
-        public static final int PNEUMATICS_HUB_ID = 52;
-
-        public static final int INTAKE_SOLENOID_RETRACT_CHANNEL = 14;
-        public static final int INTAKE_SOLENOID_EXTEND_CHANNEL = 15;
-
-        public static final int DEFLECTOR_LEFT_SOLENOID_RETRACT_CHANNEL = 10;
-        public static final int DEFLECTOR_LEFT_SOLENOID_EXTEND_CHANNEL = 11;
-
-        public static final int DEFLECTOR_RIGHT_SOLENOID_RETRACT_CHANNEL = 12;
-        public static final int DEFLECTOR_RIGHT_SOLENOID_EXTEND_CHANNEL = 13;
-
-        public static final int HANGER_PIN_SOLENOID_RETRACT_CHANNEL = 0;
-        public static final int HANGER_PIN_SOLENOID_EXTEND_CHANNEL = 1;
+        public static final double LIFT_EXTEND_SPEED = 1;
+        public static final double LIFT_RETRACT_SPEED = he;
 
     }
 

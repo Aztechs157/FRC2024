@@ -23,7 +23,7 @@ public class RetractDeflector extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        deflectorSystem.set(-ShooterConstants.DEFLECTOR_SPEED);
+        deflectorSystem.set(ShooterConstants.DEFLECTOR_SPEED);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -40,6 +40,7 @@ public class RetractDeflector extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return deflectorSystem.readRetLimitSwitch();
+        return deflectorSystem.readDeflectorPotMapped() <= 1;
+        // return deflectorSystem.readRetLimitSwitch();
     }
 }

@@ -18,11 +18,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
-import frc.robot.commands.hanger_commands.ExtendHangerPin;
-import frc.robot.commands.hanger_commands.BuildHangerTension;
 import frc.robot.commands.hanger_commands.ExtendHanger;
 import frc.robot.commands.hanger_commands.RetractHanger;
-import frc.robot.commands.hanger_commands.RetractHangerPin;
 import frc.robot.commands.intake_commands.Eject;
 import frc.robot.commands.intake_commands.Intake;
 import frc.robot.commands.intake_commands.LoadNote;
@@ -37,7 +34,6 @@ import frc.robot.subsystems.DeflectorSystem;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.HangerSystem;
 import frc.robot.subsystems.IntakeSystem;
-import frc.robot.subsystems.PneumaticsSystem;
 import frc.robot.subsystems.ShooterSystem;
 import frc.robot.subsystems.VisionSystem;
 import java.io.*;
@@ -284,10 +280,6 @@ public class RobotContainer {
         if (systemConfigs.activeHanger) {
             inputs.button(Inputs.liftHanger).toggleWhenPressed(liftHangerCommand());
             inputs.button(Inputs.retractHanger).toggleWhenPressed(retractHangerCommand());
-            // inputs.button(Inputs.retractHangerPin).whenPressed(new
-            // RetractHangerPin(pneumaticsSystem, hangerSystem));
-            // inputs.button(Inputs.extendHangerPin).whenPressed(new
-            // ExtendHangerPin(pneumaticsSystem));
         }
 
         inputs.button(Inputs.resetGyro).whenPressed(resetGyroCommand());

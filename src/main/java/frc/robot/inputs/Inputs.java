@@ -95,7 +95,7 @@ public class Inputs extends DynamicLayout {
         layout.assign(resetGyro, new Button(() -> driver.start.get() & driver.back.get()));
         // layout.assign(autoIntake, operator.leftBumper);
         layout.assign(precisionDrive,
-                driver.rightTriggerHeld.map(Deadzone.forAxis(new Range(0.0, 0.2))::apply).scaledBy(0.9));
+                driver.rightTriggerHeld.map(Deadzone.forAxis(new Range(0.0, 0.05))::apply).scaledBy(0.9));
 
         layout.assign(intake, new Button(() -> driver.leftTriggerHeld.get() > 0.2));
         layout.assign(loadNote, operator.x);
@@ -110,8 +110,6 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(liftHanger, operator.pov.up);
         layout.assign(retractHanger, operator.pov.down);
-        // layout.assign(retractHangerPin, operator.back);
-        // layout.assign(extendHangerPin, operator.start);
 
         return layout;
     }

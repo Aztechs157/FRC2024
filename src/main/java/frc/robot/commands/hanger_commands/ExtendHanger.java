@@ -26,7 +26,8 @@ public class ExtendHanger extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        hangerSystem.setMotors(HangerConstants.LIFT_EXTEND_SPEED);
+        hangerSystem.setMotors(-HangerConstants.LIFT_EXTEND_SPEED);
+        System.out.println("lift extend start");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -45,6 +46,7 @@ public class ExtendHanger extends Command {
     public void end(boolean interrupted) {
         hangerSystem.setLeftMotor(0);
         hangerSystem.setRightMotor(0);
+        System.out.println("lift extended");
     }
 
     // Returns true when the command should end.
