@@ -95,16 +95,16 @@ public class Inputs extends DynamicLayout {
         layout.assign(resetGyro, new Button(() -> driver.start.get() & driver.back.get()));
         // layout.assign(autoIntake, operator.leftBumper);
         layout.assign(precisionDrive,
-                driver.rightTriggerHeld.map(Deadzone.forAxis(new Range(0.0, 0.05))::apply).scaledBy(0.9));
+                driver.leftTriggerHeld.map(Deadzone.forAxis(new Range(0.0, 0.05))::apply).scaledBy(0.9));
 
-        layout.assign(intake, new Button(() -> driver.leftTriggerHeld.get() > 0.2));
+        layout.assign(intake, driver.leftBumper);
         layout.assign(loadNote, operator.x);
 
         layout.assign(highShotSpinUp, operator.rightBumper);
         layout.assign(lowShotSpinUp, operator.leftBumper);
 
-        layout.assign(highShot, driver.rightBumper);
-        layout.assign(lowShot, driver.leftBumper);
+        layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
+        layout.assign(lowShot, driver.rightBumper);
         layout.assign(pass, operator.a);
         layout.assign(eject, operator.b);
 

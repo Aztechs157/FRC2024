@@ -130,7 +130,7 @@ public class Constants {
         public static final int HANGER_MOTOR_RIGHT_ID = 41;
 
         public static final double LIFT_EXTEND_SPEED = 1;
-        public static final double LIFT_RETRACT_SPEED = he;
+        public static final double LIFT_RETRACT_SPEED = 1;
 
     }
 
