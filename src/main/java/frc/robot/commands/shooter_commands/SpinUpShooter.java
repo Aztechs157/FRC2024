@@ -28,21 +28,22 @@ public class SpinUpShooter extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        lightSystem.setClimb(Color.kRed, Color.kBlack, 1, 9, 2);
+        lightSystem.setClimb(Color.kRed, Color.kBlack, 3, 7, 2);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        int colorLength = (int) Math.floor(10 * shooterSystem.getLeftEncoderVelocity() / setPoint);
+        // int colorLength = (int) Math.floor(10 *
+        // shooterSystem.getLeftEncoderVelocity() / setPoint);
 
         shooterSystem.currentLeftMotorSet += shooterSystem.leftMotorPID(setPoint);
         shooterSystem.currentRightMotorSet += shooterSystem.rightMotorPID(setPoint);
         shooterSystem.setLeftMotor(shooterSystem.currentLeftMotorSet);
         shooterSystem.setRightMotor(shooterSystem.currentRightMotorSet);
 
-        lightSystem.setColor1Length(colorLength);
-        lightSystem.setColor2Length(10 - colorLength);
+        // lightSystem.setClimb(Color.kRed, Color.kBlack, colorLength, 10 - colorLength,
+        // 2);
     }
 
     // Called once the command ends or is interrupted.

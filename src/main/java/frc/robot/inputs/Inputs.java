@@ -92,10 +92,10 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(driveToSpeaker, operator.a);
         layout.assign(driveToAmp, operator.b);
-        layout.assign(resetGyro, new Button(() -> driver.start.get() & driver.back.get()));
+        layout.assign(resetGyro, driver.start);
         // layout.assign(autoIntake, operator.leftBumper);
         layout.assign(precisionDrive,
-                driver.leftTriggerHeld.map(Deadzone.forAxis(new Range(0.0, 0.05))::apply).scaledBy(0.9));
+                driver.leftTriggerHeld.map(Deadzone.forAxis(new Range(0.0, 0.05))::apply).scaledBy(0.7));
 
         layout.assign(intake, driver.leftBumper);
         layout.assign(loadNote, operator.x);

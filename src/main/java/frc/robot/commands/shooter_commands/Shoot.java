@@ -67,6 +67,7 @@ public class Shoot extends Command {
         shooterSystem.setShooterMotors(0);
         intakeSystem.set(0);
         lightSystem.setDefault();
+        shooterSystem.setShootIsRunning(false);
 
         if (!interrupted) {
             intakeSystem.hasNote = false;

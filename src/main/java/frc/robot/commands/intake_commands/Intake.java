@@ -28,7 +28,7 @@ public class Intake extends Command {
     @Override
     public void initialize() {
         intakeSystem.set(-IntakeConstants.INTAKE_SPEED);
-        lightSystem.setClimb(Color.kOrange, Color.kBlack, 3, 2, 2);
+        lightSystem.setClimb(Color.kPurple, Color.kBlack, 3, 2, 2);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -43,7 +43,7 @@ public class Intake extends Command {
 
         if (!interrupted) {
             intakeSystem.hasNote = true;
-            lightSystem.setSolid(Color.kOrange);
+            lightSystem.setSolid(Color.kGreen);
         } else {
             lightSystem.setDefault();
         }

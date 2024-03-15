@@ -13,5 +13,6 @@ public class SystemConfigJson {
     public boolean activeDeflector;
     public boolean activeLights;
     public boolean activeVision;
+    public boolean activeDriveCam;
 
 }

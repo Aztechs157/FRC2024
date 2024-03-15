@@ -4,5 +4,6 @@
     "activeShooter": false,
     "activeDeflector": false,
     "activeLights": false,
-    "activeVision": false
+    "activeVision": false,
+    "activeDriveCam": false
 }

@@ -57,7 +57,7 @@ public class DriveSystem extends SubsystemBase {
      *
      * @param directory Directory of swerve drive config files.
      */
-    public DriveSystem(File directory, boolean isBeta) {
+    public DriveSystem(File directory, boolean isBeta, boolean debugModeOn) {
         // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
         // In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
         // The encoder resolution per motor revolution is 1 per motor revolution.
@@ -74,7 +74,12 @@ public class DriveSystem extends SubsystemBase {
 
         // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
         // objects being created.
-        SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+        if (debugModeOn) {
+            SwerveDriveTelemetry.verbosity = TelemetryVerbosity.HIGH;
+        } else {
+            SwerveDriveTelemetry.verbosity = TelemetryVerbosity.LOW;
+        }
+
         try {
             swerveDrive = new SwerveParser(directory).createSwerveDrive(maximumSpeed, angleConversionFactor,
                     driveConversionFactor);

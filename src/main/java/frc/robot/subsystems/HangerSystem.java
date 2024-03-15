@@ -27,14 +27,16 @@ public class HangerSystem extends SubsystemBase {
     private final SparkLimitSwitch hangerRightRetLim = hangerMotorRight.getForwardLimitSwitch(Type.kNormallyOpen);
 
     /** Creates a new HangerSystem. */
-    public HangerSystem() {
+    public HangerSystem(boolean debugModeOn) {
         hangerMotorLeft.setIdleMode(IdleMode.kBrake);
         hangerMotorRight.setIdleMode(IdleMode.kBrake);
 
-        Shuffleboard.getTab("Driver").addBoolean("left extension", this::readLeftExtLimitSwitch);
-        Shuffleboard.getTab("Driver").addBoolean("left retract", this::readLeftRetLimitSwitch);
-        Shuffleboard.getTab("Driver").addBoolean("right extension", this::readRightExtLimitSwitch);
-        Shuffleboard.getTab("Driver").addBoolean("right retract", this::readRightRetLimitSwitch);
+        if (debugModeOn) {
+            Shuffleboard.getTab("Hanger").addBoolean("left extension", this::readLeftExtLimitSwitch);
+            Shuffleboard.getTab("Hanger").addBoolean("left retract", this::readLeftRetLimitSwitch);
+            Shuffleboard.getTab("Hanger").addBoolean("right extension", this::readRightExtLimitSwitch);
+            Shuffleboard.getTab("Hanger").addBoolean("right retract", this::readRightRetLimitSwitch);
+        }
     }
 
     public void setMotors(double velocity) {

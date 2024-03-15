@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.ShooterConstants;
+import frc.robot.commands.EmptyCommand;
 import frc.robot.commands.drive_commands.drivebase.AbsoluteDriveAdv;
 import frc.robot.commands.hanger_commands.ExtendHanger;
 import frc.robot.commands.hanger_commands.RetractHanger;
@@ -55,7 +56,7 @@ public class RobotContainer {
 
     // The robot's subsystems and commands are defined here...
     private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
-            isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get());
+            isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get(), Constants.DEBUG_MODE);
     private final Inputs inputs = Inputs.createFromChooser();
     // private final PneumaticsSystem pneumaticsSystem = new
     // PneumaticsSystem(isBeta.get());
@@ -82,11 +83,19 @@ public class RobotContainer {
     }
 
     public Command highShootSpinUpCommand() {
-        return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
+        if (!shooterSystem.getShootIsRunning()) {
+            return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
+        } else {
+            return new EmptyCommand();
+        }
     }
 
     public Command lowShootSpinUpCommand() {
-        return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW);
+        if (!shooterSystem.getShootIsRunning()) {
+            return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW);
+        } else {
+            return new EmptyCommand();
+        }
     }
 
     public Command highShootCommand() {
@@ -129,16 +138,19 @@ public class RobotContainer {
     public RobotContainer() {
 
         if (systemConfigs.activeHanger) {
-            hangerSystem = new HangerSystem();
+            hangerSystem = new HangerSystem(Constants.DEBUG_MODE);
         } else {
             hangerSystem = null;
         }
 
         if (systemConfigs.activeVision) {
             visionSystem = new VisionSystem();
-            Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
         } else {
             visionSystem = null;
+        }
+
+        if (systemConfigs.activeDriveCam) {
+            Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
         }
 
         if (systemConfigs.activeLights) {
@@ -154,14 +166,14 @@ public class RobotContainer {
         }
 
         if (systemConfigs.activeShooter) {
-            shooterSystem = new ShooterSystem(isBeta.get());
+            shooterSystem = new ShooterSystem(isBeta.get(), Constants.DEBUG_MODE);
 
         } else {
             shooterSystem = null;
         }
 
         if (systemConfigs.activeDeflector) {
-            deflectorSystem = new DeflectorSystem();
+            deflectorSystem = new DeflectorSystem(Constants.DEBUG_MODE);
 
         } else {
             deflectorSystem = null;
@@ -184,7 +196,7 @@ public class RobotContainer {
             System.out.println("Autonomous routine changed to: " + command.getName());
         });
 
-        Shuffleboard.getTab("Driver").add(autoChooser);
+        Shuffleboard.getTab("Auton").add(autoChooser);
 
         // Configure the trigger bindings
         configureBindings();

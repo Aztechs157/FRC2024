@@ -19,8 +19,18 @@ public class ShooterSystem extends SubsystemBase {
     public double currentLeftMotorSet = 0;
     public double currentRightMotorSet = 0;
 
+    private boolean shootIsRunning = false;
+
+    public boolean getShootIsRunning() {
+        return shootIsRunning;
+    }
+
+    public void setShootIsRunning(boolean setTrue) {
+        shootIsRunning = setTrue;
+    }
+
     /** Creates a new Shooter. */
-    public ShooterSystem(boolean isBeta) {
+    public ShooterSystem(boolean isBeta, boolean debugModeOn) {
         this.isBeta = isBeta;
         if (isBeta) {
             shooterMotorLeft = new CANSparkFlex(ShooterConstants.SHOOTER_MOTOR_LEFT_ID,
@@ -35,8 +45,11 @@ public class ShooterSystem extends SubsystemBase {
         }
         shooterMotorLeft.setIdleMode(ShooterConstants.SHOOTER_MOTOR_IDLE_MODE);
         shooterMotorRight.setIdleMode(ShooterConstants.SHOOTER_MOTOR_IDLE_MODE);
-        Shuffleboard.getTab("Driver").addDouble("Left Shooter Wheel", this::getLeftEncoderVelocity);
-        Shuffleboard.getTab("Driver").addDouble("Right Shooter Wheel", this::getRightEncoderVelocity);
+
+        if (debugModeOn) {
+            Shuffleboard.getTab("Shooter").addDouble("Left Shooter Wheel", this::getLeftEncoderVelocity);
+            Shuffleboard.getTab("Shooter").addDouble("Right Shooter Wheel", this::getRightEncoderVelocity);
+        }
     }
 
     public void setLeftMotor(double velocity) {

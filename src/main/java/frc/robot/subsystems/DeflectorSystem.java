@@ -30,13 +30,15 @@ public class DeflectorSystem extends SubsystemBase {
     private RangeConverter deflectorRange = new RangeConverter(deflectorActualRange, zeroToHundred);
 
     /** Creates a new DeflectorSystem. */
-    public DeflectorSystem() {
+    public DeflectorSystem(boolean debugModeOn) {
         deflectorMotor.setIdleMode(IdleMode.kBrake);
 
-        Shuffleboard.getTab("Deflector").addBoolean("readExtLimitSwitch", this::readExtLimitSwitch);
-        Shuffleboard.getTab("Deflector").addBoolean("readRetLimitSwitch", this::readRetLimitSwitch);
-        Shuffleboard.getTab("Deflector").addInteger("readPot", this::readDeflectorPot);
-        Shuffleboard.getTab("Deflector").addDouble("readPotMapped", this::readDeflectorPotMappedInt);
+        if (debugModeOn) {
+            Shuffleboard.getTab("Deflector").addBoolean("readExtLimitSwitch", this::readExtLimitSwitch);
+            Shuffleboard.getTab("Deflector").addBoolean("readRetLimitSwitch", this::readRetLimitSwitch);
+            Shuffleboard.getTab("Deflector").addInteger("readPot", this::readDeflectorPot);
+            Shuffleboard.getTab("Deflector").addDouble("readPotMapped", this::readDeflectorPotMappedInt);
+        }
     }
 
     public void set(double velocity) {
