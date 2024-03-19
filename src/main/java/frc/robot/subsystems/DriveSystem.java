@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import frc.robot.RobotContainer;
 import frc.robot.Constants.AutonConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.DriveConstants.RobotProperties;
@@ -426,6 +427,7 @@ public class DriveSystem extends SubsystemBase {
 
     // Reset the gyro to the current heading of the robot
     public Command zeroHeading() {
+        // RobotContainer.fieldOrientation = 1;
         return runOnce(() -> swerveDrive.zeroGyro());
     }
 

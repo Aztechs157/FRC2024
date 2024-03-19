@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.XboxController;
@@ -67,6 +68,7 @@ public class RobotContainer {
     public final VisionSystem visionSystem;
     public final PwmLEDs lightSystem;
     private final SendableChooser<Command> autoChooser;
+    public static int fieldOrientation = 1;
 
     XboxController driverXbox = new XboxController(0);
 
@@ -230,8 +232,12 @@ public class RobotContainer {
         // left stick controls translation
         // right stick controls the angular velocity of the robot
         Command driveFieldOrientedAnglularVelocity = drivebase.driveCommand(
-                () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND)),
-                () -> modifySpeed(MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND)),
+                () -> modifySpeed(
+                        MathUtil.applyDeadband(fieldOrientation * driverXbox.getLeftY(),
+                                ControllerConstants.LEFT_Y_DEADBAND)),
+                () -> modifySpeed(
+                        MathUtil.applyDeadband(fieldOrientation * driverXbox.getLeftX(),
+                                ControllerConstants.LEFT_X_DEADBAND)),
                 () -> modifySpeed(-driverXbox.getRightX()));
 
         Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(

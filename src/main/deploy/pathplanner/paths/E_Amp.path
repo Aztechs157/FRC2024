@@ -8,11 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.211990293287378,
-        "y": 7.352859471092728
+        "x": 1.370696193707795,
+        "y": 7.051595792847821
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Start_Amp"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 7.554423769816201
       },
       "prevControl": {
-        "x": 1.6380968559657911,
-        "y": 7.554423769816201
+        "x": 1.6280065744564918,
+        "y": 7.203534669688031
       },
       "nextControl": null,
       "isLocked": false,
@@ -39,8 +39,8 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
-    "rotateFast": true
+    "rotation": 60.0,
+    "rotateFast": false
   },
   "reversed": false,
   "folder": "AmpTests",

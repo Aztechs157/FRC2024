@@ -177,14 +177,22 @@ public class Robot extends TimedRobot {
             m_autonomousCommand.cancel();
         }
 
-        var alliance = DriverStation.getAlliance();
-        if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false) {
-            // m_robotContainer.reverseGyroCommand();
-        }
+        // var alliance = DriverStation.getAlliance();
+        // if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red :
+        // false) {
+        // m_robotContainer.reverseGyroCommand();
+        // }
 
         m_robotContainer.setDriveMode();
         m_robotContainer.setMotorBrake(true);
         // m_robotContainer.retractHangerCommand();
+
+        // var alliance = DriverStation.getAlliance();
+        // if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red :
+        // false) {
+        // RobotContainer.fieldOrientation = -1;
+        // }
+
     }
 
     /**
