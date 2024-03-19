@@ -4,8 +4,11 @@
 
 package frc.robot.commands.shooter_commands;
 
+import org.assabet.aztechs157.numbers.Range;
+
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.ShooterSystem;
 
@@ -15,6 +18,8 @@ public class SpinUpShooter extends Command {
     private final PwmLEDs lightSystem;
     private final double setPoint;
 
+    private final Range range;
+
     /** Creates a new StartShooter. */
     public SpinUpShooter(final ShooterSystem shooterSystem, final PwmLEDs lightSystem, final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -23,6 +28,10 @@ public class SpinUpShooter extends Command {
         this.shooterSystem = shooterSystem;
         this.lightSystem = lightSystem;
         this.setPoint = setPoint;
+
+        range = new Range(
+                setPoint - ShooterConstants.SHOOTER_START_VELOCITY_TOLERANCE,
+                setPoint + ShooterConstants.SHOOTER_START_VELOCITY_TOLERANCE);
     }
 
     // Called when the command is initially scheduled.
@@ -42,6 +51,13 @@ public class SpinUpShooter extends Command {
         shooterSystem.setLeftMotor(shooterSystem.currentLeftMotorSet);
         shooterSystem.setRightMotor(shooterSystem.currentRightMotorSet);
 
+        final var leftInRange = range.contains(Math.abs(shooterSystem.getLeftEncoderVelocity()));
+        final var rightInRange = range.contains(Math.abs(shooterSystem.getRightEncoderVelocity()));
+
+        if (leftInRange && rightInRange) {
+            lightSystem.setSolid(Color.kRed);
+        }
+
         // lightSystem.setClimb(Color.kRed, Color.kBlack, colorLength, 10 - colorLength,
         // 2);
     }
@@ -53,8 +69,6 @@ public class SpinUpShooter extends Command {
             shooterSystem.setLeftMotor(0);
             shooterSystem.setRightMotor(0);
             lightSystem.setDefault();
-        } else {
-            lightSystem.solid(Color.kRed);
         }
     }
 

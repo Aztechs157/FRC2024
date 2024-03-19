@@ -57,8 +57,6 @@ public class StartShooter extends Command {
             shooterSystem.setRightMotor(0);
             lightSystem.setDefault();
             shooterSystem.setShootIsRunning(false);
-        } else {
-            lightSystem.solid(Color.kRed);
         }
     }
 
