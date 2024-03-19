@@ -38,7 +38,7 @@ public class Shoot extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        lightSystem.setSolid(Color.kRed);
+        lightSystem.setSolid(Color.kYellow);
         intakeSystem.set(-IntakeConstants.FEED_SPEED);
         timer.reset();
     }

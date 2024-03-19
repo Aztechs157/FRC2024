@@ -53,6 +53,8 @@ public class SpinUpShooter extends Command {
             shooterSystem.setLeftMotor(0);
             shooterSystem.setRightMotor(0);
             lightSystem.setDefault();
+        } else {
+            lightSystem.solid(Color.kRed);
         }
     }
 
