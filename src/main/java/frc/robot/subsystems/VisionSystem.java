@@ -24,6 +24,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
@@ -39,6 +40,7 @@ public class VisionSystem extends SubsystemBase {
     /** Creates a new vision. */
     public VisionSystem() {
         PhotonCamera camera = new PhotonCamera(VisionConstants.CAMERA_NICKNAME);
+        PortForwarder.add(5800, "photonvision.local", 5800);
 
         try {
             tagLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
