@@ -14,18 +14,22 @@ import frc.robot.Constants.IntakeConstants;
 
 public class IntakeSystem extends SubsystemBase {
 
-    private CANSparkBase intakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_ID, MotorType.kBrushless);
+    private CANSparkBase leftIntakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_LEFT_ID, MotorType.kBrushless);
+    private CANSparkBase rightIntakeMotor = new CANSparkMax(IntakeConstants.INTAKE_MOTOR_RIGHT_ID,
+            MotorType.kBrushless);
     private DigitalInput noteSensor = new DigitalInput(IntakeConstants.NOTE_SENSOR_CHANNEL);
     public boolean hasNote = true;
 
     /** Creates a new IntakeSystem. */
     public IntakeSystem() {
-        intakeMotor.setIdleMode(IntakeConstants.INTAKE_MOTOR_IDLE_MODE);
+        leftIntakeMotor.setIdleMode(IntakeConstants.INTAKE_MOTOR_IDLE_MODE);
+        rightIntakeMotor.setIdleMode(IntakeConstants.INTAKE_MOTOR_IDLE_MODE);
         Shuffleboard.getTab("Driver").addBoolean("note sensor", this::checkForNote);
     }
 
     public void set(double velocity) {
-        intakeMotor.set(velocity);
+        leftIntakeMotor.set(-velocity);
+        rightIntakeMotor.set(-velocity);
     }
 
     public boolean checkForNote() {

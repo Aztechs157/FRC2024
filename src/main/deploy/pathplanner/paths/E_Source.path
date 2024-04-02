@@ -8,20 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.0666574039700785,
-        "y": 2.17511272629383
+        "x": 1.6162826627647557,
+        "y": 2.6896555217611855
       },
       "isLocked": false,
       "linkedName": "Start_Source"
     },
     {
       "anchor": {
-        "x": 2.5518150181599504,
-        "y": 1.3331336064381538
+        "x": 2.388096855965791,
+        "y": 1.3799102242079133
       },
       "prevControl": {
-        "x": 2.5135127960040013,
-        "y": 1.3652729869224813
+        "x": 2.3630968559657908,
+        "y": 1.4232114943971355
       },
       "nextControl": null,
       "isLocked": false,
@@ -32,20 +32,20 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 3.0,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0,
+    "rotation": 120.0,
     "rotateFast": false
   },
   "reversed": false,
   "folder": "SourceTests",
   "previewStartingState": {
-    "rotation": -60.0,
+    "rotation": 120.0,
     "velocity": 0
   },
   "useDefaultConstraints": true

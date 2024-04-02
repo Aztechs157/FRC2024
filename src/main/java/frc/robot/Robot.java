@@ -187,11 +187,13 @@ public class Robot extends TimedRobot {
         m_robotContainer.setMotorBrake(true);
         // m_robotContainer.retractHangerCommand();
 
-        // var alliance = DriverStation.getAlliance();
-        // if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red :
-        // false) {
-        // RobotContainer.fieldOrientation = -1;
-        // }
+        var alliance = DriverStation.getAlliance();
+        if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false) {
+            RobotContainer.fieldOrientation = 1;
+        }
+        if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Blue : false) {
+            RobotContainer.fieldOrientation = -1;
+        }
 
     }
 

@@ -137,7 +137,7 @@ public class DriveSystem extends SubsystemBase {
                     // This will flip the path being followed to the red side of the field.
                     // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
                     var alliance = DriverStation.getAlliance();
-                    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Blue : false;
+                    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
                 },
                 this // Reference to this subsystem to set requirements
         );
@@ -169,7 +169,7 @@ public class DriveSystem extends SubsystemBase {
                     // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
 
                     var alliance = DriverStation.getAlliance();
-                    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Blue : false;
+                    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
                 },
                 this // Reference to this subsystem to set requirements
         );
@@ -427,8 +427,10 @@ public class DriveSystem extends SubsystemBase {
 
     // Reset the gyro to the current heading of the robot
     public Command zeroHeading() {
-        // RobotContainer.fieldOrientation = 1;
-        return runOnce(() -> swerveDrive.zeroGyro());
+        return runOnce(() -> {
+            swerveDrive.zeroGyro();
+            RobotContainer.fieldOrientation = 1;
+        });
     }
 
     // offset the gyro yaw by specified degrees

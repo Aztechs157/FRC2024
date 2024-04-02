@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.130858987098447,
-        "y": 1.8215794738244226
+        "x": 3.382099983573186,
+        "y": 1.4383809964201122
       },
       "isLocked": false,
       "linkedName": "Start_Source"
@@ -20,33 +20,17 @@
         "y": 0.822398210091591
       },
       "prevControl": {
-        "x": 8.019365533479109,
-        "y": 0.8052870169872062
-      },
-      "nextControl": {
-        "x": 7.243003189849069,
-        "y": 1.0362881238963988
-      },
-      "isLocked": false,
-      "linkedName": "N8"
-    },
-    {
-      "anchor": {
-        "x": 0.69,
-        "y": 4.23
-      },
-      "prevControl": {
-        "x": 1.224019534493256,
-        "y": 3.7033852102536375
+        "x": 8.495876746221992,
+        "y": 0.2957834203452283
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Start_Source"
+      "linkedName": "N8"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
+      "waypointRelativePos": 0.5,
       "rotationDegrees": 180.0,
       "rotateFast": false
     }
@@ -55,7 +39,7 @@
   "eventMarkers": [
     {
       "name": "Intake",
-      "waypointRelativePos": 0.55,
+      "waypointRelativePos": 0.3,
       "command": {
         "type": "parallel",
         "data": {
@@ -72,7 +56,7 @@
     },
     {
       "name": "SpinUp",
-      "waypointRelativePos": 1.6,
+      "waypointRelativePos": 0.8,
       "command": {
         "type": "parallel",
         "data": {
@@ -89,14 +73,14 @@
     }
   ],
   "globalConstraints": {
-    "maxVelocity": 1.0,
+    "maxVelocity": 3.0,
     "maxAcceleration": 2.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 119.90617483789495,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
