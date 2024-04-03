@@ -70,7 +70,7 @@ public class Constants {
 
     public static class AutonConstants {
 
-        public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.7, 0, 0);
+        public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.35, 0, 0.001);
         public static final PIDConstants ANGLE_PID = new PIDConstants(0.004, 0, 1.5);
 
         public static final double MAX_MODULE_SPEED = 1;
