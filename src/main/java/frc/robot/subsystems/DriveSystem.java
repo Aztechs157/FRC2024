@@ -94,6 +94,10 @@ public class DriveSystem extends SubsystemBase {
 
         Shuffleboard.getTab("Driver").addDouble("Gyro", () -> this.getHeading().getDegrees())
                 .withWidget(BuiltInWidgets.kGyro);
+        Shuffleboard.getTab("Driver").addDouble("Left Front Encoder",
+                () -> swerveDrive.getModules()[0].getPosition().distanceMeters);
+        Shuffleboard.getTab("Driver").addDouble("Right Front Encoder",
+                () -> swerveDrive.getModules()[1].getPosition().distanceMeters);
 
         setupPathPlanner();
 

@@ -18,9 +18,28 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N2_Center"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "N2_Center"
+            "pathName": "N2R_Center"
           }
         },
         {
@@ -32,7 +51,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "N2E_Center"
+            "pathName": "N2_Center"
           }
         }
       ]

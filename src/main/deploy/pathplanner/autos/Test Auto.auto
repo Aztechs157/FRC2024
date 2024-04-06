@@ -14,7 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "Test Path Forward"
+            "pathName": "Backward"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Forward"
           }
         }
       ]

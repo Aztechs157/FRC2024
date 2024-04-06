@@ -41,8 +41,8 @@ public class Constants {
         public static final Matter CHASSIS = new Matter(new Translation3d(0, 0, Units.inchesToMeters(8)), ROBOT_MASS);
         public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
 
-        public static final double WHEEL_DIAMETER = 4;
-        public static final double DRIVE_GEAR_RATIO = 6.75;
+        public static final double WHEEL_DIAMETER = 4.0;
+        public static final double DRIVE_GEAR_RATIO = 1.0 / 6.75;
         public static final double ANGLE_GEAR_RATIO = 12.8; // This is the Gear Ratio of the motor encoder. Not
                                                             // absolute.
         public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
@@ -54,7 +54,7 @@ public class Constants {
         public record RobotProperties(
                 double drivePulsePerRotation) {
             public static final RobotProperties ALPHA = new RobotProperties(42);
-            public static final RobotProperties Beta = new RobotProperties(7168);
+            public static final RobotProperties Beta = new RobotProperties(42);
         }
 
         public record XboxSpeeds(
