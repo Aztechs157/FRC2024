@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.504738810047418,
-        "y": 7.76491854978012
+        "x": 2.4114851648506717,
+        "y": 5.659970750140931
       },
       "isLocked": false,
       "linkedName": "Start_Center"
@@ -20,70 +20,30 @@
         "y": 5.776912294565331
       },
       "prevControl": {
-        "x": 9.155747689323233,
-        "y": 5.354563276106921
-      },
-      "nextControl": {
-        "x": 7.350719868229697,
-        "y": 6.238856533504216
-      },
-      "isLocked": false,
-      "linkedName": "N5"
-    },
-    {
-      "anchor": {
-        "x": 1.39,
-        "y": 5.53650223579517
-      },
-      "prevControl": {
-        "x": 3.0656331112388626,
-        "y": 6.96207358669977
+        "x": 4.867257597763059,
+        "y": 7.74153024089524
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Start_Center"
+      "linkedName": "N5"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.55,
-      "rotationDegrees": 150.0,
-      "rotateFast": true
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0.5,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 178.81822517908478,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CenterTests",
+  "folder": "Center",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0

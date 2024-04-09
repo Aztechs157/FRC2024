@@ -2,30 +2,30 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.69,
-      "y": 4.23
+      "x": 1.39,
+      "y": 5.53650223579517
     },
-    "rotation": 120.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "HighShoot"
+            "pathName": "N4_Center"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "N8_Source"
+            "pathName": "N4R_Center"
           }
         }
       ]
     }
   },
-  "folder": "Source",
+  "folder": "Center",
   "choreoAuto": false
 }

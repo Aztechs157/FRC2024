@@ -8,27 +8,11 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.49,
-        "y": 5.53650223579517
+        "x": 3.674453844634184,
+        "y": 6.572114796651245
       },
       "isLocked": false,
       "linkedName": "Start_Center"
-    },
-    {
-      "anchor": {
-        "x": 4.878951752205499,
-        "y": 4.092954054853979
-      },
-      "prevControl": {
-        "x": 4.059799707916508,
-        "y": 4.666530491205026
-      },
-      "nextControl": {
-        "x": 5.616188592065591,
-        "y": 3.5767352621380377
-      },
-      "isLocked": false,
-      "linkedName": "Stage"
     },
     {
       "anchor": {
@@ -36,86 +20,26 @@
         "y": 4.092954054853979
       },
       "prevControl": {
-        "x": 7.393646220176003,
-        "y": 4.091383259324678
-      },
-      "nextControl": {
-        "x": 8.343644773243627,
-        "y": 4.093041321272273
-      },
-      "isLocked": false,
-      "linkedName": "N6"
-    },
-    {
-      "anchor": {
-        "x": 4.878951752205499,
-        "y": 4.092954054853979
-      },
-      "prevControl": {
-        "x": 5.728940864440616,
-        "y": 4.088651836617136
-      },
-      "nextControl": {
-        "x": 4.378958156773077,
-        "y": 4.095484771463885
-      },
-      "isLocked": false,
-      "linkedName": "Stage"
-    },
-    {
-      "anchor": {
-        "x": 1.39,
-        "y": 5.53650223579517
-      },
-      "prevControl": {
-        "x": 3.7808672754201895,
-        "y": 5.74567601838955
+        "x": 5.791095798715814,
+        "y": 2.502549050682148
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Start_Center"
+      "linkedName": "N6"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1,
-      "rotationDegrees": 115.9422954898717,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 2,
-      "rotationDegrees": 179.21517539700812,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 3,
-      "rotationDegrees": 115.74659571538947,
+      "waypointRelativePos": 0.25,
+      "rotationDegrees": 144.06718963504056,
       "rotateFast": false
     }
   ],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 1.5,
-      "command": {
-        "type": "parallel",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
@@ -125,7 +49,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "CenterTests",
+  "folder": "Center",
   "previewStartingState": {
     "rotation": 180.0,
     "velocity": 0

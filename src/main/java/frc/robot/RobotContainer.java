@@ -189,8 +189,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("HighShootSpinUp", highShootSpinUpCommand());
         NamedCommands.registerCommand("LowShootSpinUp", lowShootSpinUpCommand());
 
-        NamedCommands.registerCommand("HighShoot", highShootCommand().withTimeout(4));
-        NamedCommands.registerCommand("LowShoot", lowShootCommand().withTimeout(4));
+        NamedCommands.registerCommand("HighShoot", highShootCommand().withTimeout(2));
+        NamedCommands.registerCommand("LowShoot", lowShootCommand().withTimeout(2));
 
         autoChooser = AutoBuilder.buildAutoChooser("NothingAuto");
 

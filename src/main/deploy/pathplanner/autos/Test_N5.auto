@@ -2,30 +2,30 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.74,
-      "y": 6.77
+      "x": 1.39,
+      "y": 5.53650223579517
     },
-    "rotation": -120.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "HighShoot"
+            "pathName": "N5_Center"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "E_Amp"
+            "pathName": "N5R_Center"
           }
         }
       ]
     }
   },
-  "folder": "Amp",
+  "folder": "Center",
   "choreoAuto": false
 }

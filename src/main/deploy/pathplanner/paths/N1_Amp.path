@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7291444748007259,
-        "y": 6.916946275799001
+        "x": 1.2069872572793579,
+        "y": 7.273764063197643
       },
       "isLocked": false,
       "linkedName": "Start_Amp"
@@ -20,70 +20,30 @@
         "y": 6.990384785778517
       },
       "prevControl": {
-        "x": 2.9144539028412777,
-        "y": 6.9920608142044784
-      },
-      "nextControl": {
-        "x": 2.397199461225747,
-        "y": 6.946806914404682
-      },
-      "isLocked": false,
-      "linkedName": "N1"
-    },
-    {
-      "anchor": {
-        "x": 0.74,
-        "y": 6.77
-      },
-      "prevControl": {
-        "x": 0.7892403876506104,
-        "y": 6.778682408883346
+        "x": 2.3647085470809115,
+        "y": 6.455173252226847
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Start_Amp"
+      "linkedName": "N1"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.5,
-      "rotationDegrees": -175.0,
-      "rotateFast": false
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
-  "eventMarkers": [
-    {
-      "name": "Intake",
-      "waypointRelativePos": 0.0,
-      "command": {
-        "type": "sequential",
-        "data": {
-          "commands": [
-            {
-              "type": "named",
-              "data": {
-                "name": "Intake"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
+  "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -120.0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "AmpTests",
+  "folder": "Amp",
   "previewStartingState": {
     "rotation": -120.0,
     "velocity": 0

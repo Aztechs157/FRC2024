@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.39,
-      "y": 5.54
+      "y": 5.53650223579517
     },
     "rotation": 180.0
   },
@@ -12,38 +12,19 @@
     "data": {
       "commands": [
         {
-          "type": "named",
-          "data": {
-            "name": "HighShoot"
-          }
-        },
-        {
           "type": "race",
           "data": {
             "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N4_Center"
+                }
+              },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake"
-                }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N3_Center"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N3R_Center"
                 }
               },
               {
@@ -66,28 +47,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Intake"
+                  "pathName": "N4_N5"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "N2_Center"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N2R_Center"
+                  "name": "Intake"
                 }
               },
               {
@@ -110,28 +78,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "Intake"
+                  "pathName": "N5_N6"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "N1_Center"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N1R_Center"
+                  "name": "Intake"
                 }
               },
               {
@@ -150,9 +105,65 @@
           }
         },
         {
-          "type": "path",
+          "type": "race",
           "data": {
-            "pathName": "N2_Center"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N6_N7"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "HighShootSpinUp"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
+        },
+        {
+          "type": "race",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N7_N8"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "HighShootSpinUp"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
           }
         }
       ]

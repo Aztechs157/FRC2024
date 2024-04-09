@@ -116,9 +116,9 @@ public class Constants {
 
         public static final IdleMode SHOOTER_MOTOR_IDLE_MODE = IdleMode.kBrake;
 
-        public static final double SHOOTER_TARGET_RPM_HIGH = 5250; // max RPM of neo is 5676
+        public static final double SHOOTER_TARGET_RPM_HIGH = 5500; // max RPM of neo is 5676 -- 5250
         public static final double SHOOTER_TARGET_RPM_LOW = 1250; // max RPM of neo is 5676
-        public static final double SHOOTER_TARGET_RPM_PASS = 750; // max RPM of neo is 5676
+        public static final double SHOOTER_TARGET_RPM_PASS = 1500; // max RPM of neo is 5676 -- 750
         public static final double SHOOTER_TARGET_RPM_EJECT = 2750; // max RPM of neo is 5676
 
         public static final double SHOOTER_START_VELOCITY_TOLERANCE = 50; // in RPM as well

@@ -4,11 +4,9 @@
   "holonomicMode": true,
   "pathFolders": [
     "Amp",
-    "AmpTests",
     "Center",
-    "CenterTests",
-    "Source",
-    "SourceTests"
+    "Pass",
+    "Source"
   ],
   "autoFolders": [
     "Amp",
@@ -16,7 +14,7 @@
     "Source"
   ],
   "defaultMaxVel": 5.0,
-  "defaultMaxAccel": 2.0,
+  "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
   "maxModuleSpeed": 5.0

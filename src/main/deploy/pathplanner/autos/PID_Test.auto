@@ -2,30 +2,30 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.69,
-      "y": 4.23
+      "x": 0.51,
+      "y": 7.2503757543127625
     },
-    "rotation": 120.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "HighShoot"
+            "pathName": "PID_Test"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "E_Source"
+            "pathName": "PID_TestR"
           }
         }
       ]
     }
   },
-  "folder": "Source",
+  "folder": null,
   "choreoAuto": false
 }

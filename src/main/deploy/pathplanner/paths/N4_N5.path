@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.69,
-        "y": 4.23
+        "x": 8.29,
+        "y": 7.44
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6162826627647557,
-        "y": 2.6896555217611855
+        "x": 6.6915456907836885,
+        "y": 6.1511252367234075
       },
       "isLocked": false,
-      "linkedName": "Start_Source"
+      "linkedName": "N4"
     },
     {
       "anchor": {
-        "x": 2.388096855965791,
-        "y": 1.3799102242079133
+        "x": 8.293644849397962,
+        "y": 5.776912294565331
       },
       "prevControl": {
-        "x": 2.3630968559657908,
-        "y": 1.4232114943971355
+        "x": 7.381500802887644,
+        "y": 5.788606449007769
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "N5"
     }
   ],
   "rotationTargets": [],
@@ -33,19 +33,19 @@
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 5.0,
-    "maxAcceleration": 2.0,
+    "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 120.0,
+    "rotation": 180.0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "SourceTests",
+  "folder": "Pass",
   "previewStartingState": {
-    "rotation": 120.0,
+    "rotation": 180.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
