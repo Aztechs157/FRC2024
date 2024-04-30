@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.39,
-      "y": 5.53650223579517
+      "x": 0.74,
+      "y": 4.37
     },
-    "rotation": 180.0
+    "rotation": 120.0
   },
   "command": {
     "type": "sequential",
@@ -20,18 +20,18 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 3.0
+            "waitTime": 5.0
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "N2E_Center"
+            "pathName": "EAvoid_Source"
           }
         }
       ]
     }
   },
-  "folder": "Center",
+  "folder": "Source",
   "choreoAuto": false
 }

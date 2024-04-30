@@ -10,8 +10,8 @@ import swervelib.math.Matter;
 
 public class Constants {
 
-    public static final boolean DEBUG_MODE = false; // shows more info on shuffleboard when true, should be false during
-                                                    // compitition matches
+    public static final boolean DEBUG_MODE = true; // shows more info on shuffleboard when true, should be false during
+                                                   // compitition matches
 
     public static class ControllerConstants {
 
@@ -42,7 +42,7 @@ public class Constants {
         public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
 
         public static final double WHEEL_DIAMETER = 4.0;
-        public static final double DRIVE_GEAR_RATIO = 1.0 / 6.75;
+        public static final double DRIVE_GEAR_RATIO = 1 / 6.75;
         public static final double ANGLE_GEAR_RATIO = 12.8; // This is the Gear Ratio of the motor encoder. Not
                                                             // absolute.
         public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
@@ -116,7 +116,7 @@ public class Constants {
 
         public static final IdleMode SHOOTER_MOTOR_IDLE_MODE = IdleMode.kBrake;
 
-        public static final double SHOOTER_TARGET_RPM_HIGH = 5500; // max RPM of neo is 5676 -- 5250
+        public static final double SHOOTER_TARGET_RPM_HIGH = 5800; // max RPM of neo is 5676 -- 5250
         public static final double SHOOTER_TARGET_RPM_LOW = 1250; // max RPM of neo is 5676
         public static final double SHOOTER_TARGET_RPM_PASS = 1500; // max RPM of neo is 5676 -- 750
         public static final double SHOOTER_TARGET_RPM_EJECT = 2750; // max RPM of neo is 5676

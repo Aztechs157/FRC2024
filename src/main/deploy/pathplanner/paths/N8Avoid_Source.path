@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 0.74,
-        "y": 6.77
+        "y": 4.37
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.74,
-        "y": 6.77
+        "x": 0.8561626240061597,
+        "y": 0.2689655521761191
       },
       "isLocked": false,
-      "linkedName": "Start_Amp"
+      "linkedName": "Start_Source"
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 8.28,
+        "y": 0.77
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 7.279999999999999,
+        "y": 0.7699999999999996
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "N8"
     }
   ],
   "rotationTargets": [],
@@ -43,9 +43,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "Amp",
+  "folder": "Source",
   "previewStartingState": {
-    "rotation": -120.0,
+    "rotation": 120.0,
     "velocity": 0
   },
   "useDefaultConstraints": true
