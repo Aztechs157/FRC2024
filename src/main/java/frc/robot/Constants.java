@@ -73,7 +73,8 @@ public class Constants {
         public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.35, 0, 0.001);
         public static final PIDConstants ANGLE_PID = new PIDConstants(0.004, 0, 1.5);
 
-        public static final double MAX_MODULE_SPEED = 1;
+        public static final double MAX_MODULE_SPEED = 5; // TODO get value from pathplanner instead of setting this as a
+                                                         // constant
 
     }
 
