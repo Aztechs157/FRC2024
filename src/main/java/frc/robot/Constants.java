@@ -81,8 +81,10 @@ public class Constants {
 
     public static class VisionConstants {
 
-        public static final String CAMERA_NICKNAME = ""; // TODO: find proper value
-        public static final Transform3d CAMERA_PLACEMENT = new Transform3d(); // TODO: find proper value
+        public static final String LEFT_CAMERA_NICKNAME = "leftVisionCam"; // TODO: find proper value
+        public static final Transform3d LEFT_CAMERA_PLACEMENT = new Transform3d(); // TODO: find proper value
+        public static final String RIGHT_CAMERA_NICKNAME = "RightVisionCam"; // TODO: find proper value
+        public static final Transform3d RIGHT_CAMERA_PLACEMENT = new Transform3d(); // TODO: find proper value
 
     }
 

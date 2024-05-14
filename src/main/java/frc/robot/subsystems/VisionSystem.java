@@ -31,7 +31,8 @@ import frc.robot.Constants.VisionConstants;
 
 public class VisionSystem extends SubsystemBase {
 
-    PhotonCamera camera;
+    PhotonCamera leftCamera;
+    PhotonCamera rightCamera;
     AprilTagFieldLayout tagLayout;
     PhotonPoseEstimator poseEstimator;
 
@@ -39,18 +40,20 @@ public class VisionSystem extends SubsystemBase {
 
     /** Creates a new vision. */
     public VisionSystem() {
-        PhotonCamera camera = new PhotonCamera(VisionConstants.CAMERA_NICKNAME);
+        leftCamera = new PhotonCamera(VisionConstants.LEFT_CAMERA_NICKNAME);
+        rightCamera = new PhotonCamera(VisionConstants.RIGHT_CAMERA_NICKNAME);
         PortForwarder.add(5800, "photonvision.local", 5800);
 
         try {
             tagLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
         } catch (IOException exception) {
-            camera.close();
+            leftCamera.close();
+            rightCamera.close();
             throw new RuntimeException(exception);
         }
 
         poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
-                camera, VisionConstants.CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
+                leftCamera, VisionConstants.LEFT_CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
     }
 
     public void updateAlliance() {
@@ -120,7 +123,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public List<PhotonTrackedTarget> findTargets() {
-        var visionFrame = camera.getLatestResult();
+        var visionFrame = leftCamera.getLatestResult();
         if (visionFrame.hasTargets()) {
             List<PhotonTrackedTarget> targets = visionFrame.getTargets();
             return targets;
@@ -135,7 +138,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public PhotonTrackedTarget findBestTarget() {
-        var visionFrame = camera.getLatestResult();
+        var visionFrame = leftCamera.getLatestResult();
         if (visionFrame.hasTargets()) {
             PhotonTrackedTarget target = visionFrame.getBestTarget();
             return target;
@@ -229,7 +232,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public Pose3d getFieldRelitivePose(Pose3d tagPose, Transform3d cameraToTarget) {
-        return PhotonUtils.estimateFieldToRobotAprilTag(cameraToTarget, tagPose, VisionConstants.CAMERA_PLACEMENT);
+        return PhotonUtils.estimateFieldToRobotAprilTag(cameraToTarget, tagPose, VisionConstants.LEFT_CAMERA_PLACEMENT);
     }
 
     /*
@@ -240,7 +243,7 @@ public class VisionSystem extends SubsystemBase {
 
     public double getDistanceToTarget(double targetHeight, double cameraPitch,
             double targetPitch) {
-        return PhotonUtils.calculateDistanceToTargetMeters(VisionConstants.CAMERA_PLACEMENT.getY(), targetHeight,
+        return PhotonUtils.calculateDistanceToTargetMeters(VisionConstants.LEFT_CAMERA_PLACEMENT.getY(), targetHeight,
                 cameraPitch,
                 Units.degreesToRadians(targetPitch)); // TODO: convert cameraPitch to use a constant
     }
@@ -278,7 +281,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public void driverModeToggle(boolean toggleOn) {
-        camera.setDriverMode(toggleOn);
+        leftCamera.setDriverMode(toggleOn);
     }
 
     /*
@@ -286,7 +289,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public void setPipelineIndex(int index) {
-        camera.setPipelineIndex(index);
+        leftCamera.setPipelineIndex(index);
     }
 
     /*
@@ -294,7 +297,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public double getPipelineLatency() {
-        var visionFrame = camera.getLatestResult();
+        var visionFrame = leftCamera.getLatestResult();
         return visionFrame.getLatencyMillis();
     }
 
@@ -303,7 +306,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public void setLED(VisionLEDMode LEDMode) {
-        camera.setLED(LEDMode);
+        leftCamera.setLED(LEDMode);
     }
 
     @Override
