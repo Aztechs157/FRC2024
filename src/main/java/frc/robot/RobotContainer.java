@@ -241,9 +241,9 @@ public class RobotContainer {
                 () -> modifySpeed(-driverXbox.getRightX()));
 
         Command driveFieldOrientedDirectAngleSim = drivebase.simDriveCommand(
-                () -> MathUtil.applyDeadband(-driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
-                () -> MathUtil.applyDeadband(-driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
-                () -> driverXbox.getRightX());
+                () -> MathUtil.applyDeadband(driverXbox.getLeftY(), ControllerConstants.LEFT_Y_DEADBAND),
+                () -> MathUtil.applyDeadband(driverXbox.getLeftX(), ControllerConstants.LEFT_X_DEADBAND),
+                () -> -driverXbox.getRightX());
 
         drivebase.setDefaultCommand(
                 !RobotBase.isSimulation() ? driveFieldOrientedAnglularVelocity : driveFieldOrientedDirectAngleSim);
