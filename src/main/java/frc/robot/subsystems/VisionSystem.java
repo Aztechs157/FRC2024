@@ -52,7 +52,7 @@ public class VisionSystem extends SubsystemBase {
             throw new RuntimeException(exception);
         }
 
-        poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
+        poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
                 leftCamera, VisionConstants.LEFT_CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
     }
 
@@ -212,8 +212,8 @@ public class VisionSystem extends SubsystemBase {
      * Estimate the position of the robot relitive to the field.
      */
 
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevRobotPose) {
-        poseEstimator.setReferencePose(prevRobotPose);
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
+        // poseEstimator.setReferencePose(prevRobotPose);
         return poseEstimator.update();
     }
 

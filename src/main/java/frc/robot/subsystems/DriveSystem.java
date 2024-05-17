@@ -598,5 +598,10 @@ public class DriveSystem extends SubsystemBase {
      */
     public void addFakeVisionReading(Pose2d robotPose) {
         swerveDrive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp());
+
+    }
+
+    public void addVisionReading(Pose2d robotPose, double timestamp) {
+        swerveDrive.addVisionMeasurement(robotPose, timestamp);
     }
 }
