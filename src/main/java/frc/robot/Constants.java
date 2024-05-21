@@ -54,7 +54,7 @@ public class Constants {
         public record RobotProperties(
                 double drivePulsePerRotation) {
             public static final RobotProperties ALPHA = new RobotProperties(42);
-            public static final RobotProperties Beta = new RobotProperties(42);
+            public static final RobotProperties Beta = new RobotProperties(2048);
         }
 
         public record XboxSpeeds(
