@@ -73,6 +73,11 @@ public class DriveSystem extends SubsystemBase {
                 Units.inchesToMeters(DriveConstants.WHEEL_DIAMETER), DriveConstants.DRIVE_GEAR_RATIO,
                 isBeta ? RobotProperties.Beta.drivePulsePerRotation() : RobotProperties.ALPHA.drivePulsePerRotation());
 
+        System.out.println("DRIVE CONVERSION FACTOR");
+        System.out.println(isBeta);
+        System.out.println(RobotProperties.Beta.drivePulsePerRotation());
+        System.out.println(driveConversionFactor);
+
         // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
         // objects being created.
         if (debugModeOn) {
