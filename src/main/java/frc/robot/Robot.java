@@ -189,10 +189,10 @@ public class Robot extends TimedRobot {
 
         var alliance = DriverStation.getAlliance();
         if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false) {
-            RobotContainer.fieldOrientation = 1;
+            RobotContainer.fieldOrientation = 1; // TODO: check this
         }
         if (alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Blue : false) {
-            RobotContainer.fieldOrientation = -1;
+            RobotContainer.fieldOrientation = -1; // TODO: check this
         }
 
     }

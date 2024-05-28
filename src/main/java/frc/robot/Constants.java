@@ -42,19 +42,19 @@ public class Constants {
         public static final double LOOP_TIME = 0.13; // s, 20ms + 110ms spark max velocity lag
 
         public static final double WHEEL_DIAMETER = 4.0;
-        public static final double DRIVE_GEAR_RATIO = 1 / 6.75;
+        public static final double DRIVE_GEAR_RATIO = 6.75;
         public static final double ANGLE_GEAR_RATIO = 12.8; // This is the Gear Ratio of the motor encoder. Not
                                                             // absolute.
-        public static final double ANGLE_PULSE_PER_ROTATION = 42; // This is the pulse/rev of the motor encoder. Not
-                                                                  // absolute.
+        public static final double ANGLE_PULSE_PER_ROTATION = 1; // This is the pulse/rev of the motor encoder. Not
+                                                                 // absolute.
         public static final double MAX_SPEED = 17.3; // set to 17.3 ft per second
         public static final double MAX_TRANSLATIONAL_ACCELERATION = 4.0; // in meters per second squared
         public static final double MAX_ANGLULAR_ACCELERATION = 720; // in degrees per second squared
 
         public record RobotProperties(
                 double drivePulsePerRotation) {
-            public static final RobotProperties ALPHA = new RobotProperties(42);
-            public static final RobotProperties Beta = new RobotProperties(2048);
+            public static final RobotProperties ALPHA = new RobotProperties(1);
+            public static final RobotProperties Beta = new RobotProperties(1);
         }
 
         public record XboxSpeeds(

@@ -73,6 +73,11 @@ public class DriveSystem extends SubsystemBase {
                 Units.inchesToMeters(DriveConstants.WHEEL_DIAMETER), DriveConstants.DRIVE_GEAR_RATIO,
                 isBeta ? RobotProperties.Beta.drivePulsePerRotation() : RobotProperties.ALPHA.drivePulsePerRotation());
 
+        System.out.println("DRIVE CONVERSION FACTOR");
+        System.out.println(isBeta);
+        System.out.println(RobotProperties.Beta.drivePulsePerRotation());
+        System.out.println(driveConversionFactor);
+
         // Configure the Telemetry before creating the SwerveDrive to avoid unnecessary
         // objects being created.
         if (debugModeOn) {
@@ -141,7 +146,8 @@ public class DriveSystem extends SubsystemBase {
                     // This will flip the path being followed to the red side of the field.
                     // THE ORIGIN WILL REMAIN ON THE BLUE SIDE
                     var alliance = DriverStation.getAlliance();
-                    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false;
+                    return alliance.isPresent() ? alliance.get() == DriverStation.Alliance.Red : false; // TODO: check
+                                                                                                        // this
                 },
                 this // Reference to this subsystem to set requirements
         );
