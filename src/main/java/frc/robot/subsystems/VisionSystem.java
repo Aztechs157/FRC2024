@@ -26,6 +26,8 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
 
@@ -34,7 +36,9 @@ public class VisionSystem extends SubsystemBase {
     PhotonCamera leftCamera;
     PhotonCamera rightCamera;
     AprilTagFieldLayout tagLayout;
-    PhotonPoseEstimator poseEstimator;
+    PhotonPoseEstimator poseEstimatorLeft;
+    PhotonPoseEstimator poseEstimatorRight;
+    private Field2d vision_field = new Field2d();
 
     boolean blueAlliance = true;
 
@@ -52,8 +56,13 @@ public class VisionSystem extends SubsystemBase {
             throw new RuntimeException(exception);
         }
 
-        poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+        poseEstimatorLeft = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
                 leftCamera, VisionConstants.LEFT_CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
+        poseEstimatorRight = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+                rightCamera, VisionConstants.RIGHT_CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
+
+        SmartDashboard.putData("vision based field", vision_field);
+
     }
 
     public void updateAlliance() {
@@ -212,9 +221,28 @@ public class VisionSystem extends SubsystemBase {
      * Estimate the position of the robot relitive to the field.
      */
 
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose() {
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPoseLeft() {
         // poseEstimator.setReferencePose(prevRobotPose);
-        return poseEstimator.update();
+        return poseEstimatorLeft.update();
+    }
+
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPoseRight() {
+        // poseEstimator.setReferencePose(prevRobotPose);
+        return poseEstimatorRight.update();
+    }
+
+    public Optional<Pose3d> getEstimatedGlobalPose() {
+        var poseLeft = poseEstimatorLeft.update();
+        var poseRight = poseEstimatorRight.update();
+        if (poseLeft.isPresent() && poseRight.isPresent()) {
+            return Optional.of(poseLeft.get().estimatedPose.interpolate(poseRight.get().estimatedPose, 0.5));
+        } else if (poseLeft.isPresent()) {
+            return Optional.of(poseLeft.get().estimatedPose);
+        } else if (poseRight.isPresent()) {
+            return Optional.of(poseRight.get().estimatedPose);
+        } else {
+            return Optional.empty();
+        }
     }
 
     /*
@@ -312,5 +340,9 @@ public class VisionSystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        var pose = getEstimatedGlobalPose();
+        if (pose.isPresent()) {
+            vision_field.setRobotPose(pose.get().toPose2d());
+        }
     }
 }

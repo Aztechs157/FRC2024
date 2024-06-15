@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
     private void estimatePose() {
         poseEstimatorCounter++;
         if (poseEstimatorCounter >= DriveConstants.POSE_ESTIMATE_FREQUENCY) {
-            m_robotContainer.visionSystem.getEstimatedGlobalPose(); // TODO: figure out how to get prevRobotPose
+            m_robotContainer.visionSystem.getEstimatedGlobalPoseLeft(); // TODO: figure out how to get prevRobotPose
             poseEstimatorCounter = 0;
         }
     }

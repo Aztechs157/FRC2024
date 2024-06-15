@@ -30,9 +30,13 @@ public class VisionPoseEstimator extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        var pose = visionSystem.getEstimatedGlobalPose();
-        if (pose.isPresent()) {
-            driveSystem.addVisionReading(pose.get().estimatedPose.toPose2d(), pose.get().timestampSeconds);
+        var poseLeft = visionSystem.getEstimatedGlobalPoseLeft();
+        if (poseLeft.isPresent()) {
+            driveSystem.addVisionReading(poseLeft.get().estimatedPose.toPose2d(), poseLeft.get().timestampSeconds);
+        }
+        var poseRight = visionSystem.getEstimatedGlobalPoseRight();
+        if (poseRight.isPresent()) {
+            driveSystem.addVisionReading(poseRight.get().estimatedPose.toPose2d(), poseRight.get().timestampSeconds);
         }
     }
 
