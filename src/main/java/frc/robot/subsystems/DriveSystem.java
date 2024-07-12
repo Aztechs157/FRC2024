@@ -99,7 +99,7 @@ public class DriveSystem extends SubsystemBase {
         swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot
                                                  // via angle.
 
-        swerveDrive.pushOffsetsToControllers();
+        swerveDrive.pushOffsetsToEncoders();
 
         Shuffleboard.getTab("Driver").addDouble("Gyro", () -> this.getHeading().getDegrees())
                 .withWidget(BuiltInWidgets.kGyro);
