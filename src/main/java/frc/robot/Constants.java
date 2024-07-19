@@ -3,6 +3,7 @@ package frc.robot;
 import com.pathplanner.lib.util.PIDConstants;
 import com.revrobotics.CANSparkBase.IdleMode;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
@@ -70,18 +71,30 @@ public class Constants {
 
     public static class AutonConstants {
 
-        public static final PIDConstants TRANSLATION_PID = new PIDConstants(0.35, 0, 0.001);
-        public static final PIDConstants ANGLE_PID = new PIDConstants(0.004, 0, 1.5);
+        public static final PIDConstants TRANSLATION_PID = new PIDConstants(5, 0, 0); // P = 0.35, I = 0, D = 0.001
+        public static final PIDConstants ANGLE_PID = new PIDConstants(5, 0, 0); // P = 0.004, I = 0, D = 1.5
 
-        public static final double MAX_MODULE_SPEED = 5; // TODO get value from pathplanner instead of setting this as a
-                                                         // constant
+        public static final double MAX_MODULE_SPEED = 4.5; // TODO get value from pathplanner instead of setting this as
+                                                           // a
+                                                           // constant
 
     }
 
     public static class VisionConstants {
 
-        public static final String CAMERA_NICKNAME = ""; // TODO: find proper value
-        public static final Transform3d CAMERA_PLACEMENT = new Transform3d(); // TODO: find proper value
+        public static final String LEFT_CAMERA_NICKNAME = "yellowVisionCam"; // TODO: find proper value
+        public static final Transform3d LEFT_CAMERA_PLACEMENT = new Transform3d(
+                new Translation3d(-0.305816, 0.2276856, 0.5478018), new Rotation3d())
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0.959931, 0)))
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0, -0.523599))); // TODO: find proper
+                                                                                              // value,
+        // new Rotation3d(0, 0.959931, 2.61799)
+        public static final String RIGHT_CAMERA_NICKNAME = "blueVisionCam"; // TODO: find proper value
+        public static final Transform3d RIGHT_CAMERA_PLACEMENT = new Transform3d(
+                new Translation3d(-0.305816, -0.2276856, 0.5478018), new Rotation3d())
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0.959931, 0)))
+                .plus(new Transform3d(new Translation3d(), new Rotation3d(0, 0, 0.523599))); // TODO: find proper
+                                                                                             // value,
 
     }
 
