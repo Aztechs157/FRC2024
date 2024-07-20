@@ -3,7 +3,7 @@
   "startingPose": {
     "position": {
       "x": 1.39,
-      "y": 5.53650223579517
+      "y": 5.54
     },
     "rotation": 180.0
   },
@@ -18,13 +18,26 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N4_Center"
+                  "pathName": "N2_Center"
                 }
               },
               {
                 "type": "named",
                 "data": {
                   "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N2R_Center"
                 }
               },
               {
@@ -49,7 +62,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N4_N5"
+                  "pathName": "N6_Center"
                 }
               },
               {
@@ -57,20 +70,8 @@
                 "data": {
                   "name": "Intake"
                 }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "HighShootSpinUp"
-                }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "HighShoot"
           }
         },
         {
@@ -80,75 +81,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N5_N6"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "HighShootSpinUp"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "HighShoot"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N6_N7"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "HighShootSpinUp"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "HighShoot"
-          }
-        },
-        {
-          "type": "deadline",
-          "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N7_N8"
-                }
-              },
-              {
-                "type": "named",
-                "data": {
-                  "name": "Intake"
+                  "pathName": "N6R_Center"
                 }
               },
               {
@@ -169,6 +102,6 @@
       ]
     }
   },
-  "folder": "Center",
+  "folder": null,
   "choreoAuto": false
 }

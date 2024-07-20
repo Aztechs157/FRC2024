@@ -24,7 +24,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N1_Straight_Center"
+                  "pathName": "N3_Center"
                 }
               },
               {
@@ -37,35 +37,9 @@
           }
         },
         {
-          "type": "deadline",
+          "type": "path",
           "data": {
-            "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "N1R_Straight_Center"
-                }
-              },
-              {
-                "type": "sequential",
-                "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.1
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "HighShootSpinUp"
-                      }
-                    }
-                  ]
-                }
-              }
-            ]
+            "pathName": "N3R_Center"
           }
         },
         {
@@ -104,22 +78,9 @@
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.1
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "HighShootSpinUp"
-                      }
-                    }
-                  ]
+                  "name": "HighShootSpinUp"
                 }
               }
             ]
@@ -136,22 +97,9 @@
           "data": {
             "commands": [
               {
-                "type": "sequential",
+                "type": "path",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "path",
-                      "data": {
-                        "pathName": "N3_Center"
-                      }
-                    },
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.4
-                      }
-                    }
-                  ]
+                  "pathName": "N1_Center"
                 }
               },
               {
@@ -170,26 +118,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N3R_Center"
+                  "pathName": "N1R_Center"
                 }
               },
               {
-                "type": "sequential",
+                "type": "named",
                 "data": {
-                  "commands": [
-                    {
-                      "type": "wait",
-                      "data": {
-                        "waitTime": 0.1
-                      }
-                    },
-                    {
-                      "type": "named",
-                      "data": {
-                        "name": "HighShootSpinUp"
-                      }
-                    }
-                  ]
+                  "name": "HighShootSpinUp"
                 }
               }
             ]
@@ -199,6 +134,12 @@
           "type": "named",
           "data": {
             "name": "HighShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "N2_Center"
           }
         }
       ]
