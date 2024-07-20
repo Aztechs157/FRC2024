@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -52,6 +54,8 @@ public class DriveSystem extends SubsystemBase {
      * Maximum speed of the robot in meters per second, used to limit acceleration.
      */
     public double maximumSpeed = Units.feetToMeters(DriveConstants.MAX_SPEED);
+
+    private Field2d m_field = new Field2d();
 
     /**
      * Initialize {@link SwerveDrive} with the directory provided.
@@ -95,7 +99,7 @@ public class DriveSystem extends SubsystemBase {
         swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot
                                                  // via angle.
 
-        swerveDrive.pushOffsetsToControllers();
+        swerveDrive.pushOffsetsToEncoders();
 
         Shuffleboard.getTab("Driver").addDouble("Gyro", () -> this.getHeading().getDegrees())
                 .withWidget(BuiltInWidgets.kGyro);
@@ -103,6 +107,7 @@ public class DriveSystem extends SubsystemBase {
                 () -> swerveDrive.getModules()[0].getPosition().distanceMeters);
         Shuffleboard.getTab("Driver").addDouble("Right Front Encoder",
                 () -> swerveDrive.getModules()[1].getPosition().distanceMeters);
+        SmartDashboard.putData("Field2", m_field);
 
         setupPathPlanner();
 
@@ -407,6 +412,7 @@ public class DriveSystem extends SubsystemBase {
 
     @Override
     public void periodic() {
+        m_field.setRobotPose(swerveDrive.getPose());
     }
 
     @Override
@@ -604,5 +610,10 @@ public class DriveSystem extends SubsystemBase {
      */
     public void addFakeVisionReading(Pose2d robotPose) {
         swerveDrive.addVisionMeasurement(robotPose, Timer.getFPGATimestamp());
+
+    }
+
+    public void addVisionReading(Pose2d robotPose, double timestamp) {
+        swerveDrive.addVisionMeasurement(robotPose, timestamp);
     }
 }

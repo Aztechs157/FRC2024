@@ -30,6 +30,7 @@ import frc.robot.commands.shooter_commands.RetractDeflector;
 import frc.robot.commands.shooter_commands.Shoot;
 import frc.robot.commands.shooter_commands.SpinUpShooter;
 import frc.robot.commands.shooter_commands.StartShooter;
+import frc.robot.commands.vision_commands.VisionPoseEstimator;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
 import frc.robot.subsystems.DeflectorSystem;
@@ -247,6 +248,8 @@ public class RobotContainer {
 
         drivebase.setDefaultCommand(
                 !RobotBase.isSimulation() ? driveFieldOrientedAnglularVelocity : driveFieldOrientedDirectAngleSim);
+
+        visionSystem.setDefaultCommand(new VisionPoseEstimator(visionSystem, drivebase));
     }
 
     /**

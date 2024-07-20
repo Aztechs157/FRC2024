@@ -26,31 +26,43 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.VisionConstants;
 
 public class VisionSystem extends SubsystemBase {
 
-    PhotonCamera camera;
+    PhotonCamera leftCamera;
+    PhotonCamera rightCamera;
     AprilTagFieldLayout tagLayout;
-    PhotonPoseEstimator poseEstimator;
+    PhotonPoseEstimator poseEstimatorLeft;
+    PhotonPoseEstimator poseEstimatorRight;
+    private Field2d vision_field = new Field2d();
 
     boolean blueAlliance = true;
 
     /** Creates a new vision. */
     public VisionSystem() {
-        PhotonCamera camera = new PhotonCamera(VisionConstants.CAMERA_NICKNAME);
+        leftCamera = new PhotonCamera(VisionConstants.LEFT_CAMERA_NICKNAME);
+        rightCamera = new PhotonCamera(VisionConstants.RIGHT_CAMERA_NICKNAME);
         PortForwarder.add(5800, "photonvision.local", 5800);
 
         try {
             tagLayout = AprilTagFieldLayout.loadFromResource(AprilTagFields.k2024Crescendo.m_resourceFile);
         } catch (IOException exception) {
-            camera.close();
+            leftCamera.close();
+            rightCamera.close();
             throw new RuntimeException(exception);
         }
 
-        poseEstimator = new PhotonPoseEstimator(tagLayout, PoseStrategy.CLOSEST_TO_REFERENCE_POSE,
-                camera, VisionConstants.CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
+        poseEstimatorLeft = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+                leftCamera, VisionConstants.LEFT_CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
+        poseEstimatorRight = new PhotonPoseEstimator(tagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
+                rightCamera, VisionConstants.RIGHT_CAMERA_PLACEMENT); // TODO: decide which pose strategy to use
+
+        SmartDashboard.putData("vision based field", vision_field);
+
     }
 
     public void updateAlliance() {
@@ -120,7 +132,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public List<PhotonTrackedTarget> findTargets() {
-        var visionFrame = camera.getLatestResult();
+        var visionFrame = leftCamera.getLatestResult();
         if (visionFrame.hasTargets()) {
             List<PhotonTrackedTarget> targets = visionFrame.getTargets();
             return targets;
@@ -135,7 +147,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public PhotonTrackedTarget findBestTarget() {
-        var visionFrame = camera.getLatestResult();
+        var visionFrame = leftCamera.getLatestResult();
         if (visionFrame.hasTargets()) {
             PhotonTrackedTarget target = visionFrame.getBestTarget();
             return target;
@@ -209,9 +221,28 @@ public class VisionSystem extends SubsystemBase {
      * Estimate the position of the robot relitive to the field.
      */
 
-    public Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose2d prevRobotPose) {
-        poseEstimator.setReferencePose(prevRobotPose);
-        return poseEstimator.update();
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPoseLeft() {
+        // poseEstimator.setReferencePose(prevRobotPose);
+        return poseEstimatorLeft.update();
+    }
+
+    public Optional<EstimatedRobotPose> getEstimatedGlobalPoseRight() {
+        // poseEstimator.setReferencePose(prevRobotPose);
+        return poseEstimatorRight.update();
+    }
+
+    public Optional<Pose3d> getEstimatedGlobalPose() {
+        var poseLeft = poseEstimatorLeft.update();
+        var poseRight = poseEstimatorRight.update();
+        if (poseLeft.isPresent() && poseRight.isPresent()) {
+            return Optional.of(poseLeft.get().estimatedPose.interpolate(poseRight.get().estimatedPose, 0.5));
+        } else if (poseLeft.isPresent()) {
+            return Optional.of(poseLeft.get().estimatedPose);
+        } else if (poseRight.isPresent()) {
+            return Optional.of(poseRight.get().estimatedPose);
+        } else {
+            return Optional.empty();
+        }
     }
 
     /*
@@ -229,7 +260,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public Pose3d getFieldRelitivePose(Pose3d tagPose, Transform3d cameraToTarget) {
-        return PhotonUtils.estimateFieldToRobotAprilTag(cameraToTarget, tagPose, VisionConstants.CAMERA_PLACEMENT);
+        return PhotonUtils.estimateFieldToRobotAprilTag(cameraToTarget, tagPose, VisionConstants.LEFT_CAMERA_PLACEMENT);
     }
 
     /*
@@ -240,7 +271,7 @@ public class VisionSystem extends SubsystemBase {
 
     public double getDistanceToTarget(double targetHeight, double cameraPitch,
             double targetPitch) {
-        return PhotonUtils.calculateDistanceToTargetMeters(VisionConstants.CAMERA_PLACEMENT.getY(), targetHeight,
+        return PhotonUtils.calculateDistanceToTargetMeters(VisionConstants.LEFT_CAMERA_PLACEMENT.getY(), targetHeight,
                 cameraPitch,
                 Units.degreesToRadians(targetPitch)); // TODO: convert cameraPitch to use a constant
     }
@@ -278,7 +309,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public void driverModeToggle(boolean toggleOn) {
-        camera.setDriverMode(toggleOn);
+        leftCamera.setDriverMode(toggleOn);
     }
 
     /*
@@ -286,7 +317,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public void setPipelineIndex(int index) {
-        camera.setPipelineIndex(index);
+        leftCamera.setPipelineIndex(index);
     }
 
     /*
@@ -294,7 +325,7 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public double getPipelineLatency() {
-        var visionFrame = camera.getLatestResult();
+        var visionFrame = leftCamera.getLatestResult();
         return visionFrame.getLatencyMillis();
     }
 
@@ -303,11 +334,15 @@ public class VisionSystem extends SubsystemBase {
      */
 
     public void setLED(VisionLEDMode LEDMode) {
-        camera.setLED(LEDMode);
+        leftCamera.setLED(LEDMode);
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+        var pose = getEstimatedGlobalPose();
+        if (pose.isPresent()) {
+            vision_field.setRobotPose(pose.get().toPose2d());
+        }
     }
 }
