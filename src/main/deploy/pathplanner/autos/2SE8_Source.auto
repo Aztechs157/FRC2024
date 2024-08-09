@@ -41,6 +41,31 @@
               }
             ]
           }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N8R_Source"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "HighShootSpinUp"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
         }
       ]
     }

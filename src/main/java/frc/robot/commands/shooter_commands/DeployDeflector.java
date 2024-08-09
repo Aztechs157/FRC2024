@@ -41,7 +41,7 @@ public class DeployDeflector extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return deflectorSystem.readDeflectorPotMapped() >= 99;
+        return deflectorSystem.readDeflectorPotMapped() >= 95;
         // return deflectorSystem.readExtLimitSwitch();
     }
 }

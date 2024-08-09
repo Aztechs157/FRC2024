@@ -30,7 +30,7 @@ import frc.robot.commands.shooter_commands.RetractDeflector;
 import frc.robot.commands.shooter_commands.Shoot;
 import frc.robot.commands.shooter_commands.SpinUpShooter;
 import frc.robot.commands.shooter_commands.StartShooter;
-import frc.robot.commands.vision_commands.VisionPoseEstimator;
+// import frc.robot.commands.vision_commands.VisionPoseEstimator;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
 import frc.robot.subsystems.DeflectorSystem;
@@ -38,7 +38,7 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.HangerSystem;
 import frc.robot.subsystems.IntakeSystem;
 import frc.robot.subsystems.ShooterSystem;
-import frc.robot.subsystems.VisionSystem;
+// import frc.robot.subsystems.VisionSystem;
 import java.io.*;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -66,7 +66,7 @@ public class RobotContainer {
     private final ShooterSystem shooterSystem;
     private final DeflectorSystem deflectorSystem;
     public final HangerSystem hangerSystem;
-    public final VisionSystem visionSystem;
+    // public final VisionSystem visionSystem;
     public final PwmLEDs lightSystem;
     private final SendableChooser<Command> autoChooser;
     public static int fieldOrientation = 1;
@@ -83,6 +83,10 @@ public class RobotContainer {
 
     public Command intakeCommand() {
         return new Intake(intakeSystem, lightSystem).andThen(new LoadNote(intakeSystem, lightSystem));
+    }
+
+    public Command loadNoteCommand() {
+        return new LoadNote(intakeSystem, lightSystem);
     }
 
     public Command highShootSpinUpCommand() {
@@ -146,11 +150,11 @@ public class RobotContainer {
             hangerSystem = null;
         }
 
-        if (systemConfigs.activeVision) {
-            visionSystem = new VisionSystem();
-        } else {
-            visionSystem = null;
-        }
+        // if (systemConfigs.activeVision) {
+        // visionSystem = new VisionSystem();
+        // } else {
+        // visionSystem = null;
+        // }
 
         if (systemConfigs.activeDriveCam) {
             Shuffleboard.getTab("Driver").add(CameraServer.startAutomaticCapture());
@@ -186,6 +190,7 @@ public class RobotContainer {
         NamedCommands.registerCommand("ResetGyro", resetGyroCommand());
 
         NamedCommands.registerCommand("Intake", intakeCommand());
+        NamedCommands.registerCommand("LoadNote", loadNoteCommand());
 
         NamedCommands.registerCommand("HighShootSpinUp", highShootSpinUpCommand());
         NamedCommands.registerCommand("LowShootSpinUp", lowShootSpinUpCommand());
@@ -249,7 +254,8 @@ public class RobotContainer {
         drivebase.setDefaultCommand(
                 !RobotBase.isSimulation() ? driveFieldOrientedAnglularVelocity : driveFieldOrientedDirectAngleSim);
 
-        visionSystem.setDefaultCommand(new VisionPoseEstimator(visionSystem, drivebase));
+        // visionSystem.setDefaultCommand(new VisionPoseEstimator(visionSystem,
+        // drivebase));
     }
 
     /**

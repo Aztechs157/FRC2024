@@ -120,10 +120,10 @@ public class Constants {
         public static final int DEFLECTOR_EXT_LIM_ID = 1;
         public static final int DEFLECTOR_RET_LIM_ID = 2;
         public static final int DEFLECTOR_POT_ID = 0;
-        public static final int DEFLECTOR_RETRACT_POT_VAL = 1;
-        public static final int DEFLECTOR_DEPLOY_POT_VAL = 99;
+        public static final int DEFLECTOR_RETRACT_POT_VAL = 5;
+        public static final int DEFLECTOR_DEPLOY_POT_VAL = 95;
 
-        public static final double DEFLECTOR_SPEED = 0.15;
+        public static final double DEFLECTOR_SPEED = 0.10;
         public static final double DEFLECTOR_RETRACT_WAIT_TIME = 0.5;
 
         public static final PIDController DEFLECTOR_MOTOR_PID = new PIDController(0, 0, 0);

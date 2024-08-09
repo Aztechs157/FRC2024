@@ -25,7 +25,7 @@ public class DeflectorSystem extends SubsystemBase {
     private DigitalInput deflectorRetLim = new DigitalInput(ShooterConstants.DEFLECTOR_RET_LIM_ID);
     private AnalogInput deflectorPot = new AnalogInput(ShooterConstants.DEFLECTOR_POT_ID);
 
-    private Range deflectorActualRange = new Range(3566, 1614);
+    private Range deflectorActualRange = new Range(3650, 1900);
     private Range zeroToHundred = new Range(0, 100);
     private RangeConverter deflectorRange = new RangeConverter(deflectorActualRange, zeroToHundred);
 

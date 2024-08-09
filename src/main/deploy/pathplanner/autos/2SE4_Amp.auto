@@ -3,9 +3,9 @@
   "startingPose": {
     "position": {
       "x": 0.74,
-      "y": 4.37
+      "y": 6.77
     },
-    "rotation": 120.0
+    "rotation": -120.0
   },
   "command": {
     "type": "sequential",
@@ -30,7 +30,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "N8Avoid_Source"
+                  "pathName": "N4Avoid_Amp"
                 }
               },
               {
@@ -41,10 +41,35 @@
               }
             ]
           }
+        },
+        {
+          "type": "deadline",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "N4R_Amp"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "HighShootSpinUp"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "HighShoot"
+          }
         }
       ]
     }
   },
-  "folder": "Source",
+  "folder": "Amp",
   "choreoAuto": false
 }

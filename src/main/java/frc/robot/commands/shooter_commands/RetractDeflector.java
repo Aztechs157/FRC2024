@@ -47,7 +47,7 @@ public class RetractDeflector extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return deflectorSystem.readDeflectorPotMapped() <= 1;
+        return deflectorSystem.readDeflectorPotMapped() <= 5;
         // return deflectorSystem.readRetLimitSwitch();
     }
 }

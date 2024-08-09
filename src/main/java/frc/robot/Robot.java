@@ -53,13 +53,14 @@ public class Robot extends TimedRobot {
         return instance;
     }
 
-    private void estimatePose() {
-        poseEstimatorCounter++;
-        if (poseEstimatorCounter >= DriveConstants.POSE_ESTIMATE_FREQUENCY) {
-            m_robotContainer.visionSystem.getEstimatedGlobalPoseLeft(); // TODO: figure out how to get prevRobotPose
-            poseEstimatorCounter = 0;
-        }
-    }
+    // private void estimatePose() {
+    // poseEstimatorCounter++;
+    // if (poseEstimatorCounter >= DriveConstants.POSE_ESTIMATE_FREQUENCY) {
+    // m_robotContainer.visionSystem.getEstimatedGlobalPoseLeft(); // TODO: figure
+    // out how to get prevRobotPose
+    // poseEstimatorCounter = 0;
+    // }
+    // }
 
     /**
      * This function is run when the robot is first started up and should be used
@@ -123,9 +124,9 @@ public class Robot extends TimedRobot {
                 m_robotContainer.lightSystem.setDefault();
             }
 
-            if (m_robotContainer.systemConfigs.activeVision) {
-                m_robotContainer.visionSystem.updateAlliance();
-            }
+            // if (m_robotContainer.systemConfigs.activeVision) {
+            // m_robotContainer.visionSystem.updateAlliance();
+            // }
         } catch (Exception e) {
             System.err.println(e);
         }
@@ -142,12 +143,11 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
-        if (m_robotContainer.systemConfigs.activeVision) {
-            m_robotContainer.visionSystem.updateAlliance();
-        }
+        // if (m_robotContainer.systemConfigs.activeVision) {
+        // m_robotContainer.visionSystem.updateAlliance();
+        // }
 
         m_robotContainer.setMotorBrake(true); // TODO: test the impact of brake mode on autonomous
-        // m_robotContainer.retractHangerCommand();
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         // schedule the autonomous command (example)
@@ -171,9 +171,9 @@ public class Robot extends TimedRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
 
-        if (m_robotContainer.systemConfigs.activeVision) {
-            m_robotContainer.visionSystem.updateAlliance();
-        }
+        // if (m_robotContainer.systemConfigs.activeVision) {
+        // m_robotContainer.visionSystem.updateAlliance();
+        // }
 
         if (m_autonomousCommand != null) {
             m_autonomousCommand.cancel();
