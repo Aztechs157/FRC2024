@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
@@ -120,18 +119,15 @@ public class RobotContainer {
     }
 
     public Command highShootCommand() {
-        return new spinUpTransition(varSystem, 0.2).andThen(setIsShootingCommand()
+        return setIsShootingCommand()
                 .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH))
-                .andThen(
-                        new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)));
+                .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH));
     }
 
     public Command lowShootCommand() {
-        return new spinUpTransition(varSystem, 0.1)
-                .andThen(setIsShootingCommand().andThen(new DeployDeflector(deflectorSystem))
-                        .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                        .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem,
-                                ShooterConstants.SHOOTER_TARGET_RPM_LOW)))
+        return setIsShootingCommand().andThen(new DeployDeflector(deflectorSystem))
+                .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                 .finallyDo(new RetractDeflector(deflectorSystem)::schedule);
     }
 
