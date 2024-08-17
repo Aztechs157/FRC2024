@@ -16,6 +16,7 @@ public class ShooterSystem extends SubsystemBase {
     private CANSparkBase shooterMotorLeft;
     private CANSparkBase shooterMotorRight;
     private boolean isBeta;
+    public boolean isShooting = false;
     public double currentLeftMotorSet = 0;
     public double currentRightMotorSet = 0;
 

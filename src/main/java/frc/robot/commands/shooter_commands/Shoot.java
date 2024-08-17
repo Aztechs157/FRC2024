@@ -46,6 +46,7 @@ public class Shoot extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        shooterSystem.isShooting = false;
         shooterSystem.currentLeftMotorSet += shooterSystem.leftMotorPID(this.setPoint);
         shooterSystem.currentRightMotorSet += shooterSystem.rightMotorPID(this.setPoint);
         shooterSystem.setLeftMotor(shooterSystem.currentLeftMotorSet);
@@ -62,6 +63,7 @@ public class Shoot extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        shooterSystem.isShooting = false;
         shooterSystem.currentLeftMotorSet = 0;
         shooterSystem.currentRightMotorSet = 0;
         shooterSystem.setShooterMotors(0);

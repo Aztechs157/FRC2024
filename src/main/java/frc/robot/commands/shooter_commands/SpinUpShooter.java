@@ -37,6 +37,7 @@ public class SpinUpShooter extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+
         lightSystem.setClimb(Color.kRed, Color.kBlack, 3, 7, 2);
     }
 
@@ -65,7 +66,10 @@ public class SpinUpShooter extends Command {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        if (interrupted) {
+        if (interrupted && !shooterSystem.isShooting) {
+            System.out.println("weguiq");
+            shooterSystem.currentLeftMotorSet = 0;
+            shooterSystem.currentRightMotorSet = 0;
             shooterSystem.setLeftMotor(0);
             shooterSystem.setRightMotor(0);
             lightSystem.setDefault();
