@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.ControllerConstants;
@@ -31,6 +33,7 @@ import frc.robot.commands.shooter_commands.RetractDeflector;
 import frc.robot.commands.shooter_commands.Shoot;
 import frc.robot.commands.shooter_commands.SpinUpShooter;
 import frc.robot.commands.shooter_commands.StartShooter;
+import frc.robot.commands.shooter_commands.spinUpTransition;
 // import frc.robot.commands.vision_commands.VisionPoseEstimator;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
@@ -39,6 +42,8 @@ import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.HangerSystem;
 import frc.robot.subsystems.IntakeSystem;
 import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.VarSystem;
+
 // import frc.robot.subsystems.VisionSystem;
 import java.io.*;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -60,6 +65,7 @@ public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final DriveSystem drivebase = new DriveSystem(new File(Filesystem.getDeployDirectory(),
             isBeta.get() ? "beta/swerve" : "alpha/swerve"), isBeta.get(), Constants.DEBUG_MODE);
+    private final VarSystem varSystem = new VarSystem();
     private final Inputs inputs = Inputs.createFromChooser();
     // private final PneumaticsSystem pneumaticsSystem = new
     // PneumaticsSystem(isBeta.get());
@@ -99,7 +105,7 @@ public class RobotContainer {
 
     public Command highShootSpinUpCommand() {
         if (!shooterSystem.getShootIsRunning()) {
-            return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
+            return new SpinUpShooter(shooterSystem, varSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
         } else {
             return new EmptyCommand();
         }
@@ -107,22 +113,25 @@ public class RobotContainer {
 
     public Command lowShootSpinUpCommand() {
         if (!shooterSystem.getShootIsRunning()) {
-            return new SpinUpShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW);
+            return new SpinUpShooter(shooterSystem, varSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW);
         } else {
             return new EmptyCommand();
         }
     }
 
     public Command highShootCommand() {
-        return setIsShootingCommand()
+        return new spinUpTransition(varSystem, 0.2).andThen(setIsShootingCommand()
                 .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH))
-                .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH));
+                .andThen(
+                        new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)));
     }
 
     public Command lowShootCommand() {
-        return setIsShootingCommand().andThen(new DeployDeflector(deflectorSystem))
-                .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
-                .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+        return new spinUpTransition(varSystem, 0.1)
+                .andThen(setIsShootingCommand().andThen(new DeployDeflector(deflectorSystem))
+                        .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
+                        .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem,
+                                ShooterConstants.SHOOTER_TARGET_RPM_LOW)))
                 .finallyDo(new RetractDeflector(deflectorSystem)::schedule);
     }
 

@@ -11,21 +11,25 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.subsystems.ShooterSystem;
+import frc.robot.subsystems.VarSystem;
 
 public class SpinUpShooter extends Command {
 
     private final ShooterSystem shooterSystem;
     private final PwmLEDs lightSystem;
     private final double setPoint;
+    private VarSystem varSystem;
 
     private final Range range;
 
     /** Creates a new StartShooter. */
-    public SpinUpShooter(final ShooterSystem shooterSystem, final PwmLEDs lightSystem, final double setPoint) {
+    public SpinUpShooter(final ShooterSystem shooterSystem, final VarSystem varSystem, final PwmLEDs lightSystem,
+            final double setPoint) {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(shooterSystem);
 
         this.shooterSystem = shooterSystem;
+        this.varSystem = varSystem;
         this.lightSystem = lightSystem;
         this.setPoint = setPoint;
 
@@ -74,11 +78,14 @@ public class SpinUpShooter extends Command {
             shooterSystem.setRightMotor(0);
             lightSystem.setDefault();
         }
+        if (!interrupted) {
+            System.out.println("spinUpComplete");
+        }
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return varSystem.isSpinUpTransition();
     }
 }
