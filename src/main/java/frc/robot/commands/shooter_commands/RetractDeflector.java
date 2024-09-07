@@ -34,7 +34,7 @@ public class RetractDeflector extends Command {
     @Override
     public void execute() {
         if (timer.hasElapsed(ShooterConstants.DEFLECTOR_RETRACT_WAIT_TIME)) {
-            deflectorSystem.deflectorMotorPID(5);
+            deflectorSystem.set(-deflectorSystem.deflectorMotorPID(5));
         }
     }
 

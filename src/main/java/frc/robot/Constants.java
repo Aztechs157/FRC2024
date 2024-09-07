@@ -126,7 +126,7 @@ public class Constants {
         public static final double DEFLECTOR_SPEED = 0.10;
         public static final double DEFLECTOR_RETRACT_WAIT_TIME = 0.5;
 
-        public static final PIDController DEFLECTOR_MOTOR_PID = new PIDController(0, 0, 0);
+        public static final PIDController DEFLECTOR_MOTOR_PID = new PIDController(0.00075, 0, 0.00001);
 
         public static final IdleMode SHOOTER_MOTOR_IDLE_MODE = IdleMode.kBrake;
 
