@@ -51,10 +51,7 @@ public class Shoot extends Command {
         shooterSystem.setLeftMotor(shooterSystem.currentLeftMotorSet);
         shooterSystem.setRightMotor(shooterSystem.currentRightMotorSet);
 
-        if (intakeSystem.checkForNote()) {
-            seenNote = true;
-        }
-        if (seenNote && !(intakeSystem.checkForNote())) {
+        if (!(intakeSystem.checkForNote())) {
             timer.start();
         }
     }
