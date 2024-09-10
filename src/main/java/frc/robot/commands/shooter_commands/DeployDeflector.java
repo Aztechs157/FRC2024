@@ -29,7 +29,9 @@ public class DeployDeflector extends Command {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        deflectorSystem.deflectorMotorPID(95);
+        deflectorSystem.set(deflectorSystem.deflectorMotorPID(95));
+        System.out.println(deflectorSystem.deflectorMotorPID(95));
+        System.out.println("working please");
     }
 
     // Called once the command ends or is interrupted.
