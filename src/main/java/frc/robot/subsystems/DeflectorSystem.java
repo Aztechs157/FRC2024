@@ -71,7 +71,7 @@ public class DeflectorSystem extends SubsystemBase {
 
     public double deflectorMotorPID(double desiredPos) {
         double currentPos = readDeflectorPotMapped();
-        return -ShooterConstants.DEFLECTOR_MOTOR_PID.calculate(-currentPos, desiredPos);
+        return -ShooterConstants.DEFLECTOR_MOTOR_PID.calculate(currentPos, desiredPos);
     }
 
 }

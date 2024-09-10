@@ -30,6 +30,7 @@ public class DeployDeflector extends Command {
     @Override
     public void execute() {
         deflectorSystem.set(deflectorSystem.deflectorMotorPID(95));
+        System.out.println(deflectorSystem.deflectorMotorPID(95));
         System.out.println("working please");
     }
 

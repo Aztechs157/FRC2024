@@ -34,7 +34,7 @@ public class RetractDeflector extends Command {
     @Override
     public void execute() {
         if (timer.hasElapsed(ShooterConstants.DEFLECTOR_RETRACT_WAIT_TIME)) {
-            deflectorSystem.set(-deflectorSystem.deflectorMotorPID(5));
+            deflectorSystem.set(deflectorSystem.deflectorMotorPID(5));
         }
     }
 
@@ -47,7 +47,7 @@ public class RetractDeflector extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (deflectorSystem.readDeflectorPotMapped() >= 3 && deflectorSystem.readDeflectorPotMapped() <= 8) {
+        if (deflectorSystem.readDeflectorPotMapped() >= 3 && deflectorSystem.readDeflectorPotMapped() <= 5) {
             return true;
         } else {
             return false;
