@@ -42,6 +42,8 @@ public class Inputs extends DynamicLayout {
     public static final Button.Key lowShot = new Button.Key();
     public static final Button.Key pass = new Button.Key();
 
+    public static final Button.Key commandShoot = new Button.Key();
+
     public static final Button.Key liftHanger = new Button.Key();
     public static final Button.Key retractHanger = new Button.Key();
     public static final Button.Key retractHangerPin = new Button.Key();
@@ -105,6 +107,9 @@ public class Inputs extends DynamicLayout {
 
         layout.assign(highShot, new Button(() -> driver.rightTriggerHeld.get() > 0.2));
         layout.assign(lowShot, driver.rightBumper);
+
+        layout.assign(commandShoot, driver.x);
+
         layout.assign(pass, operator.a);
         layout.assign(eject, operator.b);
 

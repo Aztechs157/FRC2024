@@ -30,6 +30,7 @@ import frc.robot.commands.shooter_commands.RetractDeflector;
 import frc.robot.commands.shooter_commands.Shoot;
 import frc.robot.commands.shooter_commands.SpinUpShooter;
 import frc.robot.commands.shooter_commands.StartShooter;
+import frc.robot.commands.shooter_commands.commandShoot;
 // import frc.robot.commands.vision_commands.VisionPoseEstimator;
 import frc.robot.cosmetics.PwmLEDs;
 import frc.robot.inputs.Inputs;
@@ -37,6 +38,7 @@ import frc.robot.subsystems.DeflectorSystem;
 import frc.robot.subsystems.DriveSystem;
 import frc.robot.subsystems.HangerSystem;
 import frc.robot.subsystems.IntakeSystem;
+import frc.robot.subsystems.LogicSystem;
 import frc.robot.subsystems.ShooterSystem;
 // import frc.robot.subsystems.VisionSystem;
 import java.io.*;
@@ -64,6 +66,9 @@ public class RobotContainer {
     // PneumaticsSystem(isBeta.get());
     private final IntakeSystem intakeSystem;
     private final ShooterSystem shooterSystem;
+
+    private final LogicSystem logicSystem;
+
     private final DeflectorSystem deflectorSystem;
     public final HangerSystem hangerSystem;
     // public final VisionSystem visionSystem;
@@ -115,6 +120,10 @@ public class RobotContainer {
                 .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                 .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                 .finallyDo(new RetractDeflector(deflectorSystem)::schedule);
+    }
+
+    public Command commandShootCommand() {
+        return new commandShoot(logicSystem);
     }
 
     public Command passCommand() {
@@ -185,6 +194,8 @@ public class RobotContainer {
         } else {
             deflectorSystem = null;
         }
+
+        logicSystem = new LogicSystem();
 
         // Register Named Commands
         NamedCommands.registerCommand("ResetGyro", resetGyroCommand());
@@ -295,6 +306,9 @@ public class RobotContainer {
         if (systemConfigs.activeIntake && systemConfigs.activeShooter) {
             inputs.button(Inputs.highShotSpinUp).toggleWhenPressed(highShootSpinUpCommand());
             inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
+
+            inputs.button(Inputs.commandShoot).toggleWhenPressed(commandShootCommand());
+
             inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
             inputs.button(Inputs.eject).toggleWhenPressed(ejectCommand());
 
