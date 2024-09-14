@@ -43,7 +43,7 @@ public class DeployDeflector extends Command {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (deflectorSystem.readDeflectorPotMapped() >= 93 && deflectorSystem.readDeflectorPotMapped() <= 98) {
+        if (deflectorSystem.readDeflectorPotMapped() >= 95 && deflectorSystem.readDeflectorPotMapped() <= 98) {
             return true;
         } else {
             return false;
