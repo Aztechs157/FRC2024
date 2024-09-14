@@ -9,6 +9,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class LogicSystem extends SubsystemBase {
     public boolean commandShoot = false;
 
+    public void setCommandShoot(boolean setTrue) {
+        commandShoot = setTrue;
+    }
+
+    public boolean getCommandShoot() {
+        return commandShoot;
+    }
+
     /** Creates a new LogicSystem. */
     public LogicSystem() {
     }

@@ -30,6 +30,7 @@ import frc.robot.commands.shooter_commands.RetractDeflector;
 import frc.robot.commands.shooter_commands.Shoot;
 import frc.robot.commands.shooter_commands.SpinUpShooter;
 import frc.robot.commands.shooter_commands.StartShooter;
+import frc.robot.commands.shooter_commands.StartUpShooterCommanded;
 import frc.robot.commands.shooter_commands.commandShoot;
 // import frc.robot.commands.vision_commands.VisionPoseEstimator;
 import frc.robot.cosmetics.PwmLEDs;
@@ -110,16 +111,24 @@ public class RobotContainer {
         }
     }
 
-    public Command highShootCommand() {
-        return new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
-                .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_HIGH));
-    }
+    // THIS ONE WORKS, DON'T CHANGE
+    // public Command highShootCommand() {
+    // return new StartShooter(shooterSystem, lightSystem,
+    // ShooterConstants.SHOOTER_TARGET_RPM_HIGH)
+    // .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem,
+    // ShooterConstants.SHOOTER_TARGET_RPM_HIGH));
+    // }
 
     public Command lowShootCommand() {
         return new DeployDeflector(deflectorSystem)
                 .andThen(new StartShooter(shooterSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                 .andThen(new Shoot(shooterSystem, intakeSystem, lightSystem, ShooterConstants.SHOOTER_TARGET_RPM_LOW))
                 .finallyDo(new RetractDeflector(deflectorSystem)::schedule);
+    }
+
+    public Command highShootCommand() {
+        return new StartUpShooterCommanded(shooterSystem, intakeSystem, logicSystem, lightSystem,
+                ShooterConstants.SHOOTER_TARGET_RPM_HIGH);
     }
 
     public Command commandShootCommand() {
@@ -304,10 +313,9 @@ public class RobotContainer {
         }
 
         if (systemConfigs.activeIntake && systemConfigs.activeShooter) {
-            inputs.button(Inputs.highShotSpinUp).toggleWhenPressed(highShootSpinUpCommand());
-            inputs.button(Inputs.highShot).toggleWhenPressed(highShootCommand());
-
-            inputs.button(Inputs.commandShoot).toggleWhenPressed(commandShootCommand());
+            inputs.button(Inputs.highShotSpinUp)
+                    .toggleWhenPressed(highShootCommand().until(logicSystem::getCommandShoot));
+            inputs.button(Inputs.highShot).toggleWhenPressed(commandShootCommand());
 
             inputs.button(Inputs.pass).toggleWhenPressed(passCommand());
             inputs.button(Inputs.eject).toggleWhenPressed(ejectCommand());
