@@ -5,5 +5,6 @@
     "activeDeflector": true,
     "activeLights": true,
     "activeVision": false,
-    "activeDriveCam": true
+    "activeDriveCam": true,
+    "demoMode": true
 }

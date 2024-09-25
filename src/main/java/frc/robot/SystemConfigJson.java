@@ -14,5 +14,6 @@ public class SystemConfigJson {
     public boolean activeLights;
     public boolean activeVision;
     public boolean activeDriveCam;
+    public boolean demoMode;
 
 }
