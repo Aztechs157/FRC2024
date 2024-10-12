@@ -57,12 +57,17 @@ public class DriveSystem extends SubsystemBase {
 
     private Field2d m_field = new Field2d();
 
+    private final double mode;
+
     /**
      * Initialize {@link SwerveDrive} with the directory provided.
      *
      * @param directory Directory of swerve drive config files.
      */
-    public DriveSystem(File directory, boolean isBeta, boolean debugModeOn) {
+    public DriveSystem(File directory, boolean isBeta, boolean debugModeOn, double mode) {
+
+        this.mode = mode;
+
         // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
         // In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
         // The encoder resolution per motor revolution is 1 per motor revolution.
@@ -121,6 +126,7 @@ public class DriveSystem extends SubsystemBase {
      */
     public DriveSystem(SwerveDriveConfiguration driveCfg, SwerveControllerConfiguration controllerCfg) {
         swerveDrive = new SwerveDrive(driveCfg, controllerCfg, maximumSpeed);
+        mode = 1;
     }
 
     /**
@@ -354,9 +360,9 @@ public class DriveSystem extends SubsystemBase {
         return run(() -> {
             // Make the robot move
             swerveDrive.drive(
-                    new Translation2d(Math.pow(translationX.getAsDouble(), 3) * swerveDrive.getMaximumVelocity(),
-                            Math.pow(translationY.getAsDouble(), 3) * swerveDrive.getMaximumVelocity()),
-                    Math.pow(angularRotationX.getAsDouble(), 3) * swerveDrive.getMaximumAngularVelocity(),
+                    new Translation2d(Math.pow(translationX.getAsDouble(), 3) * swerveDrive.getMaximumVelocity() * mode,
+                            Math.pow(translationY.getAsDouble(), 3) * swerveDrive.getMaximumVelocity() * mode),
+                    Math.pow(angularRotationX.getAsDouble(), 3) * swerveDrive.getMaximumAngularVelocity() * mode,
                     true,
                     false);
         });
