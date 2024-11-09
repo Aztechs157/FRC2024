@@ -6,5 +6,5 @@
     "activeLights": true,
     "activeVision": false,
     "activeDriveCam": true,
-    "demoMode": false
+    "demoMode": true
 }
